@@ -12,7 +12,7 @@ public class TsunamiSimulator {
     static final double grav = 9.8;
 
     // その他
-    int dataSize;
+    int dataSize = -1;
     double x[], depth[];
 
     public TsunamiSimulator(String depthFilePath) {
