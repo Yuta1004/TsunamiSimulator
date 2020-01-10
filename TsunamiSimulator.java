@@ -54,7 +54,7 @@ public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
      */
     public void setWaveHeight(int pos, int height) {
         for(int idx = 0; idx < dataSize; ++ idx) {
-            zp[idx] += height * Math.exp( Math.pow(-(x[idx]-pos)*1000, 2) / Math.pow(40*1000, 2) );
+            zp[idx] += height * Math.exp( Math.pow(-(x[idx]-pos*1000), 2) / Math.pow(40*1000, 2) );
         }
     }
 
@@ -155,6 +155,7 @@ public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
             x[idx] = Double.parseDouble(line.split("\t")[0]);       // x        (str->double)
             x[idx] *= 1000;                                         // km->m
             depth[idx] = Double.parseDouble(line.split("\t")[1]);   // depth    (str->double)
+            depth[idx] *= -1;                                       // +/-
         }
     }
 
