@@ -1,13 +1,7 @@
-JAVA = java
-JAVAC = javac
-OPTS =
-SRCS = $(wildcard *.java)
+all:
+	make java
 
-Main.class: $(SRCS)
-	$(JAVAC) Main.java
+java:
+	make -C java
 
-run: Main.class
-	$(JAVA) Main
-
-clean:
-	rm -rf *.class
+.PHONY: java
