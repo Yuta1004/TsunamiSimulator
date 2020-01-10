@@ -20,7 +20,7 @@ public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
     int timeEnd = 3*H, timeStep = 1*M;
 
     // 計算用変数
-    int dataSize = -1;
+    int step, dataSize = -1;
     double dx, dt;
     double ub[], up[], uf[];    // 水平流速
     double zb[], zp[], zf[];    // 海面変位
@@ -41,6 +41,7 @@ public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
         zp = new double[dataSize];
         zf = new double[dataSize];
         dx = (x[dataSize-1]-x[0]) / dataSize;
+        step = 0;
         dt = 0.5;
     }
 
@@ -106,7 +107,7 @@ public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
      */
     @Override
     public boolean hasNext() {
-        return true;
+        return step < (timeEnd/timeStep);
     }
 
     /**
@@ -116,7 +117,9 @@ public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
      */
     @Override
     public StepData next() {
-         return new StepData(0, 0, null, null);
+        ++ step;
+        clock += timeStep;
+        return new StepData(clock, step, null, null);
     }
 
     /**
