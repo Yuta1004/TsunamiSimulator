@@ -18,7 +18,7 @@ public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
 
     // 時間データ
     int clock = 0*H + 0*M + 0*S;
-    int timeEnd = 3*H, timeStep = 1*M;
+    int timeEnd = 3*H, itrTimeStep = 1*M;
 
     // 計算用変数
     int step, dataSize = -1;
@@ -81,14 +81,14 @@ public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
     }
 
     /**
-     * シミュレートする際の時間ステップをセットする
+     * データを取得する(1イテレータ進める)時間間隔をセットする
      *
      * @param hour 時
      * @param min 分
      * @param sec 秒
      */
-    public void setTimeStep(int hour, int min, int sec) {
-        timeStep = hour*H + min*M + sec*S;
+    public void setItrTimeStep(int hour, int min, int sec) {
+        itrTimeStep = hour*H + min*M + sec*S;
     }
 
     /**
@@ -119,8 +119,8 @@ public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
     @Override
     public StepData next() {
         StepData sdata = new StepData(clock, step, x, zp);
-        step += (int)((double)timeStep/dt);
-        clock += timeStep;
+        step += (int)((double)itrTimeStep/dt);
+        clock += itrTimeStep;
         return sdata;
     }
 
