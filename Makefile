@@ -1,8 +1,9 @@
 JAVA = java
 JAVAC = javac
 OPTS =
+SRCS = $(wildcard *.java)
 
-Main.class: Main.java
+Main.class: $(SRCS)
 	$(JAVAC) Main.java
 
 run: Main.class
