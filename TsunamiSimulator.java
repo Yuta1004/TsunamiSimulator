@@ -156,6 +156,9 @@ public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
         }
     }
 
+    /**
+     * シミュレータを1ステップ進める
+     */
     private void step() {
         // 1. 未来ステップ値計算
         // 1-1. 水平流速更新
