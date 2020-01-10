@@ -119,7 +119,8 @@ public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
     @Override
     public StepData next() {
         StepData sdata = new StepData(clock, step, x, zp);
-        step += (int)((double)itrTimeStep/dt);
+        for(int idx = 0; idx < (int)((double)itrTimeStep/dt); ++ idx)
+            step();
         clock += itrTimeStep;
         return sdata;
     }
@@ -160,6 +161,8 @@ public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
      * シミュレータを1ステップ進める
      */
     private void step() {
+        ++ step;
+
         // 1. 未来ステップ値計算
         // 1-1. 水平流速更新
         for(int idx = 0; idx < dataSize-1; ++ idx) {
