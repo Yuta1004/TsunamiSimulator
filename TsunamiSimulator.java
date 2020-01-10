@@ -107,7 +107,7 @@ public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
      */
     @Override
     public boolean hasNext() {
-        return step < (timeEnd/timeStep);
+        return step < ((double)(timeEnd+1)/dt);
     }
 
     /**
@@ -117,9 +117,10 @@ public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
      */
     @Override
     public StepData next() {
-        ++ step;
+        StepData sdata = new StepData(clock, step, x, zp);
+        step += (int)((double)timeStep/dt);
         clock += timeStep;
-        return new StepData(clock, step, null, null);
+        return sdata;
     }
 
     /**
