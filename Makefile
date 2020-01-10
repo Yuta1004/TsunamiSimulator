@@ -2,11 +2,7 @@ JAVA = java
 JAVAC = javac
 OPTS =
 
-make:
-	make Main.java
-	make run
-
-Main.class:
+Main.class: Main.java
 	$(JAVAC) Main.java
 
 run: Main.class
