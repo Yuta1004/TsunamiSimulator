@@ -31,7 +31,10 @@ public class StepData {
     }
 
     private String getStrClock() {
-        return (clock/H) + ":" + (clock%H/M) + ":" + (clock%M);
+        return
+            String.format("%02d", clock/H)+":"+
+            String.format("%02d", clock%H/M)+":"+
+            String.format("%02d", clock%M);
     }
 
 }
