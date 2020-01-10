@@ -30,6 +30,12 @@ public class TsunamiSimulator {
         dt = 0.5;
     }
 
+    public void setWaveHeight(int pos, int height) {
+        for(int idx = 0; idx < dataSize; ++ idx) {
+            zp[idx] += height * Math.exp( Math.pow(-(x[idx]-pos)*1000, 2) / Math.pow(40*1000, 2) );
+        }
+    }
+
     private void loadDepthData(String depthFilePath) {
         // 存在チェック
         Path path = Paths.get(depthFilePath);
