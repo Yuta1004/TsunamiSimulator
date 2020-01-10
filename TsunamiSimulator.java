@@ -104,7 +104,7 @@ public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
     /**
      * Itarable
      *
-     * @return boolean まだステップが続くか
+     * @return boolean まだイテレータが続くか
      */
     @Override
     public boolean hasNext() {
@@ -113,8 +113,9 @@ public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
 
     /**
      * Itarable
+     * 1イテレート分ステップを進める
      *
-     * @return StepData ステップのデータ
+     * @return StepData シミュレートデータ
      */
     @Override
     public StepData next() {
