@@ -162,8 +162,6 @@ public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
      * シミュレータを1ステップ進める
      */
     private void step() {
-        ++ step;
-
         // 1. 未来ステップ値計算
         // 1-1. 水平流速更新
         for(int idx = 0; idx < dataSize-1; ++ idx) {
@@ -197,14 +195,22 @@ public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
         // 4. 境界条件セット
         zf[0] = 0;
         zf[dataSize-1] = 0;
-        if(step == 0)
-            return;
 
         // 5. 計算安定化処理
+        if(step > 0)
+            for(int idx = 0; idx < dataSize; ++ idx) {
+                if(idx < dataSize-1)
+                    up[idx] += eps * (uf[idx]-2*up[idx]+ub[idx]);
+                zp[idx] += eps * (zf[idx]-2*zp[idx]+zb[idx]);
+            }
+
+        // 6. ステップ更新
+        ++ step;
         for(int idx = 0; idx < dataSize; ++ idx) {
-            if(idx < dataSize-1)
-                up[idx] += eps * (uf[idx]-2*up[idx]+ub[idx]);
-            zp[idx] += eps * (zf[idx]-2*zp[idx]+zb[idx]);
+            ub[idx] = up[idx];
+            up[idx] = uf[idx];
+            zb[idx] = zp[idx];
+            zp[idx] = zf[idx];
         }
     }
 
