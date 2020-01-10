@@ -9,9 +9,16 @@ import java.util.List;
 public class TsunamiSimulator {
 
     // 定数
+    static final int H = 60*60;
+    static final int M = 60;
+    static final int S = 1;
     static final double grav = 9.8;
 
-    // その他
+    // 時間データ
+    int clock = 0*H + 0*M + 0*S;
+    int timeEnd = 3*H, timeStep = 1*M;
+
+    // 計算用変数
     int dataSize = -1;
     double dx, dt;
     double ub[], up[], uf[];    // 水平流速
@@ -46,6 +53,39 @@ public class TsunamiSimulator {
         for(int idx = 0; idx < dataSize; ++ idx) {
             zp[idx] += height * Math.exp( Math.pow(-(x[idx]-pos)*1000, 2) / Math.pow(40*1000, 2) );
         }
+    }
+
+    /**
+     * シミュレート開始時刻をセットする
+     *
+     * @param hour 時
+     * @param min 分
+     * @param sec 秒
+     */
+    public void setClock(int hour, int min, int sec) {
+        clock = hour*H + min*M + sec*S;
+    }
+
+    /**
+     * シミュレート時間をセットする
+     *
+     * @param hour 時
+     * @param min 分
+     * @param sec 秒
+     */
+    public void setSimulateTime(int hour, int min, int sec) {
+        timeEnd = hour*H + min*M + sec*S;
+    }
+
+    /**
+     * シミュレートする際の時間ステップをセットする
+     *
+     * @param hour 時
+     * @param min 分
+     * @param sec 秒
+     */
+    public void setTimeStep(int hour, int min, int sec) {
+        timeStep = hour*H + min*M + sec*S;
     }
 
     /**
