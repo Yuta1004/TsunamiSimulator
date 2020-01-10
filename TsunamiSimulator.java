@@ -18,6 +18,12 @@ public class TsunamiSimulator {
     double zb[], zp[], zf[];    // 海面変位
     double x[], depth[];        // 位置(m)、深さ(m)
 
+    /**
+     * TsunamiSimulatorのコンストラクタ
+     * データ読み込み, 初期値の設定を行う
+     *
+     * @param depthFilePath 地形データファイルのパス
+     */
     public TsunamiSimulator(String depthFilePath) {
         loadDepthData(depthFilePath);
         ub = new double[dataSize];
@@ -30,12 +36,23 @@ public class TsunamiSimulator {
         dt = 0.5;
     }
 
+    /**
+     * 指定位置の波の高さをセットする
+     *
+     * @param pos 距離(m)
+     * @param height 高さ(m)
+     */
     public void setWaveHeight(int pos, int height) {
         for(int idx = 0; idx < dataSize; ++ idx) {
             zp[idx] += height * Math.exp( Math.pow(-(x[idx]-pos)*1000, 2) / Math.pow(40*1000, 2) );
         }
     }
 
+    /**
+     * 地形データを読み込んでx, depthにセットする
+     *
+     * @param depthFilePath 地形データファイルのパス
+     */
     private void loadDepthData(String depthFilePath) {
         // 存在チェック
         Path path = Paths.get(depthFilePath);
@@ -63,6 +80,12 @@ public class TsunamiSimulator {
         }
     }
 
+    /**
+     * エラーを吐く
+     * 標準エラー出力にエラーであることを示すメッセージを出力する
+     *
+     * @param msg メッセージ
+     */
     private void error(String msg) {
         System.err.println("[ERROR] "+ msg);
         System.exit(0);
