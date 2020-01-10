@@ -5,8 +5,9 @@ import java.nio.file.Paths;
 import java.nio.file.Files;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Iterator;
 
-public class TsunamiSimulator {
+public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
 
     // 定数
     static final int H = 60*60;
@@ -86,6 +87,36 @@ public class TsunamiSimulator {
      */
     public void setTimeStep(int hour, int min, int sec) {
         timeStep = hour*H + min*M + sec*S;
+    }
+
+    /**
+     * Iterator
+     *
+     * @return Iterator<StepData>
+     */
+    @Override
+    public Iterator<StepData> iterator() {
+        return this;
+    }
+
+    /**
+     * Itarable
+     *
+     * @return boolean まだステップが続くか
+     */
+    @Override
+    public boolean hasNext() {
+        return true;
+    }
+
+    /**
+     * Itarable
+     *
+     * @return StepData ステップのデータ
+     */
+    @Override
+    public StepData next() {
+         return new StepData(0, 0, null, null);
     }
 
     /**
