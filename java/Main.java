@@ -75,7 +75,7 @@ public class Main extends Application {
     private void setupUI() {
         // Layout
         VBox parVBox = new VBox();
-        VBox vbox = new VBox();
+        VBox vbox = new VBox(15);
         parVBox.setLayoutX(1000);
         parVBox.setLayoutY(200);
         parVBox.setMargin(vbox, new Insets(40, 40, 40, 40));
@@ -87,6 +87,7 @@ public class Main extends Application {
             Button btn = new Button(name);
             btn.addEventHandler(MouseEvent.MOUSE_CLICKED, lambda);
             btn.setPrefWidth(200);
+            btn.setPrefHeight(50);
             vbox.getChildren().add(btn);
         };
         addBtn.accept("Start", (event)->startSimulate());
