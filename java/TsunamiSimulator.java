@@ -49,7 +49,7 @@ public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
     /**
      * 指定位置の波の高さをセットする
      *
-     * @param pos 距離(m)
+     * @param pos 距離(km)
      * @param height 高さ(m)
      */
     public void setWaveHeight(int pos, int height) {
