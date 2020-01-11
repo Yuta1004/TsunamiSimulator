@@ -5,6 +5,9 @@ import javafx.scene.Group;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import javafx.animation.Timeline;
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
@@ -18,6 +21,7 @@ public class Main extends Application {
 
     // 描画用
     private Group root;
+    private GraphicsContext gra;
     private AreaChart<Number, Number> areaChart;
     private TsunamiSimulator simulator;
 
@@ -69,8 +73,14 @@ public class Main extends Application {
      * @return Stage 設定済みStage
      */
     private Stage setupStage(Stage stage) {
+        // Root, Scene, Canvas
         root = new Group();
         Scene scene = new Scene(root, WIDTH, HEIGHT);
+        Canvas canvas = new Canvas(WIDTH, HEIGHT);
+        gra = canvas.getGraphicsContext2D();
+        root.getChildren().add(canvas);
+
+        // Stage
         stage.setScene(scene);
         stage.setTitle(TITLE);
         return stage;
