@@ -36,13 +36,6 @@ public class Main extends Application {
     private TsunamiSimulator simulator;
 
     /**
-     * Mainクラスのコンストラクタ
-     */
-    public Main() {
-        initSimulator();
-    }
-
-    /**
      * javafx
      * JavaFXアプリケーション開始時に1度呼ばれる
      *
@@ -53,7 +46,6 @@ public class Main extends Application {
         stage = setupStage(stage);
         setupAreaChart();
         stage.show();
-        startSimulate();
     }
 
     /**
@@ -100,6 +92,7 @@ public class Main extends Application {
         addBtn.accept("Start", (event)->startSimulate());
         addBtn.accept("Stop", (event)->tl.stop());
         addBtn.accept("Step", (event)->draw());
+        addBtn.accept("Init", (event)->{ initSimulator(); draw(); });
     }
 
     /**
