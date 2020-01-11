@@ -12,6 +12,9 @@ public class Main extends Application {
     // その他
     private TsunamiSimulator simulator;
 
+    /**
+     * Mainクラスのコンストラクタ
+     */
     public Main() {
         // シミュレータ設定
         simulator = new TsunamiSimulator("../data/DEPTH.data");
@@ -22,12 +25,24 @@ public class Main extends Application {
         simulator.setWaveHeight(215, 5);        // 215mの場所に5mの波
     }
 
+    /**
+     * javafx
+     * JavaFXアプリケーション開始時に1度呼ばれる
+     *
+     * @param Stage stage
+     */
     @Override
     public void start(Stage stage){
         stage = setupStage(stage);
         stage.show();
     }
 
+    /**
+     * Stageの初期設定を行う
+     *
+     * @param Stage stage
+     * @return Stage 設定済みStage
+     */
     private Stage setupStage(Stage stage) {
         Group root = new Group();
         Scene scene = new Scene(root, WIDTH, HEIGHT);
