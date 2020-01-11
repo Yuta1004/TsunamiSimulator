@@ -91,7 +91,7 @@ public class Main extends Application {
 
         // グラフ設定
         areaChart = new AreaChart<>(xAxis, yAxis);
-        areaChart.setMinWidth(1280);
+        areaChart.setMinWidth(1000);
         areaChart.setMinHeight(720);
         areaChart.setCreateSymbols(false);
         root.getChildren().add(areaChart);
