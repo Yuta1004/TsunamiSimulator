@@ -29,7 +29,7 @@ public class Main extends Application {
     // 定数
     private final int WIDTH = 1280, HEIGHT = 720;
     private final double TICK = 0.5;
-    private final String TITLE = "Tsunami Simulator v0.0.1";
+    private final String TITLE = "Tsunami Simulator v0.0.1 Java";
 
     // 描画用
     private Group root;
