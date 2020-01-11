@@ -111,14 +111,16 @@ public class Main extends Application {
      * 描画を行う
      */
     private void draw() {
-        drawTsunami();
+        StepData data = simulator.next();
+        drawTsunami(data);
     }
 
     /**
      * 津波を描画する
+     *
+     * @param StepData シミュレートデータ
      */
-    private void drawTsunami() {
-        StepData data = simulator.next();
+    private void drawTsunami(StepData data) {
         XYChart.Series<Number, Number> series = new XYChart.Series<>();
         for(int idx = 0; idx < data.x.length; ++ idx) {
             series.getData().add(new XYChart.Data<Number, Number>(data.x[idx]/1000, data.z[idx]));
