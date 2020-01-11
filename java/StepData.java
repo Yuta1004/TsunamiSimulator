@@ -5,13 +5,14 @@ public class StepData {
     private static final int S = 1;
 
     public int clock, step;
-    public double x[], z[];
+    public double x[], z[], depth[];
 
-    public StepData(int clock, int step, double x[], double z[]) {
+    public StepData(int clock, int step, double x[], double z[], double depth[]) {
         this.clock = clock;
         this.step = step;
         this.x = x;
         this.z = z;
+        this.depth = depth;
     }
 
     public void print() {
@@ -27,6 +28,9 @@ public class StepData {
         System.out.print("\n- z:");
         for(int idx = 0; idx < z.length; ++ idx)
             System.out.print(" "+z[idx]);
+        System.out.print("\n- depth:");
+        for(int idx = 0; idx < z.length; ++ idx)
+            System.out.print(" "+depth[idx]);
         System.out.println();
     }
 
