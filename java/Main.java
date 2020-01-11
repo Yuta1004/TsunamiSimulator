@@ -138,7 +138,8 @@ public class Main extends Application {
                     event -> {
                         if(!simulator.hasNext())
                             tl.stop();
-                        draw();
+                        else
+                            draw();
                     }
                 )
             );
