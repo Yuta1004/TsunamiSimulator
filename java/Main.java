@@ -16,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.geometry.Insets;
 import javafx.animation.Timeline;
 import javafx.animation.KeyFrame;
+import javafx.animation.Animation;
 import javafx.util.Duration;
 
 import java.util.function.Consumer;
@@ -95,7 +96,7 @@ public class Main extends Application {
         addBtn.accept("Start", (event)->startSimulate());
         addBtn.accept("Stop", (event)->{ if(tl != null) tl.stop(); });
         addBtn.accept("Step", (event)->draw());
-        addBtn.accept("Init", (event)->{ initSimulator(); draw(); });
+        addBtn.accept("Init", (event)->{ if(tl != null) tl.stop(); initSimulator(); draw(); });
     }
 
     /**
