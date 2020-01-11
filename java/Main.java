@@ -176,13 +176,17 @@ public class Main extends Application {
      * @param StepData シミュレートデータ
      */
     private void drawTsunami(StepData data) {
-        XYChart.Series<Number, Number> series = new XYChart.Series<>();
-        series.setName("Tsunami");
+        XYChart.Series<Number, Number> seriesZ = new XYChart.Series<>();
+        XYChart.Series<Number, Number> seriesDepth = new XYChart.Series<>();
+        seriesZ.setName("Tsunami");
+        seriesDepth.setName("Seabed");
         for(int idx = 0; idx < data.x.length; ++ idx) {
-            series.getData().add(new XYChart.Data<Number, Number>(data.x[idx]/1000, data.z[idx]));
+            seriesZ.getData().add(new XYChart.Data<Number, Number>(data.x[idx]/1000, data.z[idx]));
+            seriesDepth.getData().add(new XYChart.Data<Number, Number>(data.x[idx]/1000, -data.depth[idx]));
         }
         areaChart.getData().clear();
-        areaChart.getData().add(series);
+        areaChart.getData().add(seriesZ);
+        areaChart.getData().add(seriesDepth);
     }
 
 }
