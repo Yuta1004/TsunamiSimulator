@@ -1,4 +1,9 @@
-class Main {
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.Group;
+import javafx.stage.Stage;
+
+public class Main extends Application {
 
     TsunamiSimulator simulator;
 
@@ -12,7 +17,14 @@ class Main {
         simulator.setWaveHeight(215, 5);        // 215mの場所に5mの波
     }
 
-    public static void main(String args[]) {
+    @Override
+    public void start(Stage stage){
+        // ウィンドウ設定
+        Group root = new Group();
+        Scene scene = new Scene(root, 1280, 720);
+        stage.setTitle("Tsunami Simulator");
+        stage.setScene(scene);
+        stage.show();
     }
 
 }
