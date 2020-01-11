@@ -103,7 +103,7 @@ public class Main extends Application {
         // x, y軸
         NumberAxis xAxis = new NumberAxis();
         NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("Disttance(km)");
+        xAxis.setLabel("Distance(km)");
         yAxis.setLabel("Height(m)");
         yAxis.setAutoRanging(false);
         yAxis.setLowerBound(-10);
@@ -112,7 +112,7 @@ public class Main extends Application {
         // グラフ設定
         areaChart = new AreaChart<>(xAxis, yAxis);
         areaChart.setMinWidth(1000);
-        areaChart.setMinHeight(720);
+        areaChart.setMinHeight(HEIGHT);
         areaChart.setCreateSymbols(false);
         root.getChildren().add(areaChart);
     }
