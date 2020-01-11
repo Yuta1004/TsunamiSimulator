@@ -22,6 +22,7 @@ public class Main extends Application {
     private final String TITLE = "Tsunami Simulator v0.0.1";
 
     // 描画用
+    private Timeline tl;
     private Group root;
     private GraphicsContext gra;
     private AreaChart<Number, Number> areaChart;
@@ -31,13 +32,7 @@ public class Main extends Application {
      * Mainクラスのコンストラクタ
      */
     public Main() {
-        // シミュレータ設定
-        simulator = new TsunamiSimulator("../data/DEPTH.data");
-        simulator.setClock(12, 0, 0);           // 時計を12:00:00に
-        simulator.setSimulateTime(3, 0, 0);     // 3時間分シミュレートする
-        simulator.setItrTimeStep(0, 1, 0);      // 1分間隔でデータを取得する
-        simulator.setWaveHeight(115, -2);       // 115kmの場所に-2mの波
-        simulator.setWaveHeight(215, 5);        // 215kmの場所に5mの波
+        initSimulator();
     }
 
     /**
@@ -48,24 +43,10 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage stage){
-        // GUI初期設定
         stage = setupStage(stage);
         setupAreaChart();
         stage.show();
-
-        // アニメーション
-        Timeline tl = new Timeline();
-        KeyFrame kf = new KeyFrame(
-                    Duration.seconds(TICK),
-                    event -> {
-                        if(!simulator.hasNext())
-                            tl.stop();
-                        draw();
-                    }
-                );
-        tl.setCycleCount(Timeline.INDEFINITE);
-        tl.getKeyFrames().add(kf);
-        tl.play();
+        startSimulate();
     }
 
     /**
@@ -107,6 +88,36 @@ public class Main extends Application {
         areaChart.setMinHeight(720);
         areaChart.setCreateSymbols(false);
         root.getChildren().add(areaChart);
+    }
+
+    /**
+     * シミュレータ初期化
+     */
+    private void initSimulator() {
+        simulator = new TsunamiSimulator("../data/DEPTH.data");
+        simulator.setClock(12, 0, 0);           // 時計を12:00:00に
+        simulator.setSimulateTime(3, 0, 0);     // 3時間分シミュレートする
+        simulator.setItrTimeStep(0, 1, 0);      // 1分間隔でデータを取得する
+        simulator.setWaveHeight(115, -2);       // 115kmの場所に-2mの波
+        simulator.setWaveHeight(215, 5);        // 215kmの場所に5mの波
+    }
+
+    /**
+     * シミュレート開始
+     */
+    private void startSimulate() {
+        tl = new Timeline(
+                new KeyFrame(
+                    Duration.seconds(TICK),
+                    event -> {
+                        if(!simulator.hasNext())
+                            tl.stop();
+                        draw();
+                    }
+                )
+            );
+        tl.setCycleCount(Timeline.INDEFINITE);
+        tl.play();
     }
 
     /**
