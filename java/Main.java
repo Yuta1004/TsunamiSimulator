@@ -58,7 +58,7 @@ public class Main extends Application {
                     event -> {
                         if(!simulator.hasNext())
                             tl.stop();
-                        drawTsunami();
+                        draw();
                     }
                 );
         tl.setCycleCount(Timeline.INDEFINITE);
@@ -105,6 +105,13 @@ public class Main extends Application {
         areaChart.setMinHeight(720);
         areaChart.setCreateSymbols(false);
         root.getChildren().add(areaChart);
+    }
+
+    /**
+     * 描画を行う
+     */
+    private void draw() {
+        drawTsunami();
     }
 
     /**
