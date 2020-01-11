@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.Group;
@@ -10,9 +11,15 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+import javafx.scene.layout.VBox;
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
+import javafx.geometry.Insets;
 import javafx.animation.Timeline;
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
+import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 
 public class Main extends Application {
 
@@ -62,11 +69,37 @@ public class Main extends Application {
         Canvas canvas = new Canvas(WIDTH, HEIGHT);
         gra = canvas.getGraphicsContext2D();
         root.getChildren().add(canvas);
+        setupUI();
 
         // Stage
         stage.setScene(scene);
         stage.setTitle(TITLE);
         return stage;
+    }
+
+    /**
+     * UI部品の初期設定を行う
+     */
+    private void setupUI() {
+        // Layout
+        VBox parVBox = new VBox();
+        VBox vbox = new VBox();
+        parVBox.setLayoutX(1000);
+        parVBox.setLayoutY(200);
+        parVBox.setMargin(vbox, new Insets(40, 40, 40, 40));
+        parVBox.getChildren().add(vbox);
+        root.getChildren().add(parVBox);
+
+        // ボタン
+        BiConsumer<String, EventHandler<MouseEvent>> addBtn = (name, lambda) -> {
+            Button btn = new Button(name);
+            btn.addEventHandler(MouseEvent.MOUSE_CLICKED, lambda);
+            btn.setPrefWidth(200);
+            vbox.getChildren().add(btn);
+        };
+        addBtn.accept("Start", (event)->startSimulate());
+        addBtn.accept("Stop", (event)->tl.stop());
+        addBtn.accept("Step", (event)->draw());
     }
 
     /**
