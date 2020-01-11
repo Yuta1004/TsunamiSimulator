@@ -5,11 +5,15 @@ import javafx.scene.Group;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.XYChart;
+import javafx.animation.Timeline;
+import javafx.animation.KeyFrame;
+import javafx.util.Duration;
 
 public class Main extends Application {
 
     // 定数
     private final int WIDTH = 1280, HEIGHT = 720;
+    private final double TICK = 0.5;
     private final String TITLE = "Tsunami Simulator v0.0.1";
 
     // 描画用
@@ -38,11 +42,24 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage stage){
+        // GUI初期設定
         stage = setupStage(stage);
         setupAreaChart();
         stage.show();
 
-        drawTsunami();
+        // アニメーション
+        Timeline tl = new Timeline();
+        KeyFrame kf = new KeyFrame(
+                    Duration.seconds(TICK),
+                    event -> {
+                        if(!simulator.hasNext())
+                            tl.stop();
+                        drawTsunami();
+                    }
+                );
+        tl.setCycleCount(Timeline.INDEFINITE);
+        tl.getKeyFrames().add(kf);
+        tl.play();
     }
 
     /**
@@ -89,6 +106,7 @@ public class Main extends Application {
         for(int idx = 0; idx < data.x.length; ++ idx) {
             series.getData().add(new XYChart.Data<Number, Number>(data.x[idx]/1000, data.z[idx]));
         }
+        areaChart.getData().clear();
         areaChart.getData().add(series);
     }
 
