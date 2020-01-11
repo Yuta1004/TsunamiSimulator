@@ -1,4 +1,9 @@
-/* Code From : https://stackoverflow.com/questions/33695027/javafx-area-chart-behavior-changed */
+/* This code has been copied from stackoverflow.com
+ * URL : https://stackoverflow.com/questions/33695027/javafx-area-chart-behavior-changed
+ * Writer : Zur13(https://stackoverflow.com/users/2140708/zur13)
+ */
+
+
 package lib;
 
 import java.util.ArrayList;
