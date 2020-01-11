@@ -93,7 +93,7 @@ public class Main extends Application {
             vbox.getChildren().add(btn);
         };
         addBtn.accept("Start", (event)->startSimulate());
-        addBtn.accept("Stop", (event)->tl.stop());
+        addBtn.accept("Stop", (event)->{ if(tl != null) tl.stop(); });
         addBtn.accept("Step", (event)->draw());
         addBtn.accept("Init", (event)->{ initSimulator(); draw(); });
     }
