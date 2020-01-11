@@ -137,7 +137,7 @@ public class Main extends Application {
                 new KeyFrame(
                     Duration.seconds(TICK),
                     event -> {
-                        if(!simulator.hasNext())
+                        if(simulator == null || !simulator.hasNext())
                             tl.stop();
                         else
                             draw();
