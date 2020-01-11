@@ -4,7 +4,6 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.Group;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -18,8 +17,11 @@ import javafx.geometry.Insets;
 import javafx.animation.Timeline;
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
+
 import java.util.function.Consumer;
 import java.util.function.BiConsumer;
+
+import lib.NegativeBGAreaChart;
 
 public class Main extends Application {
 
@@ -32,7 +34,7 @@ public class Main extends Application {
     private Timeline tl;
     private Group root;
     private GraphicsContext gra;
-    private AreaChart<Number, Number> areaChart;
+    private NegativeBGAreaChart<Number, Number> areaChart;
     private TsunamiSimulator simulator;
 
     /**
@@ -110,7 +112,7 @@ public class Main extends Application {
         yAxis.setUpperBound(20);
 
         // グラフ設定
-        areaChart = new AreaChart<>(xAxis, yAxis);
+        areaChart = new NegativeBGAreaChart<>(xAxis, yAxis);
         areaChart.setMinWidth(1000);
         areaChart.setMinHeight(HEIGHT);
         areaChart.setCreateSymbols(false);
