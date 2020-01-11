@@ -3,6 +3,7 @@ import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.canvas.Canvas;
@@ -180,10 +181,13 @@ public class Main extends Application {
      * @param StepData シミュレートデータ
      */
     private void drawTsunami(StepData data) {
+        // XYChart設定
         XYChart.Series<Number, Number> seriesZ = new XYChart.Series<>();
         XYChart.Series<Number, Number> seriesDepth = new XYChart.Series<>();
         seriesZ.setName("Tsunami");
         seriesDepth.setName("Seabed");
+
+        // データセット
         for(int idx = 0; idx < data.x.length; ++ idx) {
             seriesZ.getData().add(new XYChart.Data<Number, Number>(data.x[idx]/1000, data.z[idx]));
             seriesDepth.getData().add(new XYChart.Data<Number, Number>(data.x[idx]/1000, -data.depth[idx]));
@@ -191,6 +195,16 @@ public class Main extends Application {
         areaChart.getData().clear();
         areaChart.getData().add(seriesZ);
         areaChart.getData().add(seriesDepth);
+
+        // 色設定
+        BiConsumer<XYChart.Series<Number, Number>, String> setColor = (series, color) -> {
+            Node fill = series.getNode().lookup(".chart-series-area-fill");
+            Node line = series.getNode().lookup(".chart-series-area-line");
+            fill.setStyle("-fx-fill: rgba("+color+", 0.3);");
+            line.setStyle("-fx-stroke: rgba("+color+", 1.0);");
+        };
+        setColor.accept(seriesZ, "70, 130, 255");
+        setColor.accept(seriesDepth, "200, 120, 0");
     }
 
 }
