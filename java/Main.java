@@ -8,6 +8,8 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.animation.Timeline;
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
@@ -112,7 +114,19 @@ public class Main extends Application {
      */
     private void draw() {
         StepData data = simulator.next();
+
+        // 津波
         drawTsunami(data);
+
+        // 背景
+        gra.setFill(Color.WHITE);
+        gra.fillRect(0, 0, WIDTH, HEIGHT);
+
+        // 時計
+        gra.setFill(Color.BLACK);
+        gra.setFont(new Font(40));
+        gra.setTextAlign(TextAlignment.CENTER);
+        gra.fillText(data.getStrClock(), 1140, 100);
     }
 
     /**
