@@ -73,6 +73,7 @@ public class Main extends Application {
         areaChart = new AreaChart<>(xAxis, yAxis);
         areaChart.setMinWidth(1280);
         areaChart.setMinHeight(720);
+        areaChart.setCreateSymbols(false);
         root.getChildren().add(areaChart);
     }
 
