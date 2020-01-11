@@ -32,11 +32,12 @@ public class Main extends Application {
     private final String TITLE = "Tsunami Simulator v0.0.1";
 
     // 描画用
-    private Timeline tl;
     private Group root;
     private GraphicsContext gra;
+    private Timeline tl = new Timeline();
     private NegativeBGAreaChart<Number, Number> areaChart;
     private TsunamiSimulator simulator;
+
 
     /**
      * javafx
@@ -94,9 +95,9 @@ public class Main extends Application {
             vbox.getChildren().add(btn);
         };
         addBtn.accept("Start", (event)->startSimulate());
-        addBtn.accept("Stop", (event)->{ if(tl != null) tl.stop(); });
+        addBtn.accept("Stop", (event)->tl.stop());
         addBtn.accept("Step", (event)->draw());
-        addBtn.accept("Init", (event)->{ if(tl != null) tl.stop(); initSimulator(); draw(); });
+        addBtn.accept("Init", (event)->{ tl.stop(); initSimulator(); draw(); });
     }
 
     /**
@@ -136,6 +137,8 @@ public class Main extends Application {
      * シミュレート開始
      */
     private void startSimulate() {
+        if(tl.getStatus().equals(Animation.Status.RUNNING))
+            return;
         tl = new Timeline(
                 new KeyFrame(
                     Duration.seconds(TICK),
