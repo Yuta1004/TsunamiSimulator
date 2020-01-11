@@ -68,6 +68,9 @@ public class Main extends Application {
         NumberAxis yAxis = new NumberAxis();
         xAxis.setLabel("Disttance(km)");
         yAxis.setLabel("Height(m)");
+        yAxis.setAutoRanging(false);
+        yAxis.setLowerBound(-10);
+        yAxis.setUpperBound(20);
 
         // グラフ設定
         areaChart = new AreaChart<>(xAxis, yAxis);
