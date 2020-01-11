@@ -136,6 +136,7 @@ public class Main extends Application {
      */
     private void drawTsunami(StepData data) {
         XYChart.Series<Number, Number> series = new XYChart.Series<>();
+        series.setName("Tsunami");
         for(int idx = 0; idx < data.x.length; ++ idx) {
             series.getData().add(new XYChart.Data<Number, Number>(data.x[idx]/1000, data.z[idx]));
         }
