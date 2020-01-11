@@ -5,7 +5,12 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    TsunamiSimulator simulator;
+    // 定数
+    private final int WIDTH = 1280, HEIGHT = 720;
+    private final String TITLE = "Tsunami Simulator v0.0.1";
+
+    // その他
+    private TsunamiSimulator simulator;
 
     public Main() {
         // シミュレータ設定
@@ -19,12 +24,17 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage){
-        // ウィンドウ設定
-        Group root = new Group();
-        Scene scene = new Scene(root, 1280, 720);
-        stage.setTitle("Tsunami Simulator");
-        stage.setScene(scene);
+        stage = setupStage(stage);
         stage.show();
     }
+
+    private Stage setupStage(Stage stage) {
+        Group root = new Group();
+        Scene scene = new Scene(root, WIDTH, HEIGHT);
+        stage.setScene(scene);
+        stage.setTitle(TITLE);
+        return stage;
+    }
+
 
 }
