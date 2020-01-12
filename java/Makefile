@@ -11,7 +11,7 @@ run: Main.class
 Main.class: $(SRCS)
 	$(JAVAC) Main.java
 
-dist:
+dist: $(SRCS)
 	make clean
 	mkdir classes dist
 	$(JAVAC) -d classes Main.java
