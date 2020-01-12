@@ -10,22 +10,22 @@ import java.util.Iterator;
 public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
 
     // 定数
-    static final int H = 60*60;
-    static final int M = 60;
-    static final int S = 1;
-    static final double grav = 9.8;
-    static final double eps = 0.01;
+    private static final int H = 60*60;
+    private static final int M = 60;
+    private static final int S = 1;
+    public static final double grav = 9.8;
+    public static final double eps = 0.01;
 
     // 時間データ
-    int clock = 0*H + 0*M + 0*S;
-    int timeEnd = 3*H, itrTimeStep = 1*M;
+    protected int clock = 0*H + 0*M + 0*S;
+    protected int timeEnd = 3*H, itrTimeStep = 1*M;
 
     // 計算用変数
-    int step, dataSize = -1;
-    double dx, dt;
-    double ub[], up[], uf[];    // 水平流速
-    double zb[], zp[], zf[];    // 海面変位
-    double x[], depth[];        // 位置(m)、深さ(m)
+    private int step, dataSize = -1;
+    private double dx, dt;
+    private double ub[], up[], uf[];    // 水平流速
+    private double zb[], zp[], zf[];    // 海面変位
+    private double x[], depth[];        // 位置(m)、深さ(m)
 
     /**
      * TsunamiSimulatorのコンストラクタ
