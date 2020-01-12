@@ -178,6 +178,8 @@ public class Main extends Application {
      * 描画を行う
      */
     private void draw() {
+        if(!simulator.hasNext())
+            return;
         StepData data = simulator.next();
 
         // 津波
