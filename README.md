@@ -6,9 +6,9 @@
 
 - Java
 
-## 実行
+## コマンド
 
 ```
-// java版
+// java Edition 起動
 make java
 ```
