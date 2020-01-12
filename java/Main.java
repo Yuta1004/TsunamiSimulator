@@ -1,6 +1,8 @@
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.scene.Scene;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -20,6 +22,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Animation;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.util.function.Consumer;
 import java.util.function.BiConsumer;
 
@@ -33,12 +36,12 @@ public class Main extends Application {
     private final String TITLE = "Tsunami Simulator v0.0.1 Java";
 
     // 描画用
+    private String dataFile;
     private Group root;
     private GraphicsContext gra;
     private Timeline tl = new Timeline();
     private NegativeBGAreaChart<Number, Number> areaChart;
     private TsunamiSimulator simulator;
-
 
     /**
      * javafx
@@ -49,6 +52,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage){
         stage = setupStage(stage);
+        setupDataFile(stage);
         setupAreaChart();
         stage.show();
     }
@@ -72,6 +76,21 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setTitle(TITLE);
         return stage;
+    }
+
+    /**
+     * データファイルの設定を行う
+     *
+     * @param Stage stage
+     */
+    private void setupDataFile(Stage stage) {
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Select DEPTH.data");
+        chooser.getExtensionFilters().add(
+                    new ExtensionFilter("DataFile", "*.data", "*.txt")
+                );
+        File file = chooser.showOpenDialog(stage);
+        dataFile = file == null ? "" : file.getAbsolutePath();
     }
 
     /**
@@ -126,7 +145,7 @@ public class Main extends Application {
      * シミュレータ初期化
      */
     private void initSimulator() {
-        simulator = new TsunamiSimulator("../data/DEPTH.data");
+        simulator = new TsunamiSimulator(dataFile);
         simulator.setClock(12, 0, 0);           // 時計を12:00:00に
         simulator.setSimulateTime(3, 0, 0);     // 3時間分シミュレートする
         simulator.setItrTimeStep(0, 1, 0);      // 1分間隔でデータを取得する
