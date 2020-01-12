@@ -16,12 +16,18 @@ public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
     public static final double grav = 9.8;
     public static final double eps = 0.01;
 
+    // ステータス
+    private int status = 0;
+    public static final int READY = 0;
+    public static final int RUNNING = 1;
+    public static final int ERROR = 2;
+
     // 時間データ
     protected int clock = 0*H + 0*M + 0*S;
     protected int timeEnd = 3*H, itrTimeStep = 1*M;
 
     // 計算用変数
-    private int step, dataSize = -1;
+    private int step, dataSize;
     private double dx, dt;
     private double ub[], up[], uf[];    // 水平流速
     private double zb[], zp[], zf[];    // 海面変位
@@ -35,6 +41,8 @@ public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
      */
     public TsunamiSimulator(String depthFilePath) {
         loadDepthData(depthFilePath);
+        if(status == ERROR)
+            return;
         ub = new double[dataSize];
         up = new double[dataSize];
         uf = new double[dataSize];
@@ -92,12 +100,23 @@ public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
     }
 
     /**
+     * 現在のステータスを返す
+     *
+     * @return status
+     */
+    public int getStatus() {
+        return status;
+    }
+
+
+    /**
      * Iterator
      *
      * @return Iterator<StepData>
      */
     @Override
     public Iterator<StepData> iterator() {
+        status = RUNNING;
         return this;
     }
 
@@ -108,7 +127,7 @@ public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
      */
     @Override
     public boolean hasNext() {
-        return step < ((double)(timeEnd+1)/dt);
+        return step < ((double)(timeEnd+1)/dt) && status != ERROR;
     }
 
     /**
@@ -119,6 +138,8 @@ public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
      */
     @Override
     public StepData next() {
+        if(status == ERROR)
+            return null;
         StepData sdata = new StepData(clock, step, x, zp, depth);
         for(int idx = 0; idx < (int)((double)itrTimeStep/dt); ++ idx)
             step();
@@ -134,8 +155,10 @@ public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
     private void loadDepthData(String depthFilePath) {
         // 存在チェック
         Path path = Paths.get(depthFilePath);
-        if(!(path.toFile().exists()))
+        if(!(path.toFile().exists())) {
             error("地形データファイルが存在しません => "+path);
+            return;
+        }
 
         // データファイル読み込み
         List<String> dataLines = null;
@@ -144,6 +167,7 @@ public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
         } catch(Exception e) {
             e.printStackTrace();
             error("地形データファイル読み込み中にエラーが発生しました");
+            return;
         }
         dataSize = dataLines.size();
 
@@ -157,6 +181,7 @@ public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
             depth[idx] = Double.parseDouble(line.split("\t")[1]);   // depth    (str->double)
             depth[idx] *= -1;                                       // +/-
         }
+        status = READY;
     }
 
     /**
@@ -223,7 +248,7 @@ public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
      */
     private void error(String msg) {
         System.err.println("[ERROR] "+ msg);
-        System.exit(0);
+        status = ERROR;
     }
 
 }
