@@ -138,6 +138,7 @@ public class Main extends Application {
         areaChart.setMinWidth(1000);
         areaChart.setMinHeight(HEIGHT);
         areaChart.setCreateSymbols(false);
+        areaChart.setAnimated(false);
         root.getChildren().add(areaChart);
     }
 
