@@ -2,9 +2,8 @@ JAVA := java
 JAVAC := javac
 JAR := jar
 JLINK := $(JAVA_HOME)/bin/jlink
-JAVAFX := $(JAVAFX_PATH)
 
-OPTS := -p $(JAVAFX)/lib --add-modules javafx.controls
+OPTS := -p $(JAVAFX_PATH)/lib --add-modules javafx.controls
 JLINK_OPTS := --compress=2 --module-path $(JAVAFX_PATH)/jmods --add-modules javafx.controls
 
 SRCS := $(wildcard *.java)
