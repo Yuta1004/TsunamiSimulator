@@ -34,13 +34,13 @@ define gen-dist
 
 	# ビルド
 	$(JAVAC) $(OPTS) -d classes Main.java
-	$(JAR) cvfm dist/TsunamiSimulator$1.jar $(MANIFEST) -C classes .
+	$(JAR) cvfm dist/TsunamiSimulator-$1.jar $(MANIFEST) -C classes .
 
 	# JRE生成
 	$(JLINK) $(JLINK_OPTS):$(JMODS_PATH) --output dist/runtime-$1
 
 	# Makefile生成
-	echo "$1:\n\truntime-$1/bin/$2 -jar TsunamiSimulator$1.jar\n\n" >> dist/Makefile
+	echo "$1:\n\truntime-$1/bin/$2 -jar TsunamiSimulator-$1.jar\n\n" >> dist/Makefile
 
 	# .class削除
 	rm -rf classes
