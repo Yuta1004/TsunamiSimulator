@@ -8,13 +8,20 @@
 // 実行
 make run
 
-// jar生成
-make dist
+// dist生成(win)
+make dist-win JMODS_PATH=path
+
+// dist生成(macos)
+make dist-win JMODS_PATH=path
+
+// dist生成(linux)
+make dist-linux JMODS_PATH=path
 ```
 
 ## 環境変数
 
 以下の環境変数を設定してください  
+makeの引数として設定することも可能です  
 
 ### JAVAFX_PATH
 

@@ -3,8 +3,9 @@ JAVAC := javac
 JAR := jar
 JLINK := $(JAVA_HOME)/bin/jlink
 
-OPTS := -p $(JAVAFX_PATH)/lib --add-modules javafx.controls
-JLINK_OPTS := --compress=2 --add-modules javafx.controls --module-path $(JAVAFX_PATH)/jmods
+JAVAFX_MODULES := javafx.controls,javafx.base,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web
+OPTS := -p $(JAVAFX_PATH)/lib --add-modules $(JAVAFX_MODULES)
+JLINK_OPTS := --compress=2 --add-modules $(JAVAFX_MODULES) --module-path $(JAVAFX_PATH)/jmods
 
 SRCS := $(wildcard *.java)
 MANIFEST := MANIFEST.MF
@@ -33,13 +34,13 @@ define gen-dist
 
 	# ビルド
 	$(JAVAC) $(OPTS) -d classes Main.java
-	$(JAR) cvfm dist/TsunamiSimulator.jar $(MANIFEST) -C classes .
+	$(JAR) cvfm dist/TsunamiSimulator$1.jar $(MANIFEST) -C classes .
 
 	# JRE生成
 	$(JLINK) $(JLINK_OPTS):$(JMODS_PATH) --output dist/runtime-$1
 
 	# Makefile生成
-	echo "run:\n\truntime-$1/bin/$2 -jar TsunamiSimulator.jar" > dist/Makefile
+	echo "$1:\n\truntime-$1/bin/$2 -jar TsunamiSimulator$1.jar\n\n" >> dist/Makefile
 
 	# .class削除
 	rm -rf classes
