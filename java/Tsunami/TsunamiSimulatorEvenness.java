@@ -20,7 +20,7 @@ public class TsunamiSimulatorEvenness extends TsunamiSimulator {
     @Override
     public void setWaveHeight(int pos, int height) {
         for(int idx = 0; idx < dataSize; ++ idx)
-            zp[idx] = Math.exp( -(Math.pow(idx-dataSize/2, 2) / Math.pow(dataSize/30, 2)) );
+            zp[idx] = Math.exp( -Math.pow(idx-dataSize/2.0, 2) / Math.pow(dataSize/30.0, 2) );
     }
 
     /**
@@ -55,7 +55,7 @@ public class TsunamiSimulatorEvenness extends TsunamiSimulator {
 
         // x, depthセット
         for(int idx = 0; idx < dataSize; ++ idx) {
-            x[idx] = widthVal/dataSize*idx;
+            x[idx] = widthVal/dataSize*idx*1000;
             depth[idx] = depthVal;
         }
 
@@ -87,8 +87,8 @@ public class TsunamiSimulatorEvenness extends TsunamiSimulator {
         if(step > 0)
             for(int idx = 0; idx < dataSize; ++ idx) {
                 if(idx < dataSize-1)
-                    up[idx] = up[idx] + eps*(uf[idx]-2*up[idx]+ub[idx]);
-                zp[idx] = zp[idx] + eps*(zf[idx]-2*zp[idx]+zb[idx]);
+                    up[idx] += eps*(uf[idx]-2*up[idx]+ub[idx]);
+                zp[idx] += eps*(zf[idx]-2*zp[idx]+zb[idx]);
             }
 
         // 4. ステップを進める
