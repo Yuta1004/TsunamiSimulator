@@ -2,12 +2,12 @@ package Tsunami;
 
 public class TsunamiSimulatorEvenness extends TsunamiSimulator {
 
-    private double depth, width;
+    private double depthVal, widthVal;
 
     /**
      * TsunamiSimulatorEvennessのコンストラクタ
      */
-    TsunamiSimulatorEvenness() {
+    public TsunamiSimulatorEvenness() {
         dataSize = 500;
     }
 
@@ -20,7 +20,7 @@ public class TsunamiSimulatorEvenness extends TsunamiSimulator {
     @Override
     public void setWaveHeight(int pos, int height) {
         for(int idx = 0; idx < dataSize; ++ idx)
-            zp[idx] = Math.exp( -(Math.pow(idx-dataSize/2, 2) / Math.pow(dataSize/30, 2)) )
+            zp[idx] = Math.exp( -(Math.pow(idx-dataSize/2, 2) / Math.pow(dataSize/30, 2)) );
     }
 
     /**
@@ -30,29 +30,35 @@ public class TsunamiSimulatorEvenness extends TsunamiSimulator {
      * @param width モデル海洋の幅(km) Number
      */
     @Override
-    public void setDepth(Object ... args) throws IlleagalArgumentException {
+    public void setDepth(Object ... args) throws IllegalArgumentException {
         // 引数チェック
         if(args.length == 2 && args[0] instanceof Number && args[1] instanceof Number) {
-            depth = (double)args[0];
-            width = (double)args[1];
+            depthVal = ((Number)(args[0])).doubleValue();
+            widthVal = ((Number)(args[1])).doubleValue();
         } else {
-            throw new IlleagalArgumentException();
+            throw new IllegalArgumentException();
         }
 
-        // xセット
-        for(int idx = 0; idx < dataSize; ++ idx)
-            x[idx] = width/dataSize*idx;
-
         // 計算用変数初期化
+        x = new double[dataSize];
+        depth = new double[dataSize];
         ub = new double[dataSize];
         up = new double[dataSize];
         uf = new double[dataSize];
         zb = new double[dataSize];
         zp = new double[dataSize];
         zf = new double[dataSize];
-        dx = width/dataSize;
+        setWaveHeight(0, 0);
+        dx = widthVal/dataSize;
         dt = 1;
         status = TsunamiSimulator.READY;
+
+        // x, depthセット
+        for(int idx = 0; idx < dataSize; ++ idx) {
+            x[idx] = widthVal/dataSize*idx;
+            depth[idx] = depthVal;
+        }
+
     }
 
     @Override
@@ -68,9 +74,9 @@ public class TsunamiSimulatorEvenness extends TsunamiSimulator {
         // 1.2. 海面変位更新
         for(int idx = 1; idx < dataSize-1; ++ idx) {
             if(step == 0)
-                zf[idx] = zp[idx] - depth*(dt/dx)*(up[idx]-up[idx-1]);
+                zf[idx] = zp[idx] - depthVal*(dt/dx)*(up[idx]-up[idx-1]);
             else
-                zf[idx] = zb[idx] - 2*depth*(dt/dx)*(up[idx]-ip[idx-1]);
+                zf[idx] = zb[idx] - 2*depthVal*(dt/dx)*(up[idx]-up[idx-1]);
         }
 
         // 2. 境界条件設定
