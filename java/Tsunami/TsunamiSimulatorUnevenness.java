@@ -68,7 +68,12 @@ public class TsunamiSimulatorUnevenness extends TsunamiSimulator {
         }
 
         // その他計算用変数初期化
-        initVariables(dataSize);
+        ub = new double[dataSize];
+        up = new double[dataSize];
+        uf = new double[dataSize];
+        zb = new double[dataSize];
+        zp = new double[dataSize];
+        zf = new double[dataSize];
         dx = (x[dataSize-1]-x[0]) / dataSize;
         dt = 0.5;
         status = TsunamiSimulator.READY;

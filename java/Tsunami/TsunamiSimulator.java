@@ -78,6 +78,7 @@ abstract public class TsunamiSimulator implements Iterable<StepData>, Iterator<S
      */
     @Override
     public Iterator<StepData> iterator() {
+        step = 0;
         status = RUNNING;
         return this;
     }
@@ -109,21 +110,6 @@ abstract public class TsunamiSimulator implements Iterable<StepData>, Iterator<S
         }
         clock += itrTimeStep;
         return sdata;
-    }
-
-    /**
-     * 計算用変数を初期化する
-     * (depth, x以外)
-     */
-    protected void initVariables(int dataSize) {
-        this.dataSize = dataSize;
-        ub = new double[dataSize];
-        up = new double[dataSize];
-        uf = new double[dataSize];
-        zb = new double[dataSize];
-        zp = new double[dataSize];
-        zf = new double[dataSize];
-        step = 0;
     }
 
     /**
