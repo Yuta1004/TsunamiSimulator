@@ -29,18 +29,6 @@ abstract public class TsunamiSimulator implements Iterable<StepData>, Iterator<S
     protected double x[], depth[];        // 位置(m)、深さ(m)
 
     /**
-     * 指定位置の波の高さをセットする
-     *
-     * @param pos 距離(km)
-     * @param height 高さ(m)
-     */
-    public void setWaveHeight(int pos, int height) {
-        for(int idx = 0; idx < dataSize; ++ idx) {
-            zp[idx] += height * Math.exp( -Math.pow(x[idx]-pos*1000, 2) / Math.pow(40*1000, 2) );
-        }
-    }
-
-    /**
      * シミュレート開始時刻をセットする
      *
      * @param hour 時
@@ -141,12 +129,22 @@ abstract public class TsunamiSimulator implements Iterable<StepData>, Iterator<S
     }
 
     /**
-     * 地形データを読み込んでx, depthにセットする
+     * 地形情報をセットする
+     * 継承先でオーバーライドする
      *
      * @param Object... 継承先で定義
      * @throws IllegalArgumentException 引数の方が想定と異なる場合投げる
      */
     abstract public void setDepth(Object ... args) throws IllegalArgumentException;
+
+    /**
+     * 指定位置の波の高さをセットする
+     * 継承先でオーバーライドする
+     *
+     * @param pos 距離(km)
+     * @param height 高さ(m)
+     */
+    abstract public void setWaveHeight(int pos, int height);
 
     /**
      * シミュレータを1ステップ進める

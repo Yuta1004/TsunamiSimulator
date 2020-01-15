@@ -10,6 +10,25 @@ import java.util.List;
 
 public class TsunamiSimulatorUnevenness extends TsunamiSimulator {
 
+    /**
+     * 指定位置の波の高さをセットする
+     *
+     * @param pos 距離(km)
+     * @param height 高さ(m)
+     */
+    @Override
+    public void setWaveHeight(int pos, int height) {
+        for(int idx = 0; idx < dataSize; ++ idx) {
+            zp[idx] += height * Math.exp( -Math.pow(x[idx]-pos*1000, 2) / Math.pow(40*1000, 2) );
+        }
+    }
+
+    /**
+     * 地形データを読み込んでx, depthにセットする
+     *
+     * @param path 地形データのパス
+     * @throws IllegalArgumentException 引数の方が想定と異なる場合投げる
+     */
     @Override
     public void setDepth(Object ... args) throws IllegalArgumentException {
         // 引数チェック
@@ -51,6 +70,9 @@ public class TsunamiSimulatorUnevenness extends TsunamiSimulator {
         status = TsunamiSimulator.READY;
     }
 
+    /**
+     * シミュレータを1ステップ進める
+     */
     @Override
     protected void step() {
         // 1. 未来ステップ値計算
@@ -104,6 +126,9 @@ public class TsunamiSimulatorUnevenness extends TsunamiSimulator {
         }
     }
 
+    /**
+     * エラーを吐いてステータスをERRORにする
+     */
     private void error(String msg) {
         System.out.println("[ERROR] "+msg);
         status = TsunamiSimulator.ERROR;
