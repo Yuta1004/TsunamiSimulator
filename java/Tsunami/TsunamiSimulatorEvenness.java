@@ -19,8 +19,9 @@ public class TsunamiSimulatorEvenness extends TsunamiSimulator {
      */
     @Override
     public void setWaveHeight(int pos, int height) {
+        double posD = (double)widthVal/(pos*1000);
         for(int idx = 0; idx < dataSize; ++ idx)
-            zp[idx] = Math.exp( -Math.pow(idx-dataSize/2.0, 2) / Math.pow(dataSize/30.0, 2) );
+            zp[idx] += height * Math.exp( -Math.pow(idx-dataSize/posD, 2) / Math.pow(dataSize/30.0, 2) );
     }
 
     /**
@@ -48,7 +49,6 @@ public class TsunamiSimulatorEvenness extends TsunamiSimulator {
         zb = new double[dataSize];
         zp = new double[dataSize];
         zf = new double[dataSize];
-        setWaveHeight(0, 0);
         dx = widthVal/dataSize;
         dt = 1;
         status = TsunamiSimulator.READY;
