@@ -25,7 +25,7 @@ dist-linux:
 	$(call gen-dist,linux,java)
 
 clean:
-	rm -rf *.class */*.class classes dist *.args
+	rm -rf *.class */*.class classes dist *.args */*.args
 
 define gen-dist
 	# ディレクトリ整理
