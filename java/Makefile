@@ -7,7 +7,7 @@ JAVAFX_MODULES := javafx.controls,javafx.base,javafx.fxml,javafx.graphics,javafx
 OPTS := -p $(JAVAFX_PATH)/lib --add-modules $(JAVAFX_MODULES)
 JLINK_OPTS := --compress=2 --add-modules $(JAVAFX_MODULES) --module-path $(JAVAFX_PATH)/jmods
 
-SRCS := $(wildcard *.java)
+SRCS := $(wildcard *.java */*.java)
 MANIFEST := MANIFEST.MF
 
 run: Main.class
