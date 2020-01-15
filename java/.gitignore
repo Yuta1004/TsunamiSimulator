@@ -1,3 +1,4 @@
 *.class
 *.args
 dist/
+.vscode/
