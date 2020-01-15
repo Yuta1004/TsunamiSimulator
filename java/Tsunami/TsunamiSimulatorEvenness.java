@@ -57,7 +57,41 @@ public class TsunamiSimulatorEvenness extends TsunamiSimulator {
 
     @Override
     protected void step() {
+        // 1. 未来ステップ値計算
+        // 1.1. 水平流速更新
+        for(int idx = 0; idx < dataSize-1; ++ idx) {
+            if(step == 0)
+                uf[idx] = up[idx] - grav*(dt/dx)*(zp[idx+1]-zp[idx]);
+            else
+                uf[idx] = ub[idx] - 2*grav*(dt/dx)*(zp[idx+1]-zp[idx]);
+        }
+        // 1.2. 海面変位更新
+        for(int idx = 1; idx < dataSize-1; ++ idx) {
+            if(step == 0)
+                zf[idx] = zp[idx] - depth*(dt/dx)*(up[idx]-up[idx-1]);
+            else
+                zf[idx] = zb[idx] - 2*depth*(dt/dx)*(up[idx]-ip[idx-1]);
+        }
 
+        // 2. 境界条件設定
+        uf[0] = 0;
+        uf[dataSize-1] = 0;
+
+        // 3. 計算安定化処理(Asselin Filter)
+        if(step > 0)
+            for(int idx = 0; idx < dataSize; ++ idx) {
+                if(idx < dataSize-1)
+                    up[idx] = up[idx] + eps*(uf[idx]-2*up[idx]+ub[idx]);
+                zp[idx] = zp[idx] + eps*(zf[idx]-2*zp[idx]+zb[idx]);
+            }
+
+        // 4. ステップを進める
+        for(int idx = 0; idx < dataSize; ++ idx) {
+            ub[idx] = up[idx];
+            up[idx] = uf[idx];
+            zb[idx] = zp[idx];
+            zp[idx] = zf[idx];
+        }
     }
 
 }
