@@ -3,12 +3,11 @@ JAVAC := javac
 JAR := jar
 JLINK := $(JAVA_HOME)/bin/jlink
 
+SRCS := $(wildcard *.java */*.java)
 JAVAFX_MODULES := javafx.controls,javafx.base,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web
+
 OPTS := -p $(JAVAFX_PATH)/lib --add-modules $(JAVAFX_MODULES)
 JLINK_OPTS := --compress=2 --add-modules $(JAVAFX_MODULES) --module-path $(JAVAFX_PATH)/jmods
-
-SRCS := $(wildcard *.java */*.java)
-MANIFEST := MANIFEST.MF
 
 run: Main.class
 	$(JAVA) $(OPTS) Main
@@ -34,7 +33,7 @@ define gen-dist
 
 	# ビルド
 	$(JAVAC) $(OPTS) -d classes Main.java
-	$(JAR) cvfm dist/TsunamiSimulator-$1.jar $(MANIFEST) -C classes .
+	$(JAR) cvfm dist/TsunamiSimulator-$1.jar MANIFEST.MF -C classes .
 
 	# JRE生成
 	$(JLINK) $(JLINK_OPTS):$(JMODS_PATH) --output dist/runtime-$1
