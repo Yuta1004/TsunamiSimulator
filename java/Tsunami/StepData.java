@@ -1,3 +1,5 @@
+package Tsunami;
+
 public class StepData {
 
     private static final int H = 60*60;

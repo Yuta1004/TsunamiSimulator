@@ -27,6 +27,8 @@ import java.util.function.Consumer;
 import java.util.function.BiConsumer;
 
 import lib.NegativeBGAreaChart;
+import Tsunami.TsunamiSimulator;
+import Tsunami.StepData;
 
 public class Main extends Application {
 
