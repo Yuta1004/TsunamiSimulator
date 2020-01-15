@@ -28,6 +28,7 @@ import java.util.function.BiConsumer;
 
 import lib.NegativeBGAreaChart;
 import Tsunami.TsunamiSimulator;
+import Tsunami.TsunamiSimulatorEvenness;
 import Tsunami.TsunamiSimulatorUnevenness;
 import Tsunami.StepData;
 
@@ -149,9 +150,15 @@ public class Main extends Application {
      * シミュレータ初期化
      */
     private void initSimulator() {
+        // simulator = new TsunamiSimulatorEvenness();
+        // simulator.setDepth(100, 300);               // 海底の深さ: 100m, モデル海洋の幅: 300km,
+        // simulator.setClock(0, 0, 0);                // 時計を00:00:00に
+        // simulator.setSimulateTime(3, 0, 0);         // 3時間分シミュレートする
+        // simulator.setItrTimeStep(0, 1, 0);          // 1分単位でデータを取得する
+        // simulator.setWaveHeight(150, 11);           // 150kmの場所に11mの波
         simulator = new TsunamiSimulatorUnevenness();
         simulator.setDepth(dataFile);
-        simulator.setClock(12, 0, 0);           // 時計を12:00:00に
+        simulator.setClock(0, 0, 0);            // 時計を00:00:00に
         simulator.setSimulateTime(3, 0, 0);     // 3時間分シミュレートする
         simulator.setItrTimeStep(0, 1, 0);      // 1分間隔でデータを取得する
         simulator.setWaveHeight(115, -2);       // 115kmの場所に-2mの波
