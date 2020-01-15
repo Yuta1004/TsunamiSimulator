@@ -190,12 +190,6 @@ abstract public class TsunamiSimulator implements Iterable<StepData>, Iterator<S
     }
 
     /**
-     * シミュレータを1ステップ進める
-     * 継承先でオーバーライドする
-    */
-    abstract protected void step();
-
-    /**
      * エラーを吐く
      * 標準エラー出力にエラーであることを示すメッセージを出力する
      *
@@ -205,5 +199,12 @@ abstract public class TsunamiSimulator implements Iterable<StepData>, Iterator<S
         System.err.println("[ERROR] "+ msg);
         status = ERROR;
     }
+
+    /**
+     * シミュレータを1ステップ進める
+     * 継承先でオーバーライドする
+    */
+    abstract protected void step();
+
 
 }
