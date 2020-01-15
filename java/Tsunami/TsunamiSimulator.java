@@ -25,15 +25,16 @@ public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
     public static final int ERROR = 2;
 
     // 時間データ
-    protected int clock = 0*H + 0*M + 0*S;
-    protected int timeEnd = 3*H, itrTimeStep = 1*M;
+    private int step;
+    private int clock = 0*H + 0*M + 0*S;
+    private int timeEnd = 3*H, itrTimeStep = 1*M;
 
     // 計算用変数
-    private int step, dataSize;
-    private double dx, dt;
-    private double ub[], up[], uf[];    // 水平流速
-    private double zb[], zp[], zf[];    // 海面変位
-    private double x[], depth[];        // 位置(m)、深さ(m)
+    protected int dataSize;
+    protected double dx, dt;
+    protected double ub[], up[], uf[];    // 水平流速
+    protected double zb[], zp[], zf[];    // 海面変位
+    protected double x[], depth[];        // 位置(m)、深さ(m)
 
     /**
      * TsunamiSimulatorのコンストラクタ
@@ -143,8 +144,10 @@ public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
         if(status == ERROR)
             return null;
         StepData sdata = new StepData(clock, step, x, zp, depth);
-        for(int idx = 0; idx < (int)((double)itrTimeStep/dt); ++ idx)
+        for(int idx = 0; idx < (int)((double)itrTimeStep/dt); ++ idx) {
             step();
+            ++ step;
+        }
         clock += itrTimeStep;
         return sdata;
     }
@@ -233,7 +236,6 @@ public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
             }
 
         // 6. ステップ更新
-        ++ step;
         for(int idx = 0; idx < dataSize; ++ idx) {
             ub[idx] = up[idx];
             up[idx] = uf[idx];
