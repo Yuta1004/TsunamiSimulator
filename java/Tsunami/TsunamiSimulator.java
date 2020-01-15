@@ -1,12 +1,5 @@
 package Tsunami;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.Files;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.Iterator;
 
 abstract public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
@@ -19,43 +12,21 @@ abstract public class TsunamiSimulator implements Iterable<StepData>, Iterator<S
     public static final double eps = 0.01;
 
     // ステータス
-    private int status = 0;
+    protected int status = 0;
     public static final int READY = 0;
     public static final int RUNNING = 1;
     public static final int ERROR = 2;
 
     // 時間データ
-    private int step;
     private int clock = 0*H + 0*M + 0*S;
     private int timeEnd = 3*H, itrTimeStep = 1*M;
 
     // 計算用変数
-    protected int dataSize;
+    protected int step, dataSize;
     protected double dx, dt;
     protected double ub[], up[], uf[];    // 水平流速
     protected double zb[], zp[], zf[];    // 海面変位
     protected double x[], depth[];        // 位置(m)、深さ(m)
-
-    /**
-     * TsunamiSimulatorのコンストラクタ
-     * データ読み込み, 初期値の設定を行う
-     *
-     * @param depthFilePath 地形データファイルのパス
-     */
-    public TsunamiSimulator(String depthFilePath) {
-        loadDepthData(depthFilePath);
-        if(status == ERROR)
-            return;
-        ub = new double[dataSize];
-        up = new double[dataSize];
-        uf = new double[dataSize];
-        zb = new double[dataSize];
-        zp = new double[dataSize];
-        zf = new double[dataSize];
-        dx = (x[dataSize-1]-x[0]) / dataSize;
-        step = 0;
-        dt = 0.5;
-    }
 
     /**
      * 指定位置の波の高さをセットする
@@ -153,52 +124,29 @@ abstract public class TsunamiSimulator implements Iterable<StepData>, Iterator<S
     }
 
     /**
-     * 地形データを読み込んでx, depthにセットする
-     *
-     * @param depthFilePath 地形データファイルのパス
+     * 計算用変数を初期化する
+     * (depth, x以外)
      */
-    public void setDepth(String depthFilePath) {
-        // 存在チェック
-        Path path = Paths.get(depthFilePath);
-        if(!(path.toFile().exists())) {
-            error("地形データファイルが存在しません => "+path);
-            return;
-        }
-
-        // データファイル読み込み
-        List<String> dataLines = null;
-        try {
-            dataLines = Files.readAllLines(path, StandardCharsets.UTF_8);
-        } catch(Exception e) {
-            e.printStackTrace();
-            error("地形データファイル読み込み中にエラーが発生しました");
-            return;
-        }
-        dataSize = dataLines.size();
-
-        // 値設定
-        x = new double[dataSize];
-        depth = new double[dataSize];
-        for(int idx = 0; idx < dataLines.size(); ++ idx) {
-            String line = dataLines.get(idx);                       // x<\t>depth<\n>
-            x[idx] = Double.parseDouble(line.split("\t")[0]);       // x        (str->double)
-            x[idx] *= 1000;                                         // km->m
-            depth[idx] = Double.parseDouble(line.split("\t")[1]);   // depth    (str->double)
-            depth[idx] *= -1;                                       // +/-
-        }
-        status = READY;
+    protected void initVariables(int dataSize) {
+        this.dataSize = dataSize;
+        ub = new double[dataSize];
+        up = new double[dataSize];
+        uf = new double[dataSize];
+        zb = new double[dataSize];
+        zp = new double[dataSize];
+        zf = new double[dataSize];
+        dx = (x[dataSize-1]-x[0]) / dataSize;
+        step = 0;
+        dt = 0.5;
     }
 
     /**
-     * エラーを吐く
-     * 標準エラー出力にエラーであることを示すメッセージを出力する
+     * 地形データを読み込んでx, depthにセットする
      *
-     * @param msg メッセージ
+     * @param Object... 継承先で定義
+     * @throws IllegalArgumentException 引数の方が想定と異なる場合投げる
      */
-    private void error(String msg) {
-        System.err.println("[ERROR] "+ msg);
-        status = ERROR;
-    }
+    abstract public void setDepth(Object ... args) throws IllegalArgumentException;
 
     /**
      * シミュレータを1ステップ進める
