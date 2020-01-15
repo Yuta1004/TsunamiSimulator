@@ -34,7 +34,7 @@ public class TsunamiSimulatorEvenness extends TsunamiSimulator {
         // 引数チェック
         if(args.length == 2 && args[0] instanceof Number && args[1] instanceof Number) {
             depthVal = ((Number)(args[0])).doubleValue();
-            widthVal = ((Number)(args[1])).doubleValue();
+            widthVal = ((Number)(args[1])).doubleValue()*1000;
         } else {
             throw new IllegalArgumentException();
         }
