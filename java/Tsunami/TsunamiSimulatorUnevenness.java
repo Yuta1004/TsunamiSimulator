@@ -1,0 +1,112 @@
+package Tsunami;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+
+public class TsunamiSimulatorUnevenness extends TsunamiSimulator {
+
+    @Override
+    public void setDepth(Object ... args) throws IllegalArgumentException {
+        // 引数チェック
+        String depthFilePath;
+        if(args[0] instanceof String)
+            depthFilePath = (String)args[0];
+       else
+           throw new IllegalArgumentException();
+
+        // 存在チェック
+        Path path = Paths.get(depthFilePath);
+        if(!(path.toFile().exists())) {
+            error("地形データファイルが存在しません => "+path);
+            return;
+        }
+
+        // データファイル読み込み
+        List<String> dataLines = null;
+        try {
+            dataLines = Files.readAllLines(path, StandardCharsets.UTF_8);
+        } catch(Exception e) {
+            e.printStackTrace();
+            error("地形データファイル読み込み中にエラーが発生しました");
+            return;
+        }
+        dataSize = dataLines.size();
+
+        // 値設定
+        x = new double[dataSize];
+        depth = new double[dataSize];
+        for(int idx = 0; idx < dataLines.size(); ++ idx) {
+            String line = dataLines.get(idx);                       // x<\t>depth<\n>
+            x[idx] = Double.parseDouble(line.split("\t")[0]);       // x        (str->double)
+            x[idx] *= 1000;                                         // km->m
+            depth[idx] = Double.parseDouble(line.split("\t")[1]);   // depth    (str->double)
+            depth[idx] *= -1;                                       // +/-
+        }
+        initVariables(dataSize);
+        status = TsunamiSimulator.READY;
+    }
+
+    @Override
+    protected void step() {
+        // 1. 未来ステップ値計算
+        // 1-1. 水平流速更新
+        for(int idx = 0; idx < dataSize-1; ++ idx) {
+            if(step == 0)
+                uf[idx] = up[idx] - grav*(dt/dx)*(zp[idx+1]-zp[idx]);
+            else
+                uf[idx] = ub[idx] - 2*grav*(dt/dx)*(zp[idx+1]-zp[idx]);
+        }
+        // 1-2. 海面変位更新
+        for(int idx = 1; idx < dataSize-1; ++ idx) {
+            double depth0 = (depth[idx]+depth[idx-1]) * 0.5;
+            double depth1 = (depth[idx]+depth[idx+1]) * 0.5;
+            if(step == 0)
+                zf[idx] = zp[idx] - (dx/dx)*(depth1*up[idx]-depth0*up[idx-1]);
+            else
+                zf[idx] = zb[idx] - 2*(dt/dx)*(depth1*up[idx]-depth0*up[idx-1]);
+        }
+
+        // 2. 陸上で流速を0にする
+        for(int idx = 0; idx < dataSize-1; ++ idx) {
+            if((depth[idx]+depth[idx+1])*0.5 <= 0)
+                uf[idx] = 0;
+        }
+
+        // 3. 沖側に伝わる津波を強制的に減衰させる
+        for(int idx = dataSize-50; idx < dataSize; ++ idx) {
+            zf[idx] *= (dataSize-idx)/50.0;
+            uf[idx] *= (dataSize-idx)/50.0;
+        }
+
+        // 4. 境界条件セット
+        zf[0] = 0;
+        zf[dataSize-1] = 0;
+
+        // 5. 計算安定化処理
+        if(step > 0)
+            for(int idx = 0; idx < dataSize; ++ idx) {
+                if(idx < dataSize-1)
+                    up[idx] += eps * (uf[idx]-2*up[idx]+ub[idx]);
+                zp[idx] += eps * (zf[idx]-2*zp[idx]+zb[idx]);
+            }
+
+        // 6. ステップ更新
+        for(int idx = 0; idx < dataSize; ++ idx) {
+            ub[idx] = up[idx];
+            up[idx] = uf[idx];
+            zb[idx] = zp[idx];
+            zp[idx] = zf[idx];
+        }
+    }
+
+    private void error(String msg) {
+        System.out.println("[ERROR] "+msg);
+        status = TsunamiSimulator.ERROR;
+    }
+
+}
