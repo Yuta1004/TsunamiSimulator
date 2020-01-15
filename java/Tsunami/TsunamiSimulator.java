@@ -157,7 +157,7 @@ abstract public class TsunamiSimulator implements Iterable<StepData>, Iterator<S
      *
      * @param depthFilePath 地形データファイルのパス
      */
-    private void loadDepthData(String depthFilePath) {
+    public void setDepth(String depthFilePath) {
         // 存在チェック
         Path path = Paths.get(depthFilePath);
         if(!(path.toFile().exists())) {
@@ -205,6 +205,5 @@ abstract public class TsunamiSimulator implements Iterable<StepData>, Iterator<S
      * 継承先でオーバーライドする
     */
     abstract protected void step();
-
 
 }
