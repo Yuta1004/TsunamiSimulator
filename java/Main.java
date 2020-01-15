@@ -28,6 +28,7 @@ import java.util.function.BiConsumer;
 
 import lib.NegativeBGAreaChart;
 import Tsunami.TsunamiSimulator;
+import Tsunami.TsunamiSimulatorUnevenness;
 import Tsunami.StepData;
 
 public class Main extends Application {
@@ -148,7 +149,8 @@ public class Main extends Application {
      * シミュレータ初期化
      */
     private void initSimulator() {
-        simulator = new TsunamiSimulator(dataFile);
+        simulator = new TsunamiSimulatorUnevenness();
+        simulator.setDepth(dataFile);
         simulator.setClock(12, 0, 0);           // 時計を12:00:00に
         simulator.setSimulateTime(3, 0, 0);     // 3時間分シミュレートする
         simulator.setItrTimeStep(0, 1, 0);      // 1分間隔でデータを取得する
