@@ -123,9 +123,7 @@ abstract public class TsunamiSimulator implements Iterable<StepData>, Iterator<S
         zb = new double[dataSize];
         zp = new double[dataSize];
         zf = new double[dataSize];
-        dx = (x[dataSize-1]-x[0]) / dataSize;
         step = 0;
-        dt = 0.5;
     }
 
     /**

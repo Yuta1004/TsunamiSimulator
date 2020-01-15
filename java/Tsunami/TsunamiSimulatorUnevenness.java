@@ -56,7 +56,7 @@ public class TsunamiSimulatorUnevenness extends TsunamiSimulator {
         }
         dataSize = dataLines.size();
 
-        // 値設定
+        // x, depth設定
         x = new double[dataSize];
         depth = new double[dataSize];
         for(int idx = 0; idx < dataLines.size(); ++ idx) {
@@ -66,7 +66,11 @@ public class TsunamiSimulatorUnevenness extends TsunamiSimulator {
             depth[idx] = Double.parseDouble(line.split("\t")[1]);   // depth    (str->double)
             depth[idx] *= -1;                                       // +/-
         }
+
+        // その他計算用変数初期化
         initVariables(dataSize);
+        dx = (x[dataSize-1]-x[0]) / dataSize;
+        dt = 0.5;
         status = TsunamiSimulator.READY;
     }
 
