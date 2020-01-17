@@ -30,6 +30,7 @@ public class UIController implements Initializable {
     // シミュレータ
     private int simulatorMode;
     private TsunamiSimulator simulator;
+    private StepData tsunamiData;
     private static final int EVENNESS = 0;
     private static final int UNEVENNESS = 1;
     private NegativeBGAreaChart<Number, Number> tsunamiChart;
@@ -103,6 +104,8 @@ public class UIController implements Initializable {
         // 設定
         simulator.setItrTimeStep(0, 1, 0);      // データ取得間間隔 => 1分
         simulator.setSimulateTime(6, 0, 0);     // シミュレート時間 => 6時間
+        tsunamiData = simulator.next();
+        drawTsunami();
     }
 
     /**
@@ -137,6 +140,7 @@ public class UIController implements Initializable {
         AnchorPane.setBottomAnchor(tsunamiChart, 10.0);
         chartPane.getChildren().clear();
         chartPane.getChildren().add(tsunamiChart);
+        drawTsunami();
     }
 
     /**
@@ -167,7 +171,10 @@ public class UIController implements Initializable {
     /**
      * 津波を描画する
      */
-    private void drawTsunami(StepData data) {
+    private void drawTsunami() {
+        if(tsunamiData == null)
+            return;
+
         // XYChart設定
         XYChart.Series<Number, Number> seriesZ = new XYChart.Series<>();
         XYChart.Series<Number, Number> seriesDepth = new XYChart.Series<>();
@@ -175,9 +182,13 @@ public class UIController implements Initializable {
         seriesDepth.setName("Seabed");
 
         // データセット
-        for(int idx = 0; idx < data.x.length; ++ idx) {
-            seriesZ.getData().add(new XYChart.Data<Number, Number>(data.x[idx]/1000, data.z[idx]));
-            seriesDepth.getData().add(new XYChart.Data<Number, Number>(data.x[idx]/1000, -data.depth[idx]));
+        for(int idx = 0; idx < tsunamiData.x.length; ++ idx) {
+            seriesZ.getData().add(
+                new XYChart.Data<Number, Number>(tsunamiData.x[idx]/1000, tsunamiData.z[idx])
+            );
+            seriesDepth.getData().add(
+                new XYChart.Data<Number, Number>(tsunamiData.x[idx]/1000, -tsunamiData.depth[idx])
+            );
         }
         tsunamiChart.getData().clear();
         tsunamiChart.getData().add(seriesZ);
