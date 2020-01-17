@@ -51,7 +51,7 @@ public class UIController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // 初期化
         initAreaChart();
-        initSimulator((simulatorMode = EVENNESS));
+        initSimulator();
 
         // UI部品にactionを載せる
         setEvenness.setOnAction(event -> changeMode(EVENNESS)) ;
@@ -80,9 +80,9 @@ public class UIController implements Initializable {
     /**
      * simulatorを初期化する
      */
-    private void initSimulator(int type) {
+    private void initSimulator() {
         // 初期化
-        if(type == EVENNESS) {
+        if(simulatorMode == EVENNESS) {
             double depth, width;
             try {
                 depth = Double.parseDouble(depthVal.getText());
@@ -90,7 +90,7 @@ public class UIController implements Initializable {
             } catch(Exception e){ return; }
             simulator = new TsunamiSimulatorEvenness();
         }
-        if(type == UNEVENNESS) {
+        if(simulatorMode == UNEVENNESS) {
             simulator = new TsunamiSimulatorUnevenness();
             simulator.setDepth(getFilePath());
         }
