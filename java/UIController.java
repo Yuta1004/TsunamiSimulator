@@ -38,7 +38,7 @@ public class UIController implements Initializable {
     @FXML
     private AnchorPane chartPane;
     @FXML
-    private Button upClockH, upClockM, downClockH, downClockM;
+    private Button upClockH, upClockM, downClockH, downClockM, initBtn;
     @FXML
     private TextField widthVal, depthVal, upperHeightVal, lowerHeightVal;
     @FXML
@@ -54,6 +54,7 @@ public class UIController implements Initializable {
         initSimulator();
 
         // UI部品にactionを載せる
+        initBtn.setOnAction(event -> initSimulator());
         setEvenness.setOnAction(event -> changeMode(EVENNESS)) ;
         setUnevenness.setOnAction(event -> changeMode(UNEVENNESS));
         upClockH.setOnAction(event -> incClock(1, 0, 0));
