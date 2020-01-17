@@ -6,9 +6,13 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.io.File;
 
 import lib.NegativeBGAreaChart;
 import Tsunami.TsunamiSimulator;
@@ -58,12 +62,13 @@ public class UIController implements Initializable {
     private void initSimulator(int type) {
         // 初期化
         if(type == EVENNESS) {
-            simulator = new TsunamiSimulatorEvenness();
             modeLabel.setText("Evenness");
+            simulator = new TsunamiSimulatorEvenness();
         }
         if(type == UNEVENNESS) {
-            simulator = new TsunamiSimulatorUnevenness();
             modeLabel.setText("Unevenness");
+            simulator = new TsunamiSimulatorUnevenness();
+            simulator.setDepth(getFilePath());
         }
 
         // 設定
@@ -108,5 +113,18 @@ public class UIController implements Initializable {
         simulator.setClock(clock/H, clock/M%M, clock%M);
         clock = simulator.getClock();
         clockLabel.setText(String.format("%02d:%02d:%02d", clock/H, clock/M%M, clock%M));
+    }
+
+    /**
+     * ファイル選択を行ってもらい、その結果を返す
+     */
+    private String getFilePath() {
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Select DEPTH.data");
+        chooser.getExtensionFilters().add(
+                    new ExtensionFilter("DataFile", "*.data", "*.txt")
+                );
+        File file = chooser.showOpenDialog((Stage)chartPane.getScene().getWindow());
+        return file == null ? "" : file.getAbsolutePath();
     }
 }
