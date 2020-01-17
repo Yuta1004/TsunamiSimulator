@@ -29,7 +29,7 @@ abstract public class TsunamiSimulator implements Iterable<StepData>, Iterator<S
     protected double x[], depth[];        // 位置(m)、深さ(m)
 
     /**
-     * シミュレート開始時刻をセットする
+     * 内部時刻をセットする
      *
      * @param hour 時
      * @param min 分
@@ -37,6 +37,16 @@ abstract public class TsunamiSimulator implements Iterable<StepData>, Iterator<S
      */
     public void setClock(int hour, int min, int sec) {
         clock = hour*H + min*M + sec*S;
+        if(clock < 0)
+            clock += 24*H;
+        clock %= 24*H;
+    }
+
+    /**
+     * 内部時刻を取得する
+     */
+    public int getClock() {
+        return clock;
     }
 
     /**
