@@ -3,6 +3,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.layout.AnchorPane;
@@ -37,6 +38,8 @@ public class UIController implements Initializable {
     private AnchorPane chartPane;
     @FXML
     private Button upClockH, upClockM, downClockH, downClockM;
+    @FXML
+    private TextField widthVal, depthVal, upperHeightVal, lowerHeightVal;
 
     /**
      * 初期化処理
@@ -62,6 +65,11 @@ public class UIController implements Initializable {
     private void initSimulator(int type) {
         // 初期化
         if(type == EVENNESS) {
+            double depth, width;
+            try {
+                depth = Double.parseDouble(depthVal.getText());
+                width = Double.parseDouble(widthVal.getText());
+            } catch(Exception e){ return; }
             modeLabel.setText("Evenness");
             simulator = new TsunamiSimulatorEvenness();
         }
