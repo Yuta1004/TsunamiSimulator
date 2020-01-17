@@ -30,7 +30,6 @@
             <Menu mnemonicParsing="false" text="Propeties">
                <items>
                   <MenuItem mnemonicParsing="false" text="Add Wave" />
-                  <MenuItem mnemonicParsing="false" text="Set Width" />
                </items>
             </Menu>
       </menus>
