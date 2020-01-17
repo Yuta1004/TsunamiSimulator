@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -40,6 +41,8 @@ public class UIController implements Initializable {
     private Button upClockH, upClockM, downClockH, downClockM;
     @FXML
     private TextField widthVal, depthVal, upperHeightVal, lowerHeightVal;
+    @FXML
+    private HBox widthHBox, depthHBox;
 
     /**
      * 初期化処理
@@ -82,6 +85,8 @@ public class UIController implements Initializable {
         }
 
         // 設定
+        widthHBox.setVisible(type == EVENNESS);
+        depthHBox.setVisible(type == EVENNESS);
         simulator.setItrTimeStep(0, 1, 0);      // データ取得間間隔 => 1分
         simulator.setSimulateTime(6, 0, 0);     // シミュレート時間 => 6時間
     }
