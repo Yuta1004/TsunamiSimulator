@@ -80,6 +80,19 @@ abstract public class TsunamiSimulator implements Iterable<StepData>, Iterator<S
         return status;
     }
 
+    /**
+     * シミュレート情報をリセットする
+     */
+    public void reset() {
+        ub = new double[dataSize];
+        up = new double[dataSize];
+        uf = new double[dataSize];
+        zb = new double[dataSize];
+        zp = new double[dataSize];
+        zf = new double[dataSize];
+        status = READY;
+        step = 0;
+    }
 
     /**
      * Iterator
