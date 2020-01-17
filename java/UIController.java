@@ -64,6 +64,7 @@ public class UIController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // 初期化
         initAreaChart();
+        initSimulator();
 
         // UI部品にactionを載せる
         initBtn.setOnAction(event -> initSimulator());
@@ -167,7 +168,7 @@ public class UIController implements Initializable {
                 new KeyFrame(
                     Duration.seconds(TICK),
                     event -> {
-                        if(simulator == null || !simulator.hasNext()) {
+                        if(!simulator.hasNext()) {
                             tl.stop();
                         } else {
                             tsunamiData =simulator.next();
@@ -188,7 +189,15 @@ public class UIController implements Initializable {
         int clock = simulator.getClock();
         clock += hour*H + min*M + sec*S;
         simulator.setClock(clock/H, clock/M%M, clock%M);
-        clock = simulator.getClock();
+        updateClock();
+    }
+
+    /**
+     * 時刻表示更新
+     */
+    private void updateClock() {
+        int H = 60*60, M = 60, S = 1;
+        int clock = simulator.getClock();
         clockLabel.setText(String.format("%02d:%02d:%02d", clock/H, clock/M%M, clock%M));
     }
 
@@ -230,6 +239,7 @@ public class UIController implements Initializable {
         tsunamiChart.getData().clear();
         tsunamiChart.getData().add(seriesZ);
         tsunamiChart.getData().add(seriesDepth);
+        updateClock();
 
         // 色設定
         BiConsumer<XYChart.Series<Number, Number>, String> setColor = (series, color) -> {
