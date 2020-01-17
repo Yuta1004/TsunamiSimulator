@@ -76,7 +76,7 @@
                                           <Font size="22.0" />
                                        </font>
                                     </Button>
-                                    <Button minWidth="210.0" mnemonicParsing="false" prefHeight="37.0" text="Step" textAlignment="CENTER">
+                                    <Button fx:id="stepBtn" minWidth="210.0" mnemonicParsing="false" prefHeight="37.0" text="Step" textAlignment="CENTER">
                                        <font>
                                           <Font size="22.0" />
                                        </font>
