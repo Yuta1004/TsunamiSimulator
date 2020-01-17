@@ -51,7 +51,7 @@ public class UIController implements Initializable {
     @FXML
     private AnchorPane chartPane;
     @FXML
-    private Button upClockH, upClockM, downClockH, downClockM, initBtn, startBtn, stopBtn, stepBtn;
+    private Button upClockH, upClockM, downClockH, downClockM, initBtn, startBtn, stopBtn, stepBtn, resetBtn;
     @FXML
     private TextField widthVal, depthVal, upperHeightVal, lowerHeightVal;
     @FXML
@@ -68,6 +68,7 @@ public class UIController implements Initializable {
 
         // UI部品にactionを載せる
         initBtn.setOnAction(event -> initSimulator());
+        resetBtn.setOnAction(event -> { tl.stop(); simulator.reset(); tsunamiData = simulator.next(); drawTsunami(); });
         startBtn.setOnAction(event -> initTimeline());
         stepBtn.setOnAction(event -> { if(simulator.hasNext()) tsunamiData = simulator.next(); drawTsunami(); });
         stopBtn.setOnAction(event -> tl.stop());
