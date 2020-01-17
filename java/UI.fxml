@@ -81,7 +81,7 @@
                                           <Font size="22.0" />
                                        </font>
                                     </Button>
-                                    <Button minWidth="210.0" mnemonicParsing="false" prefHeight="37.0" text="Stop">
+                                    <Button fx:id="stopBtn" minWidth="210.0" mnemonicParsing="false" prefHeight="37.0" text="Stop">
                                        <font>
                                           <Font size="22.0" />
                                        </font>
