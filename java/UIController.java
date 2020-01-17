@@ -13,6 +13,10 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.animation.Timeline;
+import javafx.animation.KeyFrame;
+import javafx.animation.Animation;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,6 +30,10 @@ import Tsunami.TsunamiSimulatorEvenness;
 import Tsunami.TsunamiSimulatorUnevenness;
 
 public class UIController implements Initializable {
+
+    // アニメーション
+    private Timeline tl = new Timeline();
+    private double TICK = 0.5;
 
     // シミュレータ
     private int simulatorMode;
@@ -43,7 +51,7 @@ public class UIController implements Initializable {
     @FXML
     private AnchorPane chartPane;
     @FXML
-    private Button upClockH, upClockM, downClockH, downClockM, initBtn;
+    private Button upClockH, upClockM, downClockH, downClockM, initBtn, startBtn;
     @FXML
     private TextField widthVal, depthVal, upperHeightVal, lowerHeightVal;
     @FXML
@@ -59,6 +67,7 @@ public class UIController implements Initializable {
 
         // UI部品にactionを載せる
         initBtn.setOnAction(event -> initSimulator());
+        startBtn.setOnAction(event -> initTimeline());
         setEvenness.setOnAction(event -> changeMode(EVENNESS)) ;
         setUnevenness.setOnAction(event -> changeMode(UNEVENNESS));
         upClockH.setOnAction(event -> incClock(1, 0, 0));
@@ -87,6 +96,7 @@ public class UIController implements Initializable {
      */
     private void initSimulator() {
         // 初期化
+        tl.stop();
         if(simulatorMode == EVENNESS) {
             double depth, width;
             try {
@@ -104,6 +114,8 @@ public class UIController implements Initializable {
         // 設定
         simulator.setItrTimeStep(0, 1, 0);      // データ取得間間隔 => 1分
         simulator.setSimulateTime(6, 0, 0);     // シミュレート時間 => 6時間
+        simulator.setWaveHeight(115, -2);
+        simulator.setWaveHeight(225, 5);
         tsunamiData = simulator.next();
         drawTsunami();
     }
@@ -141,6 +153,29 @@ public class UIController implements Initializable {
         chartPane.getChildren().clear();
         chartPane.getChildren().add(tsunamiChart);
         drawTsunami();
+    }
+
+    /**
+     * Timeline初期化
+     */
+    private void initTimeline() {
+        if(tl.getStatus().equals(Animation.Status.RUNNING))
+            return;
+        tl = new Timeline(
+                new KeyFrame(
+                    Duration.seconds(TICK),
+                    event -> {
+                        if(simulator == null || !simulator.hasNext()) {
+                            tl.stop();
+                        } else {
+                            tsunamiData =simulator.next();
+                            drawTsunami();
+                         }
+                    }
+                )
+            );
+        tl.setCycleCount(Timeline.INDEFINITE);
+        tl.play();
     }
 
     /**
