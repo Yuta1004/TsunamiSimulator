@@ -11,6 +11,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -19,7 +20,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800.0" minWidth="1280.0" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -57,7 +58,7 @@
                     <content>
                       <AnchorPane focusTraversable="true" minHeight="0.0" minWidth="0.0">
                            <children>
-                              <VBox alignment="TOP_CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <VBox alignment="TOP_CENTER" spacing="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
                                     <Pane prefHeight="17.0" />
                                     <Text fx:id="modeLabel" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Evenness" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="184.3386096158606">
@@ -65,13 +66,11 @@
                                           <Font name="Cochin" size="39.0" />
                                        </font>
                                     </Text>
-                                    <Pane prefHeight="17.0" />
                                     <Text fx:id="clockLabel" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00:00" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="249.3814562955481">
                                        <font>
                                           <Font name="Cochin" size="55.0" />
                                        </font>
                                     </Text>
-                                    <Pane prefHeight="10.0" />
                                     <HBox alignment="CENTER" prefHeight="55.0" prefWidth="217.0" spacing="20.0">
                                        <children>
                                           <Button fx:id="clockHUpBtn" mnemonicParsing="false" text="H+" />
@@ -80,30 +79,76 @@
                                           <Button fx:id="clochHMinusBtn" mnemonicParsing="false" text="H-" />
                                        </children>
                                     </HBox>
-                                    <Pane prefHeight="40.0" />
+                                    <Pane prefHeight="25.0" />
                                     <Button fx:id="initializeBtn" minWidth="210.0" mnemonicParsing="false" prefHeight="37.0" text="Initialize" textAlignment="CENTER">
                                        <font>
                                           <Font size="23.0" />
                                        </font>
                                     </Button>
-                                    <Pane prefHeight="16.0" />
                                     <Button fx:id="startBtn" minWidth="210.0" mnemonicParsing="false" prefHeight="37.0" text="Start" textAlignment="CENTER">
                                        <font>
                                           <Font size="22.0" />
                                        </font>
                                     </Button>
-                                    <Pane prefHeight="16.0" />
                                     <Button fx:id="stepBtn" minWidth="210.0" mnemonicParsing="false" prefHeight="37.0" text="Step" textAlignment="CENTER">
                                        <font>
                                           <Font size="22.0" />
                                        </font>
                                     </Button>
-                                    <Pane prefHeight="16.0" />
                                     <Button fx:id="stopBtn" minWidth="210.0" mnemonicParsing="false" prefHeight="37.0" text="Stop">
                                        <font>
                                           <Font size="22.0" />
                                        </font>
                                     </Button>
+                                    <Pane prefHeight="30.0" />
+                                    <HBox alignment="CENTER" spacing="10.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Width">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Text>
+                                          <Pane prefHeight="16.0" />
+                                          <TextField prefWidth="60.0" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="m">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" spacing="10.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Upper Height">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Text>
+                                          <Pane prefHeight="16.0" />
+                                          <TextField prefWidth="60.0" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="m">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" spacing="10.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lower Height">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Text>
+                                          <Pane prefHeight="16.0" />
+                                          <TextField prefWidth="60.0" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="m">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </HBox>
                                  </children>
                               </VBox>
                            </children>
