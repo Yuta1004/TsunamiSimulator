@@ -54,14 +54,27 @@ public class UIController implements Initializable {
         initSimulator((simulatorMode = EVENNESS));
 
         // UI部品にactionを載せる
-        setEvenness.setOnAction(event -> initSimulator(EVENNESS));
-        setUnevenness.setOnAction(event -> initSimulator(UNEVENNESS));
+        setEvenness.setOnAction(event -> changeMode(EVENNESS)) ;
+        setUnevenness.setOnAction(event -> changeMode(UNEVENNESS));
         upClockH.setOnAction(event -> incClock(1, 0, 0));
         upClockM.setOnAction(event -> incClock(0, 1, 0));
         downClockH.setOnAction(event -> incClock(-1, 0, 0));
         downClockM.setOnAction(event -> incClock(0, -1, 0));
         upperHeightVal.textProperty().addListener((obs, oldText, newText) -> initAreaChart());
         lowerHeightVal.textProperty().addListener((obs, oldText, newText) -> initAreaChart());
+    }
+
+    /**
+     * モード変更
+     */
+    private void changeMode(int mode) {
+        simulatorMode = mode;
+        if(mode == EVENNESS)
+            modeLabel.setText("Evenness");
+        else
+            modeLabel.setText("Unevenness");
+        widthHBox.setVisible(mode == EVENNESS);
+        depthHBox.setVisible(mode == EVENNESS);
     }
 
     /**
@@ -75,18 +88,14 @@ public class UIController implements Initializable {
                 depth = Double.parseDouble(depthVal.getText());
                 width = Double.parseDouble(widthVal.getText());
             } catch(Exception e){ return; }
-            modeLabel.setText("Evenness");
             simulator = new TsunamiSimulatorEvenness();
         }
         if(type == UNEVENNESS) {
-            modeLabel.setText("Unevenness");
             simulator = new TsunamiSimulatorUnevenness();
             simulator.setDepth(getFilePath());
         }
 
         // 設定
-        widthHBox.setVisible(type == EVENNESS);
-        depthHBox.setVisible(type == EVENNESS);
         simulator.setItrTimeStep(0, 1, 0);      // データ取得間間隔 => 1分
         simulator.setSimulateTime(6, 0, 0);     // シミュレート時間 => 6時間
     }
