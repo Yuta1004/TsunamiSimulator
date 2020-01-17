@@ -50,13 +50,15 @@ public class UIController implements Initializable {
         initAreaChart();
         initSimulator((simulatorMode = EVENNESS));
 
-        // UI部品にonActionを載せる
+        // UI部品にactionを載せる
         setEvenness.setOnAction(event -> initSimulator(EVENNESS));
         setUnevenness.setOnAction(event -> initSimulator(UNEVENNESS));
         upClockH.setOnAction(event -> incClock(1, 0, 0));
         upClockM.setOnAction(event -> incClock(0, 1, 0));
         downClockH.setOnAction(event -> incClock(-1, 0, 0));
         downClockM.setOnAction(event -> incClock(0, -1, 0));
+        upperHeightVal.textProperty().addListener((obs, oldText, newText) -> initAreaChart());
+        lowerHeightVal.textProperty().addListener((obs, oldText, newText) -> initAreaChart());
     }
 
     /**
@@ -88,14 +90,21 @@ public class UIController implements Initializable {
      * AreaChartを初期化する(NegativeBGAreaChart)
      */
     private void initAreaChart() {
+        // 値取得
+        double upperHeight, lowerHeight;
+        try {
+            upperHeight = Double.parseDouble(upperHeightVal.getText());
+            lowerHeight = Double.parseDouble(lowerHeightVal.getText());
+        } catch (Exception e) { return; }
+
         // x, y軸
         NumberAxis xAxis = new NumberAxis();
         NumberAxis yAxis = new NumberAxis();
         xAxis.setLabel("Distance(km)");
         yAxis.setLabel("Height(m)");
         yAxis.setAutoRanging(false);
-        yAxis.setLowerBound(-10);
-        yAxis.setUpperBound(20);
+        yAxis.setLowerBound(lowerHeight);
+        yAxis.setUpperBound(upperHeight);
 
         // グラフ設定
         tsunamiChart = new NegativeBGAreaChart<>(xAxis, yAxis);
