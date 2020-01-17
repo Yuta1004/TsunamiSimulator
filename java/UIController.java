@@ -2,6 +2,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,15 +19,23 @@ public class UIController implements Initializable {
     private static final int EVENNESS = 0;
     private static final int UNEVENNESS = 1;
 
+    // UI部品
     @FXML
-    private Label clockLabel;
+    private Label clockLabel, modeLabel;
+    @FXML
+    private MenuItem setEvenness, setUnevenness;
 
     /**
      * 初期化処理
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // 初期化
         initSimulator((simulatorMode = EVENNESS));
+
+        // UI部品にonActionを載せる
+        setEvenness.setOnAction(event -> initSimulator(EVENNESS));
+        setUnevenness.setOnAction(event -> initSimulator(UNEVENNESS));
     }
 
     /**
@@ -36,9 +45,11 @@ public class UIController implements Initializable {
         // 初期化
         if(type == EVENNESS) {
             simulator = new TsunamiSimulatorEvenness();
+            modeLabel.setText("Evenness");
         }
         if(type == UNEVENNESS) {
             simulator = new TsunamiSimulatorUnevenness();
+            modeLabel.setText("Unevenness");
         }
 
         // 設定

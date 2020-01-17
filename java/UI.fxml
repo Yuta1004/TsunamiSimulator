@@ -26,8 +26,8 @@
       <menus>
         <Menu mnemonicParsing="false" text="Mode">
           <items>
-            <MenuItem mnemonicParsing="false" text="Envenness" />
-                  <MenuItem mnemonicParsing="false" text="Unenvenness" />
+            <MenuItem fx:id="setEvenness" mnemonicParsing="false" text="Envenness" />
+                  <MenuItem fx:id="setUnevenness" mnemonicParsing="false" text="Unenvenness" />
           </items>
         </Menu>
             <Menu mnemonicParsing="false" text="Propeties">
@@ -61,11 +61,11 @@
                               <VBox alignment="TOP_CENTER" spacing="15.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
                                  <children>
                                     <Pane prefHeight="17.0" />
-                                    <Text stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Evenness" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="184.3386096158606">
+                                    <Label fx:id="modeLabel" text="Evenness">
                                        <font>
-                                          <Font name="Cochin" size="39.0" />
+                                          <Font name="Cochin" size="40.0" />
                                        </font>
-                                    </Text>
+                                    </Label>
                                     <Label fx:id="clockLabel" text="00:00:00" textAlignment="CENTER">
                                        <font>
                                           <Font name="Cochin" size="55.0" />
