@@ -12,7 +12,7 @@ JLINK_OPTS := --compress=2 --add-modules $(JAVAFX_MODULES) --module-path $(JAVAF
 run: Main.class
 	$(JAVA) $(OPTS) Main
 
-Main.class: $(SRCS)
+Main.class: $(SRCS) UI.fxml
 	$(JAVAC) $(OPTS) Main.java
 
 dist-darwin:
