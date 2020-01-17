@@ -55,7 +55,7 @@ public class TsunamiSimulatorEvenness extends TsunamiSimulator {
 
         // x, depthセット
         for(int idx = 0; idx < dataSize; ++ idx) {
-            x[idx] = widthVal/dataSize*idx*1000;
+            x[idx] = widthVal/dataSize*idx;
             depth[idx] = depthVal;
         }
 
