@@ -1,6 +1,5 @@
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -16,8 +15,9 @@ public class Main extends Application {
     public void start(Stage stage) {
         try {
             // Scene
-            Parent root = FXMLLoader.load(getClass().getResource("UI.fxml"));
-            Scene scene = new Scene(root);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("UI.fxml"));
+            loader.setController(new UIController());
+            Scene scene = new Scene(loader.load());
 
             // Stage
             stage.setTitle("Tsunami Simulator Java Edetion");

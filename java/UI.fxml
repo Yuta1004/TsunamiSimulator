@@ -38,7 +38,7 @@
             </Menu>
       </menus>
     </MenuBar>
-    <SplitPane dividerPositions="0.7871674491392802" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.7895148669796557" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <items>
         <AnchorPane prefHeight="550.0" prefWidth="562.0">
           <children>
@@ -58,7 +58,7 @@
                     <content>
                       <AnchorPane focusTraversable="true" minHeight="0.0" minWidth="0.0">
                            <children>
-                              <VBox alignment="TOP_CENTER" spacing="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <VBox alignment="TOP_CENTER" spacing="15.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
                                  <children>
                                     <Pane prefHeight="17.0" />
                                     <Text stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Evenness" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="184.3386096158606">
@@ -66,11 +66,11 @@
                                           <Font name="Cochin" size="39.0" />
                                        </font>
                                     </Text>
-                                    <Text stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00:00" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="249.3814562955481">
+                                    <Label fx:id="clockLabel" text="00:00:00" textAlignment="CENTER">
                                        <font>
                                           <Font name="Cochin" size="55.0" />
                                        </font>
-                                    </Text>
+                                    </Label>
                                     <HBox alignment="CENTER" prefHeight="55.0" prefWidth="217.0" spacing="20.0">
                                        <children>
                                           <Button mnemonicParsing="false" text="H+" />
