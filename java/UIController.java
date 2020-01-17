@@ -31,6 +31,8 @@ public class UIController implements Initializable {
     private MenuItem setEvenness, setUnevenness;
     @FXML
     private AnchorPane chartPane;
+    @FXML
+    private Button upClockH, upClockM, downClockH, downClockM;
 
     /**
      * 初期化処理
@@ -44,6 +46,10 @@ public class UIController implements Initializable {
         // UI部品にonActionを載せる
         setEvenness.setOnAction(event -> initSimulator(EVENNESS));
         setUnevenness.setOnAction(event -> initSimulator(UNEVENNESS));
+        upClockH.setOnAction(event -> incClock(1, 0, 0));
+        upClockM.setOnAction(event -> incClock(0, 1, 0));
+        downClockH.setOnAction(event -> incClock(-1, 0, 0));
+        downClockM.setOnAction(event -> incClock(0, -1, 0));
     }
 
     /**
@@ -90,5 +96,17 @@ public class UIController implements Initializable {
         AnchorPane.setBottomAnchor(tsunamiChart, 10.0);
         chartPane.getChildren().clear();
         chartPane.getChildren().add(tsunamiChart);
+    }
+
+    /**
+     * 時刻設定
+     */
+    private void incClock(int hour, int min, int sec) {
+        int H = 60*60, M = 60, S = 1;
+        int clock = simulator.getClock();
+        clock += hour*H + min*M + sec*S;
+        simulator.setClock(clock/H, clock/M%M, clock%M);
+        clock = simulator.getClock();
+        clockLabel.setText(String.format("%02d:%02d:%02d", clock/H, clock/M%M, clock%M));
     }
 }

@@ -59,10 +59,10 @@
                                     </Label>
                                     <HBox alignment="CENTER" prefHeight="55.0" prefWidth="217.0" spacing="20.0">
                                        <children>
-                                          <Button mnemonicParsing="false" text="H+" />
-                                          <Button mnemonicParsing="false" text="M+" />
-                                          <Button mnemonicParsing="false" text="M-" />
-                                          <Button mnemonicParsing="false" text="H-" />
+                                          <Button fx:id="upClockH" mnemonicParsing="false" text="H+" />
+                                          <Button fx:id="upClockM" mnemonicParsing="false" text="M+" />
+                                          <Button fx:id="downClockM" mnemonicParsing="false" text="M-" />
+                                          <Button fx:id="downClockH" mnemonicParsing="false" text="H-" />
                                        </children>
                                     </HBox>
                                     <Pane prefHeight="25.0" />
