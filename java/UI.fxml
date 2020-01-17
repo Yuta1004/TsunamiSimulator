@@ -29,6 +29,12 @@
                   <MenuItem fx:id="setUnevennessMode" mnemonicParsing="false" text="Unenvenness" />
           </items>
         </Menu>
+            <Menu mnemonicParsing="false" text="Propeties">
+               <items>
+                  <MenuItem fx:id="setEvennessMode1" mnemonicParsing="false" text="Add Wave" />
+                  <MenuItem fx:id="setUnevennessMode1" mnemonicParsing="false" text="Set Width" />
+               </items>
+            </Menu>
       </menus>
     </MenuBar>
     <SplitPane dividerPositions="0.7871674491392802" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
@@ -53,19 +59,19 @@
                            <children>
                               <VBox alignment="TOP_CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Pane prefHeight="17.0" prefWidth="217.0" />
+                                    <Pane prefHeight="17.0" />
                                     <Text fx:id="modeLabel" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Evenness" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="184.3386096158606">
                                        <font>
                                           <Font name="Cochin" size="39.0" />
                                        </font>
                                     </Text>
-                                    <Pane prefHeight="17.0" prefWidth="217.0" />
+                                    <Pane prefHeight="17.0" />
                                     <Text fx:id="clockLabel" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00:00" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="249.3814562955481">
                                        <font>
                                           <Font name="Cochin" size="55.0" />
                                        </font>
                                     </Text>
-                                    <Pane prefHeight="10.0" prefWidth="200.0" />
+                                    <Pane prefHeight="10.0" />
                                     <HBox alignment="CENTER" prefHeight="55.0" prefWidth="217.0" spacing="20.0">
                                        <children>
                                           <Button fx:id="clockHUpBtn" mnemonicParsing="false" text="H+" />
@@ -74,31 +80,30 @@
                                           <Button fx:id="clochHMinusBtn" mnemonicParsing="false" text="H-" />
                                        </children>
                                     </HBox>
-                                    <Pane prefHeight="37.0" prefWidth="217.0" />
-                                    <Button fx:id="initializeBtn" mnemonicParsing="false" prefHeight="37.0" prefWidth="210.0" text="Initialize" textAlignment="CENTER">
+                                    <Pane prefHeight="40.0" />
+                                    <Button fx:id="initializeBtn" minWidth="210.0" mnemonicParsing="false" prefHeight="37.0" text="Initialize" textAlignment="CENTER">
                                        <font>
                                           <Font size="23.0" />
                                        </font>
                                     </Button>
-                                    <Pane prefHeight="16.0" prefWidth="217.0" />
-                                    <Button fx:id="startBtn" mnemonicParsing="false" prefHeight="37.0" prefWidth="210.0" text="Start" textAlignment="CENTER">
+                                    <Pane prefHeight="16.0" />
+                                    <Button fx:id="startBtn" minWidth="210.0" mnemonicParsing="false" prefHeight="37.0" text="Start" textAlignment="CENTER">
                                        <font>
                                           <Font size="22.0" />
                                        </font>
                                     </Button>
-                                    <Pane prefHeight="16.0" prefWidth="217.0" />
-                                    <Button fx:id="stepBtn" mnemonicParsing="false" prefHeight="37.0" prefWidth="209.0" text="Step" textAlignment="CENTER">
+                                    <Pane prefHeight="16.0" />
+                                    <Button fx:id="stepBtn" minWidth="210.0" mnemonicParsing="false" prefHeight="37.0" text="Step" textAlignment="CENTER">
                                        <font>
                                           <Font size="22.0" />
                                        </font>
                                     </Button>
-                                    <Pane prefHeight="16.0" prefWidth="217.0" />
-                                    <Button fx:id="stopBtn" mnemonicParsing="false" prefHeight="37.0" prefWidth="210.0" text="Stop">
+                                    <Pane prefHeight="16.0" />
+                                    <Button fx:id="stopBtn" minWidth="210.0" mnemonicParsing="false" prefHeight="37.0" text="Stop">
                                        <font>
                                           <Font size="22.0" />
                                        </font>
                                     </Button>
-                                    <Pane prefHeight="16.0" prefWidth="217.0" />
                                  </children>
                               </VBox>
                            </children>
