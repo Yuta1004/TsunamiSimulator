@@ -6,8 +6,10 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.Node;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -15,8 +17,10 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.io.File;
+import java.util.function.BiConsumer;
 
 import lib.NegativeBGAreaChart;
+import Tsunami.StepData;
 import Tsunami.TsunamiSimulator;
 import Tsunami.TsunamiSimulatorEvenness;
 import Tsunami.TsunamiSimulatorUnevenness;
@@ -51,7 +55,6 @@ public class UIController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // 初期化
         initAreaChart();
-        initSimulator();
 
         // UI部品にactionを載せる
         initBtn.setOnAction(event -> initSimulator());
@@ -90,6 +93,7 @@ public class UIController implements Initializable {
                 width = Double.parseDouble(widthVal.getText());
             } catch(Exception e){ return; }
             simulator = new TsunamiSimulatorEvenness();
+            simulator.setDepth(depth, width);
         }
         if(simulatorMode == UNEVENNESS) {
             simulator = new TsunamiSimulatorUnevenness();
@@ -159,4 +163,35 @@ public class UIController implements Initializable {
         File file = chooser.showOpenDialog((Stage)chartPane.getScene().getWindow());
         return file == null ? "" : file.getAbsolutePath();
     }
+
+    /**
+     * 津波を描画する
+     */
+    private void drawTsunami(StepData data) {
+        // XYChart設定
+        XYChart.Series<Number, Number> seriesZ = new XYChart.Series<>();
+        XYChart.Series<Number, Number> seriesDepth = new XYChart.Series<>();
+        seriesZ.setName("Tsunami");
+        seriesDepth.setName("Seabed");
+
+        // データセット
+        for(int idx = 0; idx < data.x.length; ++ idx) {
+            seriesZ.getData().add(new XYChart.Data<Number, Number>(data.x[idx]/1000, data.z[idx]));
+            seriesDepth.getData().add(new XYChart.Data<Number, Number>(data.x[idx]/1000, -data.depth[idx]));
+        }
+        tsunamiChart.getData().clear();
+        tsunamiChart.getData().add(seriesZ);
+        tsunamiChart.getData().add(seriesDepth);
+
+        // 色設定
+        BiConsumer<XYChart.Series<Number, Number>, String> setColor = (series, color) -> {
+            Node fill = series.getNode().lookup(".chart-series-area-fill");
+            Node line = series.getNode().lookup(".chart-series-area-line");
+            fill.setStyle("-fx-fill: rgba("+color+", 0.3);");
+            line.setStyle("-fx-stroke: rgba("+color+", 1.0);");
+        };
+        setColor.accept(seriesZ, "70, 130, 255");
+        setColor.accept(seriesDepth, "200, 120, 0");
+    }
+
 }
