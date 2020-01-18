@@ -60,8 +60,8 @@
                                        <children>
                                           <Button fx:id="upClockH" mnemonicParsing="false" text="H+" />
                                           <Button fx:id="upClockM" mnemonicParsing="false" text="M+" />
-                                          <Button fx:id="downClockM" mnemonicParsing="false" text="M-" />
                                           <Button fx:id="downClockH" mnemonicParsing="false" text="H-" />
+                                          <Button fx:id="downClockM" mnemonicParsing="false" text="M-" />
                                        </children>
                                     </HBox>
                                     <Pane prefHeight="25.0" />
