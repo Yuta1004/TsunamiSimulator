@@ -28,7 +28,7 @@
                               <Font size="21.0" />
                            </font>
                         </Text>
-                        <TextField prefWidth="60.0" />
+                        <TextField fx:id="distVal" prefWidth="60.0" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="km">
                            <font>
                               <Font size="22.0" />
@@ -43,7 +43,7 @@
                               <Font size="21.0" />
                            </font>
                         </Text>
-                        <TextField prefWidth="60.0" />
+                        <TextField fx:id="heightVal" prefWidth="60.0" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="km">
                            <font>
                               <Font size="22.0" />
