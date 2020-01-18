@@ -91,7 +91,7 @@ abstract public class TsunamiSimulator {
      * @param Object... 継承先で定義
      * @throws IllegalArgumentException 引数の方が想定と異なる場合投げる
      */
-    abstract public void setDepth(Object ... args) throws IllegalArgumentException;
+    abstract public boolean setDepth(Object ... args) throws IllegalArgumentException;
 
     /**
      * 指定位置の波の高さをセットする

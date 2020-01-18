@@ -31,7 +31,7 @@ public class TsunamiSimulatorEvenness extends TsunamiSimulator {
      * @param width モデル海洋の幅(km) Number
      */
     @Override
-    public void setDepth(Object ... args) throws IllegalArgumentException {
+    public boolean setDepth(Object ... args) throws IllegalArgumentException {
         // 引数チェック
         if(args.length == 2 && args[0] instanceof Number && args[1] instanceof Number) {
             depthVal = ((Number)(args[0])).doubleValue();
@@ -57,7 +57,7 @@ public class TsunamiSimulatorEvenness extends TsunamiSimulator {
             x[idx] = widthVal/dataSize*idx;
             depth[idx] = depthVal;
         }
-
+        return true;
     }
 
     @Override

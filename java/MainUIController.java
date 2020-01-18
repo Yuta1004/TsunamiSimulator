@@ -102,8 +102,8 @@ public class MainUIController implements Initializable {
      * simulatorを初期化する
      */
     private void initSimulator() {
-        // 初期化
         tl.stop();
+
         if(simulatorMode == EVENNESS) {
             double depth, width;
             try {
@@ -113,9 +113,14 @@ public class MainUIController implements Initializable {
             simulator = new TsunamiSimulatorEvenness();
             simulator.setDepth(depth, width);
         }
+
         if(simulatorMode == UNEVENNESS) {
+            TsunamiSimulator oldSimulator = simulator;
             simulator = new TsunamiSimulatorUnevenness();
-            simulator.setDepth(getFilePath());
+            if(!simulator.setDepth(getFilePath())) {
+                simulator = oldSimulator;
+                return;
+            }
         }
 
         // 設定

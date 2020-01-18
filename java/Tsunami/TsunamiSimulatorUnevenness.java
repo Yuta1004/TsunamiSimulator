@@ -30,7 +30,7 @@ public class TsunamiSimulatorUnevenness extends TsunamiSimulator {
      * @throws IllegalArgumentException 引数の方が想定と異なる場合投げる
      */
     @Override
-    public void setDepth(Object ... args) throws IllegalArgumentException {
+    public boolean setDepth(Object ... args) throws IllegalArgumentException {
         // 引数チェック
         String depthFilePath;
         if(args[0] instanceof String)
@@ -42,7 +42,7 @@ public class TsunamiSimulatorUnevenness extends TsunamiSimulator {
         Path path = Paths.get(depthFilePath);
         if(!(path.toFile().exists())) {
             error("地形データファイルが存在しません => "+path);
-            return;
+            return false;
         }
 
         // データファイル読み込み
@@ -52,7 +52,7 @@ public class TsunamiSimulatorUnevenness extends TsunamiSimulator {
         } catch(Exception e) {
             e.printStackTrace();
             error("地形データファイル読み込み中にエラーが発生しました");
-            return;
+            return false;
         }
         dataSize = dataLines.size();
 
@@ -76,6 +76,7 @@ public class TsunamiSimulatorUnevenness extends TsunamiSimulator {
         zf = new double[dataSize];
         dx = (x[dataSize-1]-x[0]) / dataSize;
         dt = 0.5;
+        return true;
     }
 
     /**
