@@ -70,7 +70,7 @@ public class MainUIController implements Initializable {
 
         // UI部品にactionを載せる
         initBtn.setOnAction(event -> initSimulator());
-        resetBtn.setOnAction(event -> { tl.stop(); simulator.reset(); simulator.next(); draw(); });
+        resetBtn.setOnAction(event -> { tl.stop(); simulator.reset(); draw(); });
         startBtn.setOnAction(event -> initTimeline());
         stepBtn.setOnAction(event -> { simulator.next(); draw(); });
         stopBtn.setOnAction(event -> tl.stop());

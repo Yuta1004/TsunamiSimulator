@@ -63,6 +63,7 @@ abstract public class TsunamiSimulator {
         zp = new double[dataSize];
         zf = new double[dataSize];
         step = 0;
+        clock = 0;
     }
 
     /**
