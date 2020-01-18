@@ -1,5 +1,8 @@
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
@@ -9,8 +12,8 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.Node;
 import javafx.stage.Stage;
+import javafx.stage.Modality;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.animation.Timeline;
@@ -47,7 +50,7 @@ public class UIController implements Initializable {
     @FXML
     private Label clockLabel, modeLabel;
     @FXML
-    private MenuItem setEvenness, setUnevenness;
+    private MenuItem setEvenness, setUnevenness, addWaveMenu;
     @FXML
     private AnchorPane chartPane;
     @FXML
@@ -72,8 +75,9 @@ public class UIController implements Initializable {
         startBtn.setOnAction(event -> initTimeline());
         stepBtn.setOnAction(event -> { if(simulator.hasNext()) tsunamiData = simulator.next(); drawTsunami(); });
         stopBtn.setOnAction(event -> tl.stop());
-        setEvenness.setOnAction(event -> changeMode(EVENNESS)) ;
+        setEvenness.setOnAction(event -> changeMode(EVENNESS));
         setUnevenness.setOnAction(event -> changeMode(UNEVENNESS));
+        addWaveMenu.setOnAction(event -> addWave());
         upClockH.setOnAction(event -> incClock(1, 0, 0));
         upClockM.setOnAction(event -> incClock(0, 1, 0));
         downClockH.setOnAction(event -> incClock(-1, 0, 0));
@@ -213,6 +217,25 @@ public class UIController implements Initializable {
                 );
         File file = chooser.showOpenDialog((Stage)chartPane.getScene().getWindow());
         return file == null ? "" : file.getAbsolutePath();
+    }
+
+    /**
+     * 新しいダイアログを立ち上げて入力された内容をもとに波を追加する
+     */
+    private void addWave() {
+        // FXML読み込み
+        Scene scene = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("AddWaveUI.fxml"));
+            loader.setController(new AddWaveUIController());
+            scene = new Scene(loader.load());
+        } catch (Exception e){ return; }
+
+        // ダイアログ立ち上げ
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
     }
 
     /**
