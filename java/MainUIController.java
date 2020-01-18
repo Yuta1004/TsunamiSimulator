@@ -71,9 +71,9 @@ public class MainUIController implements Initializable {
 
         // UI部品にactionを載せる
         initBtn.setOnAction(event -> initSimulator());
-        resetBtn.setOnAction(event -> { tl.stop(); simulator.reset(); tsunamiData = simulator.next(); drawTsunami(); });
+        resetBtn.setOnAction(event -> { tl.stop(); simulator.reset(); tsunamiData = simulator.next(); draw(); });
         startBtn.setOnAction(event -> initTimeline());
-        stepBtn.setOnAction(event -> { if(simulator.hasNext()) tsunamiData = simulator.next(); drawTsunami(); });
+        stepBtn.setOnAction(event -> { if(simulator.hasNext()) tsunamiData = simulator.next(); draw(); });
         stopBtn.setOnAction(event -> tl.stop());
         setEvenness.setOnAction(event -> changeMode(EVENNESS));
         setUnevenness.setOnAction(event -> changeMode(UNEVENNESS));
@@ -123,7 +123,7 @@ public class MainUIController implements Initializable {
         simulator.setItrTimeStep(0, 1, 0);      // データ取得間間隔 => 1分
         simulator.setSimulateTime(6, 0, 0);     // シミュレート時間 => 6時間
         tsunamiData = simulator.next();
-        drawTsunami();
+        draw();
     }
 
     /**
@@ -158,7 +158,7 @@ public class MainUIController implements Initializable {
         AnchorPane.setBottomAnchor(tsunamiChart, 10.0);
         chartPane.getChildren().clear();
         chartPane.getChildren().add(tsunamiChart);
-        drawTsunami();
+        draw();
     }
 
     /**
@@ -175,7 +175,7 @@ public class MainUIController implements Initializable {
                             tl.stop();
                         } else {
                             tsunamiData =simulator.next();
-                            drawTsunami();
+                            draw();
                          }
                     }
                 )
@@ -242,14 +242,14 @@ public class MainUIController implements Initializable {
             int height = controller.getHeight();
             simulator.setWaveHeight(distance, height);
             tsunamiData = simulator.next();
-            drawTsunami();
+            draw();
         }
     }
 
     /**
      * 津波を描画する
      */
-    private void drawTsunami() {
+    private void draw() {
         if(tsunamiData == null)
             return;
 
