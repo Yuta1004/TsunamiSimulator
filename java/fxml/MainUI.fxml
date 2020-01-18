@@ -27,7 +27,7 @@
                   <MenuItem fx:id="setUnevenness" mnemonicParsing="false" text="Unenvenness" />
           </items>
         </Menu>
-            <Menu mnemonicParsing="false" text="Propeties">
+            <Menu mnemonicParsing="false" text="Environment">
                <items>
                   <MenuItem fx:id="addWaveMenu" mnemonicParsing="false" text="Add Wave" />
                </items>
