@@ -41,7 +41,6 @@ public class MainUIController implements Initializable {
     // シミュレータ
     private int simulatorMode;
     private TsunamiSimulator simulator;
-    private StepData tsunamiData;
     private static final int EVENNESS = 0;
     private static final int UNEVENNESS = 1;
     private NegativeBGAreaChart<Number, Number> tsunamiChart;
@@ -66,14 +65,14 @@ public class MainUIController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // 初期化
-        initAreaChart();
         initSimulator();
+        initAreaChart();
 
         // UI部品にactionを載せる
         initBtn.setOnAction(event -> initSimulator());
-        resetBtn.setOnAction(event -> { tl.stop(); simulator.reset(); tsunamiData = simulator.next(); draw(); });
+        resetBtn.setOnAction(event -> { tl.stop(); simulator.reset(); simulator.next(); draw(); });
         startBtn.setOnAction(event -> initTimeline());
-        stepBtn.setOnAction(event -> { if(simulator.hasNext()) tsunamiData = simulator.next(); draw(); });
+        stepBtn.setOnAction(event -> { simulator.next(); draw(); });
         stopBtn.setOnAction(event -> tl.stop());
         setEvenness.setOnAction(event -> changeMode(EVENNESS));
         setUnevenness.setOnAction(event -> changeMode(UNEVENNESS));
@@ -121,8 +120,6 @@ public class MainUIController implements Initializable {
 
         // 設定
         simulator.setItrTimeStep(0, 1, 0);      // データ取得間間隔 => 1分
-        simulator.setSimulateTime(6, 0, 0);     // シミュレート時間 => 6時間
-        tsunamiData = simulator.next();
         draw();
     }
 
@@ -170,14 +167,7 @@ public class MainUIController implements Initializable {
         tl = new Timeline(
                 new KeyFrame(
                     Duration.seconds(TICK),
-                    event -> {
-                        if(!simulator.hasNext()) {
-                            tl.stop();
-                        } else {
-                            tsunamiData =simulator.next();
-                            draw();
-                         }
-                    }
+                    event -> { simulator.next(); draw(); }
                 )
             );
         tl.setCycleCount(Timeline.INDEFINITE);
@@ -241,7 +231,6 @@ public class MainUIController implements Initializable {
             int distance = controller.getDistance();
             int height = controller.getHeight();
             simulator.setWaveHeight(distance, height);
-            tsunamiData = simulator.next();
             draw();
         }
     }
@@ -250,8 +239,8 @@ public class MainUIController implements Initializable {
      * 津波を描画する
      */
     private void draw() {
-        if(tsunamiData == null)
-            return;
+        if(tsunamiChart == null) return;
+        StepData tsunamiData = simulator.getData();
 
         // XYChart設定
         XYChart.Series<Number, Number> seriesZ = new XYChart.Series<>();
