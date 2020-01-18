@@ -51,7 +51,7 @@
                         </Text>
                      </children>
                   </HBox>
-                  <Button mnemonicParsing="false" text="OK" />
+                  <Button fx:id="okBtn" mnemonicParsing="false" text="OK" />
                </children>
             </VBox>
          </children>

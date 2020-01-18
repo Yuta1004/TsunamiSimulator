@@ -224,18 +224,22 @@ public class MainUIController implements Initializable {
      */
     private void addWave() {
         // FXML読み込み
+        AddWaveUIController controller = new AddWaveUIController();
         Scene scene = null;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AddWaveUI.fxml"));
-            loader.setController(new AddWaveUIController());
+            loader.setController(controller);
             scene = new Scene(loader.load());
-        } catch (Exception e){ return; }
+        } catch (Exception e){ e.printStackTrace(); return; }
 
         // ダイアログ立ち上げ
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
         stage.showAndWait();
+
+        // 波追加
+
     }
 
     /**
