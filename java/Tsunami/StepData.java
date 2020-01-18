@@ -1,4 +1,4 @@
-package Tsunami;
+package tsunami;
 
 public class StepData {
 

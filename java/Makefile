@@ -1,3 +1,4 @@
+# 変数
 JAVA := java
 JAVAC := javac
 JAR := jar
@@ -9,10 +10,11 @@ JAVAFX_MODULES := javafx.controls,javafx.base,javafx.fxml,javafx.graphics,javafx
 OPTS := -p $(JAVAFX_PATH)/lib --add-modules $(JAVAFX_MODULES)
 JLINK_OPTS := --compress=2 --add-modules $(JAVAFX_MODULES) --module-path $(JAVAFX_PATH)/jmods
 
+# コマンド
 run: Main.class
 	$(JAVA) $(OPTS) Main
 
-Main.class: $(SRCS) MainUI.fxml AddWaveUI.fxml
+Main.class: $(SRCS)
 	$(JAVAC) $(OPTS) Main.java
 
 dist-darwin:
@@ -27,6 +29,7 @@ dist-linux:
 clean:
 	rm -rf *.class */*.class classes dist *.args */*.args
 
+# マクロ
 define gen-dist
 	# ディレクトリ整理
 	mkdir -p classes dist

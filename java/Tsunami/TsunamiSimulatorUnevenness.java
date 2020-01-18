@@ -1,4 +1,4 @@
-package Tsunami;
+package tsunami;
 
 import java.io.File;
 import java.io.IOException;

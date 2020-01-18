@@ -1,3 +1,5 @@
+package controller;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -26,11 +28,12 @@ import java.util.ResourceBundle;
 import java.io.File;
 import java.util.function.BiConsumer;
 
+import controller.AddWaveUIController;
 import lib.NegativeBGAreaChart;
-import Tsunami.StepData;
-import Tsunami.TsunamiSimulator;
-import Tsunami.TsunamiSimulatorEvenness;
-import Tsunami.TsunamiSimulatorUnevenness;
+import tsunami.StepData;
+import tsunami.TsunamiSimulator;
+import tsunami.TsunamiSimulatorEvenness;
+import tsunami.TsunamiSimulatorUnevenness;
 
 public class MainUIController implements Initializable {
 
@@ -220,7 +223,7 @@ public class MainUIController implements Initializable {
         AddWaveUIController controller = new AddWaveUIController();
         Scene scene = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("AddWaveUI.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/AddWaveUI.fxml"));
             loader.setController(controller);
             scene = new Scene(loader.load());
         } catch (Exception e){ e.printStackTrace(); return; }
