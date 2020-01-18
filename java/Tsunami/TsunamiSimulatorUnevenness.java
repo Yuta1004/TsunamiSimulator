@@ -76,7 +76,6 @@ public class TsunamiSimulatorUnevenness extends TsunamiSimulator {
         zf = new double[dataSize];
         dx = (x[dataSize-1]-x[0]) / dataSize;
         dt = 0.5;
-        status = TsunamiSimulator.READY;
     }
 
     /**
@@ -140,7 +139,6 @@ public class TsunamiSimulatorUnevenness extends TsunamiSimulator {
      */
     private void error(String msg) {
         System.out.println("[ERROR] "+msg);
-        status = TsunamiSimulator.ERROR;
     }
 
 }

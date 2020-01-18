@@ -1,8 +1,6 @@
 package Tsunami;
 
-import java.util.Iterator;
-
-abstract public class TsunamiSimulator implements Iterable<StepData>, Iterator<StepData>{
+abstract public class TsunamiSimulator {
 
     // 定数
     private static final int H = 60*60;
@@ -11,15 +9,9 @@ abstract public class TsunamiSimulator implements Iterable<StepData>, Iterator<S
     public static final double grav = 9.8;
     public static final double eps = 0.01;
 
-    // ステータス
-    protected int status = 0;
-    public static final int READY = 0;
-    public static final int RUNNING = 1;
-    public static final int ERROR = 2;
-
     // 時間データ
     private int clock = 0*H + 0*M + 0*S;
-    private int timeEnd = 3*H, itrTimeStep = 1*M;
+    private int itrTimeStep = 1*M;
 
     // 計算用変数
     protected int step, dataSize;
@@ -50,17 +42,6 @@ abstract public class TsunamiSimulator implements Iterable<StepData>, Iterator<S
     }
 
     /**
-     * シミュレート時間をセットする
-     *
-     * @param hour 時
-     * @param min 分
-     * @param sec 秒
-     */
-    public void setSimulateTime(int hour, int min, int sec) {
-        timeEnd = hour*H + min*M + sec*S;
-    }
-
-    /**
      * データを取得する(1イテレータ進める)時間間隔をセットする
      *
      * @param hour 時
@@ -69,15 +50,6 @@ abstract public class TsunamiSimulator implements Iterable<StepData>, Iterator<S
      */
     public void setItrTimeStep(int hour, int min, int sec) {
         itrTimeStep = hour*H + min*M + sec*S;
-    }
-
-    /**
-     * 現在のステータスを返す
-     *
-     * @return status
-     */
-    public int getStatus() {
-        return status;
     }
 
     /**
@@ -90,49 +62,25 @@ abstract public class TsunamiSimulator implements Iterable<StepData>, Iterator<S
         zb = new double[dataSize];
         zp = new double[dataSize];
         zf = new double[dataSize];
-        status = READY;
         step = 0;
     }
 
     /**
-     * Iterator
-     *
-     * @return Iterator<StepData>
+     * シミュレータを1ステップ進める
      */
-    @Override
-    public Iterator<StepData> iterator() {
-        step = 0;
-        status = RUNNING;
-        return this;
-    }
-
-    /**
-     * Itarable
-     *
-     * @return boolean まだイテレータが続くか
-     */
-    @Override
-    public boolean hasNext() {
-        return step < ((double)(timeEnd+1)/dt) && status != ERROR;
-    }
-
-    /**
-     * Itarable
-     * 1イテレート分ステップを進める
-     *
-     * @return StepData シミュレートデータ
-     */
-    @Override
-    public StepData next() {
-        if(status == ERROR)
-            return null;
-        StepData sdata = new StepData(clock, step, x, zp, depth);
+    public void next() {
         for(int idx = 0; idx < (int)((double)itrTimeStep/dt); ++ idx) {
             step();
             ++ step;
         }
         clock += itrTimeStep;
-        return sdata;
+    }
+
+    /**
+     * シミュレータの内部状態を返す
+     */
+    public StepData getData() {
+        return new StepData(clock, step, x, zp, depth);
     }
 
     /**
