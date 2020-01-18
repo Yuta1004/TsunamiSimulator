@@ -122,8 +122,6 @@ public class MainUIController implements Initializable {
         // 設定
         simulator.setItrTimeStep(0, 1, 0);      // データ取得間間隔 => 1分
         simulator.setSimulateTime(6, 0, 0);     // シミュレート時間 => 6時間
-        simulator.setWaveHeight(115, -2);
-        simulator.setWaveHeight(225, 5);
         tsunamiData = simulator.next();
         drawTsunami();
     }
@@ -239,7 +237,13 @@ public class MainUIController implements Initializable {
         stage.showAndWait();
 
         // 波追加
-
+        if(controller.okInpStatus()) {
+            int distance = controller.getDistance();
+            int height = controller.getHeight();
+            simulator.setWaveHeight(distance, height);
+            tsunamiData = simulator.next();
+            drawTsunami();
+        }
     }
 
     /**
