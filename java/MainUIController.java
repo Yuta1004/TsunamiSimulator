@@ -32,7 +32,7 @@ import Tsunami.TsunamiSimulator;
 import Tsunami.TsunamiSimulatorEvenness;
 import Tsunami.TsunamiSimulatorUnevenness;
 
-public class UIController implements Initializable {
+public class MainUIController implements Initializable {
 
     // アニメーション
     private Timeline tl = new Timeline();
