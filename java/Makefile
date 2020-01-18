@@ -36,7 +36,7 @@ define gen-dist
 
 	# ビルド
 	$(JAVAC) $(OPTS) -d classes Main.java
-	$(JAR) cvfm dist/TsunamiSimulator-$1.jar MANIFEST.MF -C classes .
+	$(JAR) cvfm dist/TsunamiSimulator-$1.jar MANIFEST.MF -C classes . fxml/
 
 	# JRE生成
 	$(JLINK) $(JLINK_OPTS):$(JMODS_PATH) --output dist/runtime-$1

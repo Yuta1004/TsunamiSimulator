@@ -223,7 +223,7 @@ public class MainUIController implements Initializable {
         AddWaveUIController controller = new AddWaveUIController();
         Scene scene = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/AddWaveUI.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AddWaveUI.fxml"));
             loader.setController(controller);
             scene = new Scene(loader.load());
         } catch (Exception e){ e.printStackTrace(); return; }
