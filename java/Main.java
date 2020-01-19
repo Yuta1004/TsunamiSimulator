@@ -21,7 +21,7 @@ public class Main extends Application {
             // Window size
             Rectangle2D d = Screen.getPrimary().getVisualBounds();
             int width = (int)Math.min(1280, d.getWidth());
-            int height = (int)Math.min(800, d.getHeight());
+            int height = (int)Math.min(720, d.getHeight());
 
             // Scene
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainUI.fxml"));
@@ -31,7 +31,6 @@ public class Main extends Application {
             // Stage
             stage.setTitle("Tsunami Simulator Java Edition");
             stage.setScene(scene);
-            stage.setResizable(false);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
