@@ -19,6 +19,7 @@ Main.class: $(SRCS)
 
 dist-darwin:
 	$(call gen-dist,darwin,java)
+	cp -r launcher/RunTsunamiSimulatorDarwin.app dist
 
 dist-win:
 	$(call gen-dist,win,java.exe)
