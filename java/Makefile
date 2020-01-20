@@ -27,6 +27,7 @@ dist-win: clean
 
 dist-linux: clean
 	$(call gen-dist,linux,java)
+	cp launcher/RunTsunamiSimulatorLinux.sh dist
 
 clean:
 	rm -rf *.class */*.class classes dist *.args */*.args
