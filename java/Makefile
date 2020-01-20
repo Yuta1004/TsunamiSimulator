@@ -17,14 +17,14 @@ run: Main.class
 Main.class: $(SRCS)
 	$(JAVAC) $(OPTS) Main.java
 
-dist-darwin:
+dist-darwin: clean
 	$(call gen-dist,darwin,java)
 	cp -r launcher/RunTsunamiSimulatorDarwin.app dist
 
-dist-win:
+dist-win: clean
 	$(call gen-dist,win,java.exe)
 
-dist-linux:
+dist-linux: clean
 	$(call gen-dist,linux,java)
 
 clean:
