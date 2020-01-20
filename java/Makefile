@@ -23,6 +23,7 @@ dist-darwin: clean
 
 dist-win: clean
 	$(call gen-dist,win,java.exe)
+	cp launcher/RunTsunamiSimulatorWindows.ps1 dist
 
 dist-linux: clean
 	$(call gen-dist,linux,java)
