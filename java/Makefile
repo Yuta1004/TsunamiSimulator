@@ -32,6 +32,10 @@ dist-linux: clean
 clean:
 	rm -rf *.class */*.class classes dist *.args */*.args
 
+clean-hard:
+	make clean
+	rm -rf .*.*.un* .*.un*
+
 # マクロ
 define gen-dist
 	# ディレクトリ整理
