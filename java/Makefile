@@ -49,7 +49,7 @@ define gen-dist
 	$(JLINK) $(JLINK_OPTS):$(JMODS_PATH) --output dist/runtime-$1
 
 	# Makefile生成
-	echo "$1:\n\truntime-$1/bin/$2 -jar TsunamiSimulator-$1.jar\n\n" > dist/Makefile
+	echo "$1:\n\tchmod +x runtime-$1/bin/*\n\truntime-$1/bin/$2 -jar TsunamiSimulator-$1.jar\n\n" > dist/Makefile
 
 	# README生成
 	echo "# TsunamiSimulator ($1)\n\n## HowToUse\nrun \`make\` or launcher(.app, .sh, .ps1)" > dist/README.md
