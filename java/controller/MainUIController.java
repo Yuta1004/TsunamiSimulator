@@ -52,7 +52,7 @@ public class MainUIController implements Initializable {
     @FXML
     private Label clockLabel, modeLabel;
     @FXML
-    private MenuItem setEvenness, setUnevenness, addWaveMenu;
+    private MenuItem setUnevennessFromFile, setUnevennessSendai, setEvenness, addWaveMenu;
     @FXML
     private AnchorPane chartPane;
     @FXML
@@ -78,7 +78,8 @@ public class MainUIController implements Initializable {
         stepBtn.setOnAction(event -> { simulator.next(); draw(); });
         stopBtn.setOnAction(event -> tl.stop());
         setEvenness.setOnAction(event -> changeMode(EVENNESS));
-        setUnevenness.setOnAction(event -> changeMode(UNEVENNESS));
+        setUnevennessFromFile.setOnAction(event -> changeMode(UNEVENNESS));
+        setUnevennessSendai.setOnAction(event -> changeMode(UNEVENNESS));
         addWaveMenu.setOnAction(event -> addWave());
         upClockH.setOnAction(event -> incClock(1, 0, 0));
         upClockM.setOnAction(event -> incClock(0, 1, 0));

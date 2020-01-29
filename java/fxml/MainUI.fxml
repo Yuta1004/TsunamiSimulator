@@ -23,8 +23,13 @@
       <menus>
         <Menu mnemonicParsing="false" text="Mode">
           <items>
-            <MenuItem fx:id="setEvenness" mnemonicParsing="false" text="Envenness" />
-                  <MenuItem fx:id="setUnevenness" mnemonicParsing="false" text="Unenvenness" />
+                  <MenuItem fx:id="setEvenness" mnemonicParsing="false" text="Evenness" />
+                  <Menu mnemonicParsing="false" text="Unevenness">
+                    <items>
+                      <MenuItem fx:id="setUnevennessFromFile" mnemonicParsing="false" text="Load File" />
+                        <MenuItem fx:id="setUnevennessSendai" mnemonicParsing="false" text="Sendai" />
+                    </items>
+                  </Menu>
           </items>
         </Menu>
             <Menu mnemonicParsing="false" text="Environment">
