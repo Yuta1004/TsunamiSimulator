@@ -110,8 +110,8 @@
                                           </Text>
                                           <HBox alignment="CENTER_LEFT" spacing="10.0">
                                              <children>
-                                                <Pane prefWidth="20.0" />
-                                                <TextField fx:id="lowerWidthVal" alignment="CENTER" prefWidth="40.0" text="0" />
+                                                <Pane prefWidth="10.0" />
+                                                <TextField fx:id="lowerWidthVal" alignment="CENTER" prefWidth="50.0" text="0" />
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="km">
                                                    <font>
                                                       <Font size="20.0" />
@@ -122,7 +122,7 @@
                                                       <Font size="20.0" />
                                                    </font>
                                                 </Text>
-                                                <TextField fx:id="upperWidthVal" alignment="CENTER" prefWidth="40.0" text="100" />
+                                                <TextField fx:id="upperWidthVal" alignment="CENTER" prefWidth="50.0" text="100" />
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="km">
                                                    <font>
                                                       <Font size="20.0" />
@@ -141,8 +141,8 @@
                                           </Text>
                                           <HBox alignment="CENTER_LEFT" spacing="10.0">
                                              <children>
-                                                <Pane prefWidth="20.0" />
-                                                <TextField fx:id="lowerHeightVal" alignment="CENTER" prefWidth="40.0" text="-20" />
+                                                <Pane prefWidth="10.0" />
+                                                <TextField fx:id="lowerHeightVal" alignment="CENTER" prefWidth="50.0" text="-20" />
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="m">
                                                    <font>
                                                       <Font size="20.0" />
@@ -153,7 +153,7 @@
                                                       <Font size="20.0" />
                                                    </font>
                                                 </Text>
-                                                <TextField fx:id="upperHeightVal" alignment="CENTER" prefWidth="40.0" text="20" />
+                                                <TextField fx:id="upperHeightVal" alignment="CENTER" prefWidth="50.0" text="20" />
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="m">
                                                    <font>
                                                       <Font size="20.0" />
@@ -172,7 +172,7 @@
                                           </Text>
                                           <HBox alignment="CENTER_LEFT" spacing="10.0">
                                              <children>
-                                                <Pane prefWidth="20.0" />
+                                                <Pane prefWidth="10.0" />
                                                 <TextField fx:id="depthVal" alignment="CENTER" prefWidth="40.0" text="100" />
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="m">
                                                    <font>
