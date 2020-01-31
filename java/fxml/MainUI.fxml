@@ -7,6 +7,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -26,8 +27,9 @@
                   <MenuItem fx:id="setEvenness" mnemonicParsing="false" text="Evenness" />
                   <Menu mnemonicParsing="false" text="Unevenness">
                     <items>
-                      <MenuItem fx:id="setUnevennessFromFile" mnemonicParsing="false" text="Load File" />
                         <MenuItem fx:id="setUnevennessSendai" mnemonicParsing="false" text="Sendai" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                      <MenuItem fx:id="setUnevennessFromFile" mnemonicParsing="false" text="Load File" />
                     </items>
                   </Menu>
           </items>
