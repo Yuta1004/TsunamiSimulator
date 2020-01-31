@@ -271,13 +271,9 @@ public class MainUIController implements Initializable {
         if(tsunamiChart == null) return;
         StepData tsunamiData = simulator.getData();
 
-        // XYChart設定
+        // データセット
         XYChart.Series<Number, Number> seriesZ = new XYChart.Series<>();
         XYChart.Series<Number, Number> seriesDepth = new XYChart.Series<>();
-        seriesZ.setName("Tsunami");
-        seriesDepth.setName("Seabed");
-
-        // データセット
         for(int idx = 0; idx < tsunamiData.x.length; ++ idx) {
             seriesZ.getData().add(
                 new XYChart.Data<Number, Number>(tsunamiData.x[idx]/1000, tsunamiData.z[idx])
@@ -289,6 +285,7 @@ public class MainUIController implements Initializable {
         tsunamiChart.getData().clear();
         tsunamiChart.getData().add(seriesZ);
         tsunamiChart.getData().add(seriesDepth);
+        tsunamiChart.setLegendVisible(false);
         updateClock();
 
         // 色設定
