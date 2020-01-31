@@ -81,19 +81,22 @@ public class MainUIController implements Initializable {
         initAreaChart();
 
         // UI部品にactionを載せる
+        // 1. Button;
         initBtn.setOnAction(event -> initSimulator());
         resetBtn.setOnAction(event -> { tl.stop(); simulator.reset(); draw(); });
         startBtn.setOnAction(event -> initTimeline());
         stepBtn.setOnAction(event -> { simulator.next(); draw(); });
         stopBtn.setOnAction(event -> tl.stop());
-        setEvenness.setOnAction(event -> changeMode(EVENNESS));
-        setUnevennessFromFile.setOnAction(event -> changeMode(UNEVENNESS));
-        setUnevennessSendai.setOnAction(event -> changeMode(UNEVENNESS+PRESET_SENDAI));
-        addWaveMenu.setOnAction(event -> addWave());
         upClockH.setOnAction(event -> incClock(1, 0, 0));
         upClockM.setOnAction(event -> incClock(0, 1, 0));
         downClockH.setOnAction(event -> incClock(-1, 0, 0));
         downClockM.setOnAction(event -> incClock(0, -1, 0));
+        // 2. MenuItem
+        setEvenness.setOnAction(event -> changeMode(EVENNESS));
+        setUnevennessFromFile.setOnAction(event -> changeMode(UNEVENNESS));
+        setUnevennessSendai.setOnAction(event -> changeMode(UNEVENNESS+PRESET_SENDAI));
+        addWaveMenu.setOnAction(event -> addWave());
+        // 3. TextArea
         upperWidthVal.textProperty().addListener((obs, oldText, newText) -> initAreaChart());
         lowerWidthVal.textProperty().addListener((obs, oldText, newText) -> initAreaChart());
         upperHeightVal.textProperty().addListener((obs, oldText, newText) -> initAreaChart());
