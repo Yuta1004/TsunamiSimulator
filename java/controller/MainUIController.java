@@ -114,6 +114,7 @@ public class MainUIController implements Initializable {
             modeLabel.setText("Unevenness");
         widthHBox.setVisible(mode == EVENNESS);
         depthHBox.setVisible(mode == EVENNESS);
+        initSimulator();
     }
 
     /**
