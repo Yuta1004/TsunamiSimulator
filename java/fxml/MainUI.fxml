@@ -100,22 +100,6 @@
                                        </font>
                                     </Button>
                                     <Pane prefHeight="0.0" />
-                                    <HBox fx:id="widthHBox" alignment="CENTER" spacing="10.0">
-                                       <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Width :">
-                                             <font>
-                                                <Font size="20.0" />
-                                             </font>
-                                          </Text>
-                                          <Pane prefHeight="16.0" />
-                                          <TextField fx:id="widthVal" prefWidth="60.0" text="300" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="km">
-                                             <font>
-                                                <Font size="20.0" />
-                                             </font>
-                                          </Text>
-                                       </children>
-                                    </HBox>
                                     <HBox fx:id="depthHBox" alignment="CENTER" spacing="10.0">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Depth : ">

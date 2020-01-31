@@ -63,9 +63,9 @@ public class MainUIController implements Initializable {
     @FXML
     private Button upClockH, upClockM, downClockH, downClockM, initBtn, startBtn, stopBtn, stepBtn, resetBtn;
     @FXML
-    private TextField widthVal, depthVal, upperHeightVal, lowerHeightVal, upperWidthVal, lowerWidthVal;
+    private TextField depthVal, upperHeightVal, lowerHeightVal, upperWidthVal, lowerWidthVal;
     @FXML
-    private HBox widthHBox, depthHBox;
+    private HBox depthHBox;
 
     /**
      * 初期化処理
@@ -112,7 +112,6 @@ public class MainUIController implements Initializable {
             modeLabel.setText("Evenness");
         else
             modeLabel.setText("Unevenness");
-        widthHBox.setVisible(mode == EVENNESS);
         depthHBox.setVisible(mode == EVENNESS);
         initSimulator();
     }
@@ -124,13 +123,12 @@ public class MainUIController implements Initializable {
         tl.stop();
 
         if(simulatorMode == EVENNESS) {
-            double depth, width;
+            double depth;
             try {
                 depth = Double.parseDouble(depthVal.getText());
-                width = Double.parseDouble(widthVal.getText());
             } catch(Exception e){ return; }
             simulator = new TsunamiSimulatorEvenness();
-            simulator.setDepth(depth, width);
+            simulator.setDepth(depth, 500);
         }
 
         if(simulatorMode >= UNEVENNESS) {
