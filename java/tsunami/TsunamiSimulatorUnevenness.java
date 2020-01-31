@@ -1,12 +1,16 @@
 package tsunami;
 
 import java.io.File;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
+import java.util.ArrayList;
+import java.net.URL;
 
 public class TsunamiSimulatorUnevenness extends TsunamiSimulator {
 
@@ -32,26 +36,24 @@ public class TsunamiSimulatorUnevenness extends TsunamiSimulator {
     @Override
     public boolean setDepth(Object ... args) throws IllegalArgumentException {
         // 引数チェック
-        String depthFilePath;
-        if(args[0] instanceof String)
-            depthFilePath = (String)args[0];
+        URL depthFileURL;
+        if(args[0] instanceof URL)
+            depthFileURL = (URL)args[0];
        else
            throw new IllegalArgumentException();
 
-        // 存在チェック
-        Path path = Paths.get(depthFilePath);
-        if(!(path.toFile().exists())) {
-            error("地形データファイルが存在しません => "+path);
-            return false;
-        }
-
         // データファイル読み込み
-        List<String> dataLines = null;
+        ArrayList<String> dataLines = new ArrayList<String>();
         try {
-            dataLines = Files.readAllLines(path, StandardCharsets.UTF_8);
-        } catch(Exception e) {
-            e.printStackTrace();
-            error("地形データファイル読み込み中にエラーが発生しました");
+            String line;
+            BufferedReader br = new BufferedReader(new InputStreamReader(depthFileURL.openStream()));
+            while((line = br.readLine()) != null)
+                dataLines.add(line);
+        } catch(FileNotFoundException e) {
+            error("指定されたファイルは存在しません");
+            return false;
+        } catch(IOException e) {
+            error("データファイル読み込み中にエラーが発生しました");
             return false;
         }
         dataSize = dataLines.size();
