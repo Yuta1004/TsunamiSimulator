@@ -133,38 +133,67 @@
                                        </children>
                                     </HBox>
                                     <Pane prefHeight="0.0" />
-                                    <HBox alignment="CENTER" spacing="10.0">
+                                    <VBox spacing="10.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Upper Height :">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Width">
                                              <font>
                                                 <Font size="20.0" />
                                              </font>
                                           </Text>
-                                          <Pane prefHeight="16.0" />
-                                          <TextField fx:id="upperHeightVal" prefWidth="60.0" text="20" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="m">
-                                             <font>
-                                                <Font size="20.0" />
-                                             </font>
-                                          </Text>
+                                          <HBox alignment="CENTER" spacing="10.0">
+                                             <children>
+                                                <TextField fx:id="lowerWidthVal" alignment="CENTER" prefWidth="40.0" text="0" />
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="km">
+                                                   <font>
+                                                      <Font size="20.0" />
+                                                   </font>
+                                                </Text>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="~">
+                                                   <font>
+                                                      <Font size="20.0" />
+                                                   </font>
+                                                </Text>
+                                                <TextField fx:id="upperWidthVal" alignment="CENTER" prefWidth="40.0" text="100" />
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="km">
+                                                   <font>
+                                                      <Font size="20.0" />
+                                                   </font>
+                                                </Text>
+                                             </children>
+                                          </HBox>
                                        </children>
-                                    </HBox>
-                                    <HBox alignment="CENTER" spacing="10.0">
+                                    </VBox>
+                                    <VBox spacing="10.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lower Height :">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Height">
                                              <font>
                                                 <Font size="20.0" />
                                              </font>
                                           </Text>
-                                          <Pane prefHeight="16.0" />
-                                          <TextField fx:id="lowerHeightVal" prefWidth="60.0" text="-10" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="m">
-                                             <font>
-                                                <Font size="20.0" />
-                                             </font>
-                                          </Text>
+                                          <HBox alignment="CENTER" spacing="10.0">
+                                             <children>
+                                                <TextField fx:id="lowerHeightVal" alignment="CENTER" prefWidth="40.0" text="-20" />
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="m">
+                                                   <font>
+                                                      <Font size="20.0" />
+                                                   </font>
+                                                </Text>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="~">
+                                                   <font>
+                                                      <Font size="20.0" />
+                                                   </font>
+                                                </Text>
+                                                <TextField fx:id="upperHeightVal" alignment="CENTER" prefWidth="40.0" text="20" />
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="m">
+                                                   <font>
+                                                      <Font size="20.0" />
+                                                   </font>
+                                                </Text>
+                                             </children>
+                                          </HBox>
                                        </children>
-                                    </HBox>
+                                    </VBox>
+                                    <Pane prefHeight="0.0" />
                                  </children>
                               </VBox>
                            </children>
