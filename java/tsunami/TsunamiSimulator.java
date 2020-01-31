@@ -35,6 +35,17 @@ abstract public class TsunamiSimulator {
     }
 
     /**
+     * 内部時刻を指定時間分進める
+     *
+     * @param hour 時
+     * @param min 分
+     * @param sec 秒
+     */
+    public void incClock(int hour, int min, int sec) {
+        setClock(clock/H+hour, clock/M%M+min, clock%M+sec);
+    }
+
+    /**
      * 内部時刻を取得する
      */
     public int getClock() {
