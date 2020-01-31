@@ -64,8 +64,6 @@ public class MainUIController implements Initializable {
     private Button upClockH, upClockM, downClockH, downClockM, initBtn, startBtn, stopBtn, stepBtn, resetBtn;
     @FXML
     private TextField depthVal, upperHeightVal, lowerHeightVal, upperWidthVal, lowerWidthVal;
-    @FXML
-    private HBox depthHBox;
 
     /**
      * 初期化処理
@@ -112,7 +110,6 @@ public class MainUIController implements Initializable {
             modeLabel.setText("Evenness");
         else
             modeLabel.setText("Unevenness");
-        depthHBox.setVisible(mode == EVENNESS);
         initSimulator();
     }
 
