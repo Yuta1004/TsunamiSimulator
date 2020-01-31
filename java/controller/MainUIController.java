@@ -55,7 +55,7 @@ public class MainUIController implements Initializable {
 
     // UI部品
     @FXML
-    private Label clockLabel, modeLabel;
+    private Label clockLabel, modeLabel, leftStatusLabel;
     @FXML
     private MenuItem setUnevennessFromFile, setUnevennessSendai, setEvenness, addWaveMenu;
     @FXML
@@ -283,6 +283,15 @@ public class MainUIController implements Initializable {
         };
         setColor.accept(seriesZ, "70, 130, 255");
         setColor.accept(seriesDepth, "200, 120, 0");
+    }
+
+    /**
+     * ウィンドウに表示するステータスを更新する
+     *
+     * @param msg メッセージ
+     */
+    private void setStatusMsg(String msg) {
+        leftStatusLabel.setText(msg);
     }
 
 }
