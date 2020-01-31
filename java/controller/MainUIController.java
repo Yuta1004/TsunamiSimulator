@@ -87,10 +87,10 @@ public class MainUIController implements Initializable {
         startBtn.setOnAction(event -> initTimeline());
         stepBtn.setOnAction(event -> { simulator.next(); draw(); });
         stopBtn.setOnAction(event -> tl.stop());
-        upClockH.setOnAction(event -> incClock(1, 0, 0));
-        upClockM.setOnAction(event -> incClock(0, 1, 0));
-        downClockH.setOnAction(event -> incClock(-1, 0, 0));
-        downClockM.setOnAction(event -> incClock(0, -1, 0));
+        upClockH.setOnAction(event -> { simulator.incClock(1, 0, 0); updateClock(); });
+        upClockM.setOnAction(event -> { simulator.incClock(0, 1, 0); updateClock(); });
+        downClockH.setOnAction(event -> { simulator.incClock(-1, 0, 0); updateClock(); });
+        downClockM.setOnAction(event -> { simulator.incClock(0, -1, 0); updateClock(); });
         // 2. MenuItem
         setEvenness.setOnAction(event -> changeMode(EVENNESS));
         setUnevennessFromFile.setOnAction(event -> changeMode(UNEVENNESS));
@@ -198,17 +198,6 @@ public class MainUIController implements Initializable {
             );
         tl.setCycleCount(Timeline.INDEFINITE);
         tl.play();
-    }
-
-    /**
-     * 時刻設定
-     */
-    private void incClock(int hour, int min, int sec) {
-        int H = 60*60, M = 60, S = 1;
-        int clock = simulator.getClock();
-        clock += hour*H + min*M + sec*S;
-        simulator.setClock(clock/H, clock/M%M, clock%M);
-        updateClock();
     }
 
     /**
