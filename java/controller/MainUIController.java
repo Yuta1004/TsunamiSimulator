@@ -23,9 +23,10 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Animation;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.io.File;
+import java.nio.file.Paths;
 import java.util.function.BiConsumer;
 
 import controller.AddWaveUIController;
@@ -41,11 +42,15 @@ public class MainUIController implements Initializable {
     private Timeline tl = new Timeline();
     private double TICK = 0.5;
 
+    // 定数
+    private static final int EVENNESS = 0;
+    private static final int UNEVENNESS = 1;
+    private static final int PRESET_SENDAI = 1;
+    private URL presets[];
+
     // シミュレータ
     private int simulatorMode;
     private TsunamiSimulator simulator;
-    private static final int EVENNESS = 0;
-    private static final int UNEVENNESS = 1;
     private NegativeBGAreaChart<Number, Number> tsunamiChart;
 
     // UI部品
@@ -67,6 +72,10 @@ public class MainUIController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // プリセットデータ
+        presets = new URL[3];
+        presets[PRESET_SENDAI+1] = getClass().getResource("/data/SENDAI.data");
+
         // 初期化
         initSimulator();
         initAreaChart();
@@ -79,7 +88,7 @@ public class MainUIController implements Initializable {
         stopBtn.setOnAction(event -> tl.stop());
         setEvenness.setOnAction(event -> changeMode(EVENNESS));
         setUnevennessFromFile.setOnAction(event -> changeMode(UNEVENNESS));
-        setUnevennessSendai.setOnAction(event -> changeMode(UNEVENNESS));
+        setUnevennessSendai.setOnAction(event -> changeMode(UNEVENNESS+PRESET_SENDAI));
         addWaveMenu.setOnAction(event -> addWave());
         upClockH.setOnAction(event -> incClock(1, 0, 0));
         upClockM.setOnAction(event -> incClock(0, 1, 0));
@@ -118,13 +127,12 @@ public class MainUIController implements Initializable {
             simulator.setDepth(depth, width);
         }
 
-        if(simulatorMode == UNEVENNESS) {
+        if(simulatorMode >= UNEVENNESS) {
+            URL dataURL = simulatorMode == UNEVENNESS ? getFilePath() : presets[simulatorMode];
             TsunamiSimulator oldSimulator = simulator;
             simulator = new TsunamiSimulatorUnevenness();
-            if(!simulator.setDepth(getFilePath())) {
+            if(!simulator.setDepth(dataURL))
                 simulator = oldSimulator;
-                return;
-            }
         }
 
         // 設定
@@ -206,14 +214,17 @@ public class MainUIController implements Initializable {
     /**
      * ファイル選択を行ってもらい、その結果を返す
      */
-    private String getFilePath() {
+    private URL getFilePath() {
         FileChooser chooser = new FileChooser();
         chooser.setTitle("Select DEPTH.data");
         chooser.getExtensionFilters().add(
                     new ExtensionFilter("DataFile", "*.data", "*.txt")
                 );
         File file = chooser.showOpenDialog((Stage)chartPane.getScene().getWindow());
-        return file == null ? "" : file.getAbsolutePath();
+        try {
+            return file == null ? new URL("file:///null") : file.toURI().toURL();
+        } catch(Exception e) { e.printStackTrace(); }
+        return null;
     }
 
     /**
