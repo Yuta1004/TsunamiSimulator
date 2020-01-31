@@ -63,7 +63,7 @@ public class MainUIController implements Initializable {
     @FXML
     private Button upClockH, upClockM, downClockH, downClockM, initBtn, startBtn, stopBtn, stepBtn, resetBtn;
     @FXML
-    private TextField widthVal, depthVal, upperHeightVal, lowerHeightVal;
+    private TextField widthVal, depthVal, upperHeightVal, lowerHeightVal, upperWidthVal, lowerWidthVal;
     @FXML
     private HBox widthHBox, depthHBox;
 
@@ -94,6 +94,8 @@ public class MainUIController implements Initializable {
         upClockM.setOnAction(event -> incClock(0, 1, 0));
         downClockH.setOnAction(event -> incClock(-1, 0, 0));
         downClockM.setOnAction(event -> incClock(0, -1, 0));
+        upperWidthVal.textProperty().addListener((obs, oldText, newText) -> initAreaChart());
+        lowerWidthVal.textProperty().addListener((obs, oldText, newText) -> initAreaChart());
         upperHeightVal.textProperty().addListener((obs, oldText, newText) -> initAreaChart());
         lowerHeightVal.textProperty().addListener((obs, oldText, newText) -> initAreaChart());
     }
@@ -145,16 +147,21 @@ public class MainUIController implements Initializable {
      */
     private void initAreaChart() {
         // 値取得
-        double upperHeight, lowerHeight;
+        double upperHeight, lowerHeight, upperWidth, lowerWidth;
         try {
             upperHeight = Double.parseDouble(upperHeightVal.getText());
             lowerHeight = Double.parseDouble(lowerHeightVal.getText());
+            upperWidth = Double.parseDouble(upperWidthVal.getText());
+            lowerWidth = Double.parseDouble(lowerWidthVal.getText());
         } catch (Exception e) { return; }
 
         // x, y軸
         NumberAxis xAxis = new NumberAxis();
         NumberAxis yAxis = new NumberAxis();
         xAxis.setLabel("Distance(km)");
+        xAxis.setAutoRanging(false);
+        xAxis.setLowerBound(lowerWidth);
+        xAxis.setUpperBound(upperWidth);
         yAxis.setLabel("Height(m)");
         yAxis.setAutoRanging(false);
         yAxis.setLowerBound(lowerHeight);
