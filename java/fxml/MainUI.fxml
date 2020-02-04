@@ -121,7 +121,7 @@
                                                       <Font size="20.0" />
                                                    </font>
                                                 </Text>
-                                                <TextField fx:id="upperWidthVal" alignment="CENTER" prefWidth="50.0" text="100" />
+                                                <TextField fx:id="upperWidthVal" alignment="CENTER" prefWidth="50.0" text="350" />
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="km">
                                                    <font>
                                                       <Font size="20.0" />
