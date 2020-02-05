@@ -1,4 +1,4 @@
-# TsunamiSimulator Java Edition
+# TsunamiSimulator
 
 津波シミュレータ Java
 
