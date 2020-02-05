@@ -2,4 +2,5 @@
 *.class
 *.args
 dist/
+bin/
 .vscode/

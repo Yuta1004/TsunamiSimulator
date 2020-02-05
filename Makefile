@@ -8,42 +8,49 @@ SRCS := $(wildcard *.java */*.java)
 JAVAFX_MODULES := javafx.controls,javafx.base,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web
 
 OPTS := -p $(JAVAFX_PATH)/lib --add-modules $(JAVAFX_MODULES)
+JAVA_OPTS := $(OPTS) -classpath bin
+JAVAC_OPTS := $(OPTS) -sourcepath src -d bin
 JLINK_OPTS := --compress=2 --add-modules $(JAVAFX_MODULES) --module-path $(JAVAFX_PATH)/jmods
 
 # コマンド
 run: Main.class
-	$(JAVA) $(OPTS) Main
+	cp -r src/fxml bin
+	cp -r src/data bin
+	$(JAVA) $(JAVA_OPTS) Main
 
 Main.class: $(SRCS)
-	$(JAVAC) $(OPTS) Main.java
+	$(JAVAC) $(JAVAC_OPTS) src/Main.java
 
 dist-darwin: clean
 	$(call gen-dist,darwin,java)
-	cp -r launcher/RunTsunamiSimulatorDarwin.app dist
+	cp -r src/launcher/RunTsunamiSimulatorDarwin.app dist
 
 dist-win: clean
 	$(call gen-dist,win,java.exe)
-	cp launcher/RunTsunamiSimulatorWindows.ps1 dist
+	cp src/launcher/RunTsunamiSimulatorWindows.ps1 dist
 
 dist-linux: clean
 	$(call gen-dist,linux,java)
-	cp launcher/RunTsunamiSimulatorLinux.sh dist
+	cp src/launcher/RunTsunamiSimulatorLinux.sh dist
 
 clean:
-	rm -rf *.class */*.class classes dist *.args */*.args
+	rm -rf bin dist **/*.args
 
 clean-hard:
 	make clean
-	rm -rf .*.*.un* .*.un*
+	rm -rf .*.*.un* .*.un* **/.*.*.un* **/.*.un* **/**/.*.*.un* **/**/.*.un*
 
 # マクロ
 define gen-dist
 	# ディレクトリ整理
-	mkdir -p classes dist
+	mkdir -p bin dist
 
 	# ビルド
-	$(JAVAC) $(OPTS) -d classes Main.java
-	$(JAR) cvfm dist/TsunamiSimulator-$1.jar MANIFEST.MF -C classes . fxml/ data/
+	$(JAVAC) $(JAVAC_OPTS) src/Main.java
+	cp -r src/fxml .
+	cp -r src/data .
+	$(JAR) cvfm dist/TsunamiSimulator-$1.jar MANIFEST.MF -C bin . fxml data
+	rm -rf fxml data
 
 	# JRE生成
 	$(JLINK) $(JLINK_OPTS):$(JMODS_PATH) --output dist/runtime-$1
@@ -55,7 +62,7 @@ define gen-dist
 	echo "# TsunamiSimulator ($1)\n\n## HowToUse\nrun \`make\` or launcher(.app, .sh, .ps1)" > dist/README.md
 
 	# .class削除
-	rm -rf classes
+	rm -rf bin
 endef
 
 .PHONY: dist-darwin, dist-win, dist-linux
