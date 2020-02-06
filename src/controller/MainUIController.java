@@ -62,7 +62,8 @@ public class MainUIController implements Initializable {
     @FXML
     private Label clockLabel, modeLabel, leftStatusLabel;
     @FXML
-    private MenuItem setUnevennessFromFile, setUnevennessSendai, setUnevennessTosa, setEvenness, addWaveMenu;
+    private MenuItem setUnevennessFromFile, setUnevennessSendai, setUnevennessTosa, setEvenness, addWaveMenu,
+            openCredit;
     @FXML
     private AnchorPane chartPane;
     @FXML
@@ -102,6 +103,7 @@ public class MainUIController implements Initializable {
         setUnevennessSendai.setOnAction(event -> changeMode(UNEVENNESS+PRESET_SENDAI));
         setUnevennessTosa.setOnAction(event -> changeMode(UNEVENNESS+PRESET_TOSA));
         addWaveMenu.setOnAction(event -> addWave());
+        openCredit.setOnAction(event -> genStage("/fxml/Credit.fxml", null).showAndWait());
         // 3. TextArea
         upperWidthVal.textProperty().addListener((obs, oldText, newText) -> initAreaChart());
         lowerWidthVal.textProperty().addListener((obs, oldText, newText) -> initAreaChart());

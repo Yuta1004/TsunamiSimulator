@@ -40,6 +40,11 @@
                   <MenuItem fx:id="addWaveMenu" mnemonicParsing="false" text="%AddWave" />
                </items>
             </Menu>
+            <Menu mnemonicParsing="false" text="%Other">
+               <items>
+                  <MenuItem fx:id="openCredit" mnemonicParsing="false" text="%Credit" />
+               </items>
+            </Menu>
       </menus>
     </MenuBar>
     <SplitPane dividerPositions="0.7895148669796557" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
