@@ -48,6 +48,9 @@ public class MainUIController implements Initializable {
     private static final int PRESET_SENDAI = 1;
     private URL presets[];
 
+    // リソース
+    ResourceBundle resource;
+
     // シミュレータ
     private int simulatorMode;
     private TsunamiSimulator simulator;
@@ -69,12 +72,13 @@ public class MainUIController implements Initializable {
      * 初期化処理
      */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resource) {
         // プリセットデータ
         presets = new URL[3];
         presets[PRESET_SENDAI+1] = getClass().getResource("/data/SENDAI.data");
 
         // 初期化
+        this.resource = resource;
         initSimulator();
         initAreaChart();
 
@@ -107,9 +111,9 @@ public class MainUIController implements Initializable {
     private void changeMode(int mode) {
         simulatorMode = mode;
         if(mode == EVENNESS)
-            modeLabel.setText("Evenness");
+            modeLabel.setText(resource.getString("Evenness"));
         else
-            modeLabel.setText("Unevenness");
+            modeLabel.setText(resource.getString("Unevenness"));
         initSimulator();
     }
 
