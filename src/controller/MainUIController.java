@@ -88,21 +88,21 @@ public class MainUIController implements Initializable {
 
         // UI部品にactionを載せる
         // 1. Button;
+        stopBtn.setOnAction(event -> tl.stop());
         initBtn.setOnAction(event -> initSimulator());
-        resetBtn.setOnAction(event -> { tl.stop(); simulator.reset(); draw(); });
         startBtn.setOnAction(event -> initTimeline());
         stepBtn.setOnAction(event -> { simulator.next(); draw(); });
-        stopBtn.setOnAction(event -> tl.stop());
+        resetBtn.setOnAction(event -> { tl.stop(); simulator.reset(); draw(); });
         upClockH.setOnAction(event -> { simulator.incClock(1, 0, 0); updateClock(); });
         upClockM.setOnAction(event -> { simulator.incClock(0, 1, 0); updateClock(); });
         downClockH.setOnAction(event -> { simulator.incClock(-1, 0, 0); updateClock(); });
         downClockM.setOnAction(event -> { simulator.incClock(0, -1, 0); updateClock(); });
         // 2. MenuItem
+        addWaveMenu.setOnAction(event -> addWave());
         setEvenness.setOnAction(event -> changeMode(EVENNESS));
         setUnevennessFromFile.setOnAction(event -> changeMode(UNEVENNESS));
-        setUnevennessSendai.setOnAction(event -> changeMode(UNEVENNESS+PRESET_SENDAI));
         setUnevennessTosa.setOnAction(event -> changeMode(UNEVENNESS+PRESET_TOSA));
-        addWaveMenu.setOnAction(event -> addWave());
+        setUnevennessSendai.setOnAction(event -> changeMode(UNEVENNESS+PRESET_SENDAI));
         openCredit.setOnAction(event -> genStage("/fxml/Credit.fxml", null).showAndWait());
         // 3. TextArea
         upperWidthVal.textProperty().addListener((obs, oldText, newText) -> initAreaChart());
