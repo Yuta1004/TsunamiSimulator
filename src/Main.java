@@ -33,7 +33,7 @@ public class Main extends Application {
             URLClassLoader urlLoader = new URLClassLoader(propURLs);
 
             // Scene
-            ResourceBundle resource = ResourceBundle.getBundle("MainUI", Locale.getDefault(), urlLoader);
+            ResourceBundle resource = ResourceBundle.getBundle("locale", Locale.getDefault(), urlLoader);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainUI.fxml"), resource);
             loader.setController(new MainUIController());
             Scene scene = new Scene(loader.load(), width, height);
