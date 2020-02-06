@@ -22,21 +22,21 @@
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
-        <Menu mnemonicParsing="false" text="Mode">
+        <Menu mnemonicParsing="false" text="%Mode">
           <items>
-                  <MenuItem fx:id="setEvenness" mnemonicParsing="false" text="Evenness" />
-                  <Menu mnemonicParsing="false" text="Unevenness">
+                  <MenuItem fx:id="setEvenness" mnemonicParsing="false" text="%Evenness" />
+                  <Menu mnemonicParsing="false" text="%Unevenness">
                     <items>
-                        <MenuItem fx:id="setUnevennessSendai" mnemonicParsing="false" text="Sendai" />
+                        <MenuItem fx:id="setUnevennessSendai" mnemonicParsing="false" text="%Sendai" />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                      <MenuItem fx:id="setUnevennessFromFile" mnemonicParsing="false" text="Load File" />
+                      <MenuItem fx:id="setUnevennessFromFile" mnemonicParsing="false" text="%LoadFile" />
                     </items>
                   </Menu>
           </items>
         </Menu>
-            <Menu mnemonicParsing="false" text="Environment">
+            <Menu mnemonicParsing="false" text="%Environment">
                <items>
-                  <MenuItem fx:id="addWaveMenu" mnemonicParsing="false" text="Add Wave" />
+                  <MenuItem fx:id="addWaveMenu" mnemonicParsing="false" text="%AddWave" />
                </items>
             </Menu>
       </menus>
@@ -52,7 +52,7 @@
                            <children>
                               <VBox alignment="TOP_CENTER" spacing="15.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Label fx:id="modeLabel" text="Evenness">
+                                    <Label fx:id="modeLabel" text="%Evenness">
                                        <font>
                                           <Font name="Cochin" size="40.0" />
                                        </font>
@@ -72,29 +72,29 @@
                                     </HBox>
                                     <HBox alignment="CENTER" spacing="10.0">
                                        <children>
-                                          <Button fx:id="initBtn" minWidth="100.0" mnemonicParsing="false" prefHeight="37.0" text="Init" textAlignment="CENTER">
+                                          <Button fx:id="initBtn" minWidth="100.0" mnemonicParsing="false" prefHeight="37.0" text="%Init" textAlignment="CENTER">
                                              <font>
                                                 <Font size="23.0" />
                                              </font>
                                           </Button>
-                                          <Button fx:id="resetBtn" minWidth="100.0" mnemonicParsing="false" prefHeight="37.0" text="Reset" textAlignment="CENTER">
+                                          <Button fx:id="resetBtn" minWidth="100.0" mnemonicParsing="false" prefHeight="37.0" text="%Reset" textAlignment="CENTER">
                                              <font>
                                                 <Font size="23.0" />
                                              </font>
                                           </Button>
                                        </children>
                                     </HBox>
-                                    <Button fx:id="startBtn" minWidth="210.0" mnemonicParsing="false" prefHeight="37.0" text="Start" textAlignment="CENTER">
+                                    <Button fx:id="startBtn" minWidth="210.0" mnemonicParsing="false" prefHeight="37.0" text="%Start" textAlignment="CENTER">
                                        <font>
                                           <Font size="22.0" />
                                        </font>
                                     </Button>
-                                    <Button fx:id="stepBtn" minWidth="210.0" mnemonicParsing="false" prefHeight="37.0" text="Step" textAlignment="CENTER">
+                                    <Button fx:id="stepBtn" minWidth="210.0" mnemonicParsing="false" prefHeight="37.0" text="%Step" textAlignment="CENTER">
                                        <font>
                                           <Font size="22.0" />
                                        </font>
                                     </Button>
-                                    <Button fx:id="stopBtn" minWidth="210.0" mnemonicParsing="false" prefHeight="37.0" text="Stop">
+                                    <Button fx:id="stopBtn" minWidth="210.0" mnemonicParsing="false" prefHeight="37.0" text="%Stop">
                                        <font>
                                           <Font size="22.0" />
                                        </font>
@@ -102,7 +102,7 @@
                                     <Separator prefWidth="200.0" />
                                     <VBox spacing="10.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Width">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%Width">
                                              <font>
                                                 <Font size="20.0" />
                                              </font>
@@ -133,7 +133,7 @@
                                     </VBox>
                                     <VBox spacing="10.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Height">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%Height">
                                              <font>
                                                 <Font size="20.0" />
                                              </font>
@@ -164,7 +164,7 @@
                                     </VBox>
                                     <VBox spacing="10.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Depth (Evenness)">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%Depth(Evenness)">
                                              <font>
                                                 <Font size="20.0" />
                                              </font>
