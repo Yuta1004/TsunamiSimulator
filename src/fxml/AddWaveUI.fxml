@@ -16,14 +16,19 @@
             <VBox alignment="TOP_CENTER" spacing="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Pane prefHeight="5.0" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="AddWave" textAlignment="CENTER">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%AddWave" textAlignment="CENTER">
                      <font>
                         <Font name="Cochin" size="30.0" />
                      </font>
                   </Text>
-                  <HBox alignment="TOP_CENTER" spacing="30.0">
+                  <HBox alignment="TOP_CENTER" spacing="10.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Distance :">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%Distance">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text=":">
                            <font>
                               <Font size="21.0" />
                            </font>
@@ -36,9 +41,14 @@
                         </Text>
                      </children>
                   </HBox>
-                  <HBox alignment="TOP_CENTER" spacing="30.0">
+                  <HBox alignment="TOP_CENTER" spacing="10.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Height  :">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%HeightPlace">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text=":">
                            <font>
                               <Font size="21.0" />
                            </font>
