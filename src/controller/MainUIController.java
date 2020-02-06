@@ -234,20 +234,9 @@ public class MainUIController implements Initializable {
      * 新しいダイアログを立ち上げて入力された内容をもとに波を追加する
      */
     private void addWave() {
-        // FXML読み込み
-        AddWaveUIController controller = new AddWaveUIController();
-        Scene scene = null;
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AddWaveUI.fxml"), resource);
-            loader.setController(controller);
-            scene = new Scene(loader.load());
-        } catch (Exception e){ e.printStackTrace(); return; }
-
         // ダイアログ立ち上げ
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-        stage.showAndWait();
+        AddWaveUIController controller = new AddWaveUIController();
+        genStage("/fxml/AddWaveUI.fxml", controller).showAndWait();
 
         // 波追加
         if(controller.okInpStatus()) {
@@ -256,6 +245,30 @@ public class MainUIController implements Initializable {
             simulator.setWaveHeight(distance, height);
             draw();
         }
+    }
+
+    /**
+     * 指定FXMlを元にStageを生成して返す
+     *
+     * @param fxmlPath FXMLファイルのパス
+     * @param controller UIコントローラ
+     * @return Stage
+     */
+    private <T> Stage genStage(String fxmlPath, T controller) {
+        // FXML読み込み
+        Scene scene = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath), resource);
+            if(controller != null)
+                loader.setController(controller);
+            scene = new Scene(loader.load());
+        } catch (Exception e){ e.printStackTrace(); return null; }
+
+        // ダイアログ立ち上げ
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        return stage;
     }
 
     /**
