@@ -47,6 +47,7 @@ public class MainUIController implements Initializable {
     private static final int EVENNESS = 0;
     private static final int UNEVENNESS = 1;
     private static final int PRESET_SENDAI = 1;
+    private static final int PRESET_TOSA = 2;
     private URL presets[];
 
     // リソース
@@ -75,8 +76,9 @@ public class MainUIController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resource) {
         // プリセットデータ
-        presets = new URL[3];
+        presets = new URL[4];
         presets[PRESET_SENDAI+1] = getClass().getResource("/data/SENDAI.data");
+        presets[PRESET_TOSA+1] = getClass().getResource("/data/TOSA.data");
 
         // 初期化
         this.resource = resource;
