@@ -1,13 +1,13 @@
 package tsunami;
 
-public class TsunamiSimulatorEvenness extends TsunamiSimulator {
+public class TsunamiSimulatorConstant extends TsunamiSimulator {
 
     private double depthVal, widthVal;
 
     /**
-     * TsunamiSimulatorEvennessのコンストラクタ
+     * TsunamiSimulatorConstantのコンストラクタ
      */
-    public TsunamiSimulatorEvenness() {
+    public TsunamiSimulatorConstant() {
         dataSize = 500;
     }
 

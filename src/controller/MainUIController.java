@@ -34,7 +34,7 @@ import controller.AddWaveUIController;
 import lib.NegativeBGAreaChart;
 import tsunami.StepData;
 import tsunami.TsunamiSimulator;
-import tsunami.TsunamiSimulatorEvenness;
+import tsunami.TsunamiSimulatorConstant;
 import tsunami.TsunamiSimulatorUnevenness;
 
 public class MainUIController implements Initializable {
@@ -44,7 +44,7 @@ public class MainUIController implements Initializable {
     private double TICK = 0.5;
 
     // 定数
-    private static final int EVENNESS = 0;
+    private static final int CONSTANT = 0;
     private static final int UNEVENNESS = 1;
     private static final int PRESET_SENDAI = 1;
     private static final int PRESET_TOSA = 2;
@@ -62,7 +62,7 @@ public class MainUIController implements Initializable {
     @FXML
     private Label clockLabel, modeLabel, leftStatusLabel;
     @FXML
-    private MenuItem setUnevennessFromFile, setUnevennessSendai, setUnevennessTosa, setEvenness, addWaveMenu,
+    private MenuItem setUnevennessFromFile, setUnevennessSendai, setUnevennessTosa, setConstant, addWaveMenu,
             openCredit;
     @FXML
     private AnchorPane chartPane;
@@ -99,7 +99,7 @@ public class MainUIController implements Initializable {
         downClockM.setOnAction(event -> { simulator.incClock(0, -1, 0); updateClock(); });
         // 2. MenuItem
         addWaveMenu.setOnAction(event -> addWave());
-        setEvenness.setOnAction(event -> changeMode(EVENNESS));
+        setConstant.setOnAction(event -> changeMode(CONSTANT));
         setUnevennessFromFile.setOnAction(event -> changeMode(UNEVENNESS));
         setUnevennessTosa.setOnAction(event -> changeMode(UNEVENNESS+PRESET_TOSA));
         setUnevennessSendai.setOnAction(event -> changeMode(UNEVENNESS+PRESET_SENDAI));
@@ -116,8 +116,8 @@ public class MainUIController implements Initializable {
      */
     private void changeMode(int mode) {
         simulatorMode = mode;
-        if(mode == EVENNESS)
-            modeLabel.setText(resource.getString("Evenness"));
+        if(mode == CONSTANT)
+            modeLabel.setText(resource.getString("Constant"));
         else
             modeLabel.setText(resource.getString("Unevenness"));
         initSimulator();
@@ -129,12 +129,12 @@ public class MainUIController implements Initializable {
     private void initSimulator() {
         tl.stop();
 
-        if(simulatorMode == EVENNESS) {
+        if(simulatorMode == CONSTANT) {
             double depth;
             try {
                 depth = Double.parseDouble(depthVal.getText());
             } catch(Exception e){ return; }
-            simulator = new TsunamiSimulatorEvenness();
+            simulator = new TsunamiSimulatorConstant();
             simulator.setDepth(depth, 500);
         }
 
