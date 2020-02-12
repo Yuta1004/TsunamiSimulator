@@ -12,7 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.net.URL;
 
-public class TsunamiSimulatorUnevenness extends TsunamiSimulator {
+public class TsunamiSimulatorVariable extends TsunamiSimulator {
 
     /**
      * 指定位置の波の高さをセットする

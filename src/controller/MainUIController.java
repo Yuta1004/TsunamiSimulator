@@ -35,7 +35,7 @@ import lib.NegativeBGAreaChart;
 import tsunami.StepData;
 import tsunami.TsunamiSimulator;
 import tsunami.TsunamiSimulatorConstant;
-import tsunami.TsunamiSimulatorUnevenness;
+import tsunami.TsunamiSimulatorVariable;
 
 public class MainUIController implements Initializable {
 
@@ -45,7 +45,7 @@ public class MainUIController implements Initializable {
 
     // 定数
     private static final int CONSTANT = 0;
-    private static final int UNEVENNESS = 1;
+    private static final int VARIABLE= 1;
     private static final int PRESET_SENDAI = 1;
     private static final int PRESET_TOSA = 2;
     private URL presets[];
@@ -62,7 +62,7 @@ public class MainUIController implements Initializable {
     @FXML
     private Label clockLabel, modeLabel, leftStatusLabel;
     @FXML
-    private MenuItem setUnevennessFromFile, setUnevennessSendai, setUnevennessTosa, setConstant, addWaveMenu,
+    private MenuItem setVariableFromFile, setVariableSendai, setVariableTosa, setConstant, addWaveMenu,
             openCredit;
     @FXML
     private AnchorPane chartPane;
@@ -100,9 +100,9 @@ public class MainUIController implements Initializable {
         // 2. MenuItem
         addWaveMenu.setOnAction(event -> addWave());
         setConstant.setOnAction(event -> changeMode(CONSTANT));
-        setUnevennessFromFile.setOnAction(event -> changeMode(UNEVENNESS));
-        setUnevennessTosa.setOnAction(event -> changeMode(UNEVENNESS+PRESET_TOSA));
-        setUnevennessSendai.setOnAction(event -> changeMode(UNEVENNESS+PRESET_SENDAI));
+        setVariableFromFile.setOnAction(event -> changeMode(VARIABLE));
+        setVariableTosa.setOnAction(event -> changeMode(VARIABLE+PRESET_TOSA));
+        setVariableSendai.setOnAction(event -> changeMode(VARIABLE+PRESET_SENDAI));
         openCredit.setOnAction(event -> genStage("/fxml/Credit.fxml", null).showAndWait());
         // 3. TextArea
         upperWidthVal.textProperty().addListener((obs, oldText, newText) -> initAreaChart());
@@ -119,7 +119,7 @@ public class MainUIController implements Initializable {
         if(mode == CONSTANT)
             modeLabel.setText(resource.getString("Constant"));
         else
-            modeLabel.setText(resource.getString("Unevenness"));
+            modeLabel.setText(resource.getString("Variable"));
         initSimulator();
     }
 
@@ -138,10 +138,10 @@ public class MainUIController implements Initializable {
             simulator.setDepth(depth, 500);
         }
 
-        if(simulatorMode >= UNEVENNESS) {
-            URL dataURL = simulatorMode == UNEVENNESS ? getFilePath() : presets[simulatorMode];
+        if(simulatorMode >= VARIABLE) {
+            URL dataURL = simulatorMode == VARIABLE ? getFilePath() : presets[simulatorMode];
             TsunamiSimulator oldSimulator = simulator;
-            simulator = new TsunamiSimulatorUnevenness();
+            simulator = new TsunamiSimulatorVariable();
             if(!simulator.setDepth(dataURL))
                 simulator = oldSimulator;
         }
