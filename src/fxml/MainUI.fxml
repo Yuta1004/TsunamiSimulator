@@ -25,12 +25,12 @@
         <Menu mnemonicParsing="false" text="%Mode">
           <items>
                   <MenuItem fx:id="setConstant" mnemonicParsing="false" text="%Constant" />
-                  <Menu mnemonicParsing="false" text="%Unevenness">
+                  <Menu mnemonicParsing="false" text="%Variable">
                     <items>
-                        <MenuItem fx:id="setUnevennessSendai" mnemonicParsing="false" text="%Sendai" />
-                        <MenuItem fx:id="setUnevennessTosa" mnemonicParsing="false" text="%Tosa" />
+                        <MenuItem fx:id="setVariableSendai" mnemonicParsing="false" text="%Sendai" />
+                        <MenuItem fx:id="setVariableTosa" mnemonicParsing="false" text="%Tosa" />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                      <MenuItem fx:id="setUnevennessFromFile" mnemonicParsing="false" text="%LoadFile" />
+                      <MenuItem fx:id="setVariableFromFile" mnemonicParsing="false" text="%LoadFile" />
                     </items>
                   </Menu>
           </items>
