@@ -244,6 +244,10 @@ public class MainUIController implements Initializable {
         if(controller.okInpStatus()) {
             int distance = controller.getDistance();
             int height = controller.getHeight();
+            if(Math.abs(height) > 10.0) {
+                setStatusMsg("波の高さは-10m以上10m以下である必要があります");
+                return;
+            }
             simulator.setWaveHeight(distance, height);
             draw();
         }
