@@ -24,7 +24,7 @@
       <menus>
         <Menu mnemonicParsing="false" text="%Mode">
           <items>
-                  <MenuItem fx:id="setEvenness" mnemonicParsing="false" text="%Evenness" />
+                  <MenuItem fx:id="setConstant" mnemonicParsing="false" text="%Constant" />
                   <Menu mnemonicParsing="false" text="%Unevenness">
                     <items>
                         <MenuItem fx:id="setUnevennessSendai" mnemonicParsing="false" text="%Sendai" />
@@ -58,7 +58,7 @@
                            <children>
                               <VBox alignment="TOP_CENTER" spacing="15.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Label fx:id="modeLabel" text="%Evenness">
+                                    <Label fx:id="modeLabel" text="%Constant">
                                        <font>
                                           <Font name="Cochin" size="40.0" />
                                        </font>
@@ -170,7 +170,7 @@
                                     </VBox>
                                     <VBox spacing="10.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%Depth(Evenness)">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%Depth(Constant)">
                                              <font>
                                                 <Font size="20.0" />
                                              </font>
