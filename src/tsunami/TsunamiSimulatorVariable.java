@@ -62,11 +62,17 @@ public class TsunamiSimulatorVariable extends TsunamiSimulator {
         x = new double[dataSize];
         depth = new double[dataSize];
         for(int idx = 0; idx < dataLines.size(); ++ idx) {
-            String line = dataLines.get(idx);                       // x<\t>depth<\n>
-            x[idx] = Double.parseDouble(line.split("\t")[0]);       // x        (str->double)
-            x[idx] *= 1000;                                         // km->m
-            depth[idx] = Double.parseDouble(line.split("\t")[1]);   // depth    (str->double)
-            depth[idx] *= -1;                                       // +/-
+            // トークン分割
+            int bIdx = 0;
+            String line[] = dataLines.get(idx).split("( |\t)+");
+            if(line[0].length() == 0)
+                bIdx ++;
+
+            // パース
+            x[idx] = Double.parseDouble(line[bIdx]);
+            x[idx] *= 1000;
+            depth[idx] = Double.parseDouble(line[bIdx+1]);
+            depth[idx] *= -1;
         }
 
         // その他計算用変数初期化
