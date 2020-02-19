@@ -31,6 +31,7 @@ import java.util.Locale;
 import java.util.function.BiConsumer;
 
 import controller.AddWaveUIController;
+import controller.MakeMapUIController;
 import lib.NegativeBGAreaChart;
 import tsunami.StepData;
 import tsunami.TsunamiSimulator;
@@ -63,7 +64,7 @@ public class MainUIController implements Initializable {
     private Label clockLabel, modeLabel, leftStatusLabel;
     @FXML
     private MenuItem setVariableFromFile, setVariableSendai, setVariableTosa, setConstant, addWaveMenu,
-            openCredit;
+            openMakeMap, openCredit;
     @FXML
     private AnchorPane chartPane;
     @FXML
@@ -104,6 +105,7 @@ public class MainUIController implements Initializable {
         setVariableTosa.setOnAction(event -> changeMode(VARIABLE+PRESET_TOSA));
         setVariableSendai.setOnAction(event -> changeMode(VARIABLE+PRESET_SENDAI));
         openCredit.setOnAction(event -> genStage("/fxml/Credit.fxml", null).showAndWait());
+        openMakeMap.setOnAction(event-> genStage("/fxml/MakeMap.fxml", new MakeMapUIController()).showAndWait());
         // 3. TextArea
         upperWidthVal.textProperty().addListener((obs, oldText, newText) -> initAreaChart());
         lowerWidthVal.textProperty().addListener((obs, oldText, newText) -> initAreaChart());
