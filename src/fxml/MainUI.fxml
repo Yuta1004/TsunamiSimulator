@@ -42,6 +42,7 @@
             </Menu>
             <Menu mnemonicParsing="false" text="%Other">
                <items>
+                  <MenuItem fx:id="openMakeMap" mnemonicParsing="false" text="%MakeMap" />
                   <MenuItem fx:id="openCredit" mnemonicParsing="false" text="%Credit" />
                </items>
             </Menu>
