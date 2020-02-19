@@ -24,7 +24,7 @@ import java.util.Collections;
 
 import lib.NegativeBGAreaChart;
 
-public class MainUIController implements Initializable {
+public class MakeMapUIController implements Initializable {
 
     // FXML
     @FXML
