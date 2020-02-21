@@ -68,7 +68,7 @@ public class MainUIController implements Initializable {
     @FXML
     private AnchorPane chartPane;
     @FXML
-    private Button upClockH, upClockM, downClockH, downClockM, initBtn, startBtn, stopBtn, stepBtn, resetBtn;
+    private Button upClockH, upClockM, downClockH, downClockM, initBtn, initBtn2, startBtn, stopBtn, stepBtn, resetBtn;
     @FXML
     private TextField depthVal, upperHeightVal, lowerHeightVal, upperWidthVal, lowerWidthVal;
 
@@ -91,6 +91,7 @@ public class MainUIController implements Initializable {
         // 1. Button;
         stopBtn.setOnAction(event -> tl.stop());
         initBtn.setOnAction(event -> initSimulator());
+        initBtn2.setOnAction(event-> initSimulator());
         startBtn.setOnAction(event -> initTimeline());
         stepBtn.setOnAction(event -> { simulator.next(); draw(); });
         resetBtn.setOnAction(event -> { tl.stop(); simulator.reset(); draw(); });
