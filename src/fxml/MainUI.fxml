@@ -59,11 +59,7 @@
                            <children>
                               <VBox alignment="TOP_CENTER" spacing="15.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Label fx:id="modeLabel" text="%Constant">
-                                       <font>
-                                          <Font name="Cochin" size="40.0" />
-                                       </font>
-                                    </Label>
+                                    <Pane prefHeight="1.0" />
                                     <Label fx:id="clockLabel" text="00:00:00" textAlignment="CENTER">
                                        <font>
                                           <Font name="Cochin" size="55.0" />

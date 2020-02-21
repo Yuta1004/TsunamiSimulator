@@ -61,7 +61,7 @@ public class MainUIController implements Initializable {
 
     // UI部品
     @FXML
-    private Label clockLabel, modeLabel, leftStatusLabel;
+    private Label clockLabel, leftStatusLabel;
     @FXML
     private MenuItem setVariableFromFile, setVariableSendai, setVariableTosa, setConstant, addWaveMenu,
             openMakeMap, openCredit;
@@ -118,10 +118,6 @@ public class MainUIController implements Initializable {
      */
     private void changeMode(int mode) {
         simulatorMode = mode;
-        if(mode == CONSTANT)
-            modeLabel.setText(resource.getString("Constant"));
-        else
-            modeLabel.setText(resource.getString("Variable"));
         initSimulator();
     }
 
