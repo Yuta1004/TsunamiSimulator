@@ -118,13 +118,12 @@ public class TsunamiSimulatorVariable extends TsunamiSimulator {
 
         // 3. 沖側に伝わる津波を強制的に減衰させる
         for(int idx = dataSize-50; idx < dataSize; ++ idx) {
-            zf[idx] *= (dataSize-idx)/50.0;
-            uf[idx] *= (dataSize-idx)/50.0;
+            zf[idx] = zf[idx]*(dataSize-idx)/50.0;
+            uf[idx] = uf[idx]*(dataSize-idx)/50.0;
         }
 
         // 4. 境界条件セット
         zf[0] = 0;
-        zf[dataSize-1] = 0;
 
         // 5. 計算安定化処理
         if(step > 0)
