@@ -56,7 +56,7 @@ public class TsunamiSimulatorVariable extends TsunamiSimulator {
             error("データファイル読み込み中にエラーが発生しました");
             return false;
         }
-        dataSize = dataLines.size()+150;
+        dataSize = dataLines.size();
 
         // x, depth設定
         x = new double[dataSize];
@@ -73,13 +73,6 @@ public class TsunamiSimulatorVariable extends TsunamiSimulator {
             x[idx] *= 1000;
             depth[idx] = Double.parseDouble(line[bIdx+1]);
             depth[idx] *= -1;
-        }
-        double lastX = x[dataLines.size()-1];
-        double lastD = depth[dataLines.size()-1];
-        double baseIdx = dataLines.size();
-        for(int idx = dataLines.size(); idx < dataSize; ++ idx) {
-            x[idx] = lastX + (idx-baseIdx) * 1000;
-            depth[idx] = lastD;
         }
 
         // その他計算用変数初期化
@@ -124,9 +117,9 @@ public class TsunamiSimulatorVariable extends TsunamiSimulator {
         }
 
         // 3. 沖側に伝わる津波を強制的に減衰させる
-        for(int idx = dataSize-150; idx < dataSize; ++ idx) {
-            zf[idx] = zf[idx]*(dataSize-idx)/150.0;
-            uf[idx] = uf[idx]*(dataSize-idx)/150.0;
+        for(int idx = dataSize-50; idx < dataSize; ++ idx) {
+            zf[idx] = zf[idx]*(dataSize-idx)/50.0;
+            uf[idx] = uf[idx]*(dataSize-idx)/50.0;
         }
 
         // 4. 境界条件セット
