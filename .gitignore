@@ -1,6 +1,6 @@
 .classpath
 *.class
 *.args
-dist/
+dist*/
 bin/
 .vscode/
