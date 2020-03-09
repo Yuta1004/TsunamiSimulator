@@ -12,20 +12,39 @@ import java.net.URLClassLoader;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import lib.ArgsParser;
 import controller.MainUIController;
 
 public class Main extends Application {
 
+    private static Locale locale;
+
     public static void main(String[] args) {
+        ArgsParser parser = new ArgsParser(args);
+        switch(parser.getValue("lang")) {
+            case "ja":          // ja: 日本語
+                locale = new Locale("ja", "JP");
+                break;
+            case "easy_ja":     // easy_ja: やさしい日本語
+                locale = new Locale("jam", "JM");
+                System.out.println(locale);
+                break;
+            case "en":          // en: 英語
+                locale = new Locale("en", "US");
+                break;
+            default:            // 無指定: 日本語
+                locale = Locale.getDefault();
+                break;
+        }
         launch(args);
     }
 
     @Override
     public void start(Stage stage) {
-        startup(stage, Locale.getDefault());
+        startup(stage);
     }
 
-    private void startup(Stage stage, Locale locale) {
+    private void startup(Stage stage) {
         try {
             // Window size
             Rectangle2D d = Screen.getPrimary().getVisualBounds();

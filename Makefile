@@ -7,6 +7,7 @@ JLINK := $(JAVA_HOME)/bin/jlink
 SRCS := $(wildcard *.java */*.java)
 JAVAFX_MODULES := javafx.controls,javafx.base,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web
 
+ARGS =
 OPTS := -p $(JAVAFX_PATH)/lib --add-modules $(JAVAFX_MODULES)
 JAVA_OPTS := $(OPTS) -classpath bin
 JAVAC_OPTS := $(OPTS) -sourcepath src -d bin
@@ -16,7 +17,7 @@ JLINK_OPTS := --compress=2 --add-modules $(JAVAFX_MODULES) --module-path $(JAVAF
 run: Main.class
 	cp -r src/fxml bin
 	cp -r src/data bin
-	$(JAVA) $(JAVA_OPTS) Main
+	$(JAVA) $(JAVA_OPTS) Main $(ARGS)
 
 Main.class: $(SRCS)
 	$(JAVAC) $(JAVAC_OPTS) src/Main.java
