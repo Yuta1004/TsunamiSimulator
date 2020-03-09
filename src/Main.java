@@ -22,6 +22,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
+        startup(stage, Locale.getDefault());
+    }
+
+    private void startup(Stage stage, Locale locale) {
         try {
             // Window size
             Rectangle2D d = Screen.getPrimary().getVisualBounds();
@@ -33,8 +37,6 @@ public class Main extends Application {
             URLClassLoader urlLoader = new URLClassLoader(propURLs);
 
             // Scene
-            // Locale locale = new Locale("en", "US");
-            Locale locale = Locale.getDefault();
             ResourceBundle resource = ResourceBundle.getBundle("locale", locale, urlLoader);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainUI.fxml"), resource);
             loader.setController(new MainUIController());
