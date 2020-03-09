@@ -8,6 +8,10 @@
 // 実行
 make run
 
+// 実行(言語指定)
+make run ARGS="--lang <lang>"
+<lang> = ja | easy_ja | en
+
 // dist生成(win)
 make dist-win JMODS_PATH=path
 
