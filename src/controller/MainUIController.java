@@ -181,6 +181,8 @@ public class MainUIController implements Initializable {
         tsunamiChart = new NegativeBGAreaChart<>(xAxis, yAxis);
         tsunamiChart.setCreateSymbols(false);
         tsunamiChart.setAnimated(false);
+        tsunamiChart.setVerticalZeroLineVisible(false);
+        tsunamiChart.setHorizontalZeroLineVisible(false);
 
         // AnchorPane設定
         AnchorPane.setTopAnchor(tsunamiChart, 10.0);
