@@ -135,9 +135,11 @@ public class MainUIController implements Initializable {
             } catch(Exception e){ return; }
             simulator = new TsunamiSimulatorConstant();
             simulator.setDepth(depth, 500);
+            lowerWidthVal.setText("0");
         }
 
         if(simulatorMode >= VARIABLE) {
+            lowerWidthVal.setText("-12");
             URL dataURL = simulatorMode == VARIABLE ? getFilePath() : presets[simulatorMode];
             TsunamiSimulator oldSimulator = simulator;
             simulator = new TsunamiSimulatorVariable();
