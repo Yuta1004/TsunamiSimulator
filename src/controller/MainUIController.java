@@ -49,6 +49,7 @@ public class MainUIController implements Initializable {
     private static final int VARIABLE= 1;
     private static final int PRESET_SENDAI = 1;
     private static final int PRESET_TOSA = 2;
+    private static final int PRESET_TOKAI = 3;
     private URL presets[];
 
     // リソース
@@ -63,7 +64,7 @@ public class MainUIController implements Initializable {
     @FXML
     private Label clockLabel, leftStatusLabel;
     @FXML
-    private MenuItem setVariableFromFile, setVariableSendai, setVariableTosa, setConstant, addWaveMenu,
+    private MenuItem setVariableFromFile, setVariableSendai, setVariableTosa, setVariableTokai, setConstant, addWaveMenu,
             openMakeMap, openCredit;
     @FXML
     private AnchorPane chartPane;
@@ -78,9 +79,10 @@ public class MainUIController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resource) {
         // プリセットデータ
-        presets = new URL[4];
+        presets = new URL[5];
         presets[PRESET_SENDAI+1] = getClass().getResource("/data/SENDAI.data");
         presets[PRESET_TOSA+1] = getClass().getResource("/data/TOSA.data");
+        presets[PRESET_TOKAI+1] = getClass().getResource("/data/TOKAI.data");
 
         // 初期化
         this.resource = resource;
@@ -104,6 +106,7 @@ public class MainUIController implements Initializable {
         setConstant.setOnAction(event -> changeMode(CONSTANT));
         setVariableFromFile.setOnAction(event -> changeMode(VARIABLE));
         setVariableTosa.setOnAction(event -> changeMode(VARIABLE+PRESET_TOSA));
+        setVariableTokai.setOnAction(event -> changeMode(VARIABLE+PRESET_TOKAI));
         setVariableSendai.setOnAction(event -> changeMode(VARIABLE+PRESET_SENDAI));
         openCredit.setOnAction(event -> genStage("Credit", "/fxml/Credit.fxml", null).showAndWait());
         openMakeMap.setOnAction(event-> genStage("MakeMap" ,"/fxml/MakeMap.fxml", new MakeMapUIController()).showAndWait());
