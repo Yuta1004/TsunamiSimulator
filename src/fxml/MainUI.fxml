@@ -31,7 +31,7 @@
                         <MenuItem fx:id="setVariableTosa" mnemonicParsing="false" text="%Tosa" />
                         <MenuItem fx:id="setVariableTokai" mnemonicParsing="false" text="%Tokai" />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                      <MenuItem fx:id="setVariableFromFile" mnemonicParsing="false" text="%LoadFile" />
+                      <MenuItem fx:id="setVariableFromFile" mnemonicParsing="false" text="%Load" />
                     </items>
                   </Menu>
           </items>

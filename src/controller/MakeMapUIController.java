@@ -13,11 +13,14 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.ArrayList;
@@ -36,7 +39,7 @@ public class MakeMapUIController implements Initializable {
     @FXML
     private Label leftStatus;
     @FXML
-    private MenuItem saveData;
+    private MenuItem saveData, loadData;
     @FXML
     private TextField distVal, depthVal, upperHeightVal, lowerHeightVal, upperWidthVal, lowerWidthVal;
 
@@ -65,7 +68,15 @@ public class MakeMapUIController implements Initializable {
         initAreaChart();
 
         // UI部品の動作を実装
-        saveData.setOnAction(event -> outputSeabedData());
+        loadData.setOnAction(event -> {
+            URL fileURL = getFilePath(false);
+            inputSeabedData(fileURL);
+            draw();
+        });
+        saveData.setOnAction(event -> {
+            URL outputURL = getFilePath(true);
+            outputSeabedData(outputURL);
+        });
         setWave.setOnAction(event -> {
             double dist = loadInputValue(distVal);
             double depth = loadInputValue(depthVal);
@@ -173,24 +184,58 @@ public class MakeMapUIController implements Initializable {
     }
 
     /**
+     * 地形データを読み取って値をセットする
+     *
+     * @param depthFileURL ファイルパス
+     */
+    private void inputSeabedData(URL depthFileURL) {
+        // データファイル読み込み
+        ArrayList<String> dataLines = new ArrayList<String>();
+        try {
+            String line;
+            BufferedReader br = new BufferedReader(new InputStreamReader(depthFileURL.openStream()));
+            while((line = br.readLine()) != null)
+                dataLines.add(line);
+        } catch(Exception e) {
+            System.err.println("データファイル読み込み中にエラーが発生しました");
+            return;
+        }
+
+        // データセット
+        seabedData = new ArrayList<SeabedData>();
+        for(int idx = 0; idx < dataLines.size(); ++ idx) {
+            // トークン分割 -> 追加
+            int bIdx = 0;
+            String line[] = dataLines.get(idx).split("( |\t)+");
+            if(line[0].length() == 0)
+                bIdx ++;
+            seabedData.add(new SeabedData(
+                Double.parseDouble(line[bIdx]),
+                Double.parseDouble(line[bIdx+1]) * -1
+            ));
+        }
+    }
+
+    /**
      * 地形データ出力
      */
-    private void outputSeabedData() {
-        // FileChooser準備
-        FileChooser chooser = new FileChooser();
-        chooser.setTitle("Save File");
+    private void outputSeabedData(URL outputFilePath) {
+        // パス変換
+        File outputFile = null;
+        try {
+            outputFile = new File(outputFilePath.toURI());
+            if(outputFile == null)
+                return;
+        } catch (Exception e) { return; }
 
-        // パス取得->保存
-        File outputFile = chooser.showSaveDialog((Stage)areaChartPane.getScene().getWindow());
-        if(outputFile != null) {
-            try {
-                FileWriter fw = new FileWriter(outputFile.getAbsolutePath(), false);
-                PrintWriter pw = new PrintWriter(new BufferedWriter(fw));
-                for(SeabedData data : normalization())
-                    pw.println(data.dist + "\t" + (-data.depth));
-                pw.close();
-            } catch (Exception e) { e.printStackTrace(); }
-        }
+        // 保存
+        try {
+            FileWriter fw = new FileWriter(outputFile.getAbsolutePath(), false);
+            PrintWriter pw = new PrintWriter(new BufferedWriter(fw));
+            for(SeabedData data : normalization())
+                pw.println(data.dist + "\t" + (-data.depth));
+            pw.close();
+        } catch (Exception e) { e.printStackTrace(); }
     }
 
     /**
@@ -232,4 +277,28 @@ public class MakeMapUIController implements Initializable {
         }
     }
 
+    /**
+     * ファイルを利用者に選択してもらい、その結果を返す
+     *
+     * @return URL 選択されたファイルのURL
+     */
+    private URL getFilePath(boolean doSave) {
+        // FileChooser準備
+        File file = null;
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Select Path");
+        chooser.getExtensionFilters().add(
+                    new ExtensionFilter("DataFile", "*.data", "*.txt")
+                );
+
+        // 起動 -> 例外処理
+        if(doSave)
+            file = chooser.showSaveDialog((Stage)areaChartPane.getScene().getWindow());
+        else
+            file = chooser.showOpenDialog((Stage)areaChartPane.getScene().getWindow());
+        try {
+            return file == null ? new URL("file:///null") : file.toURI().toURL();
+        } catch(Exception e) { e.printStackTrace(); }
+        return null;
+    }
 }
