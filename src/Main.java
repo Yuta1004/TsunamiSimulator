@@ -62,7 +62,7 @@ public class Main extends Application {
             Scene scene = new Scene(loader.load(), width, height);
 
             // Stage
-            stage.setTitle("Tsunami Simulator - v3.2");
+            stage.setTitle("Tsunami Simulator - v3.3");
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
