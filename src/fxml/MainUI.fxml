@@ -30,6 +30,7 @@
                         <MenuItem fx:id="setVariableSendai" mnemonicParsing="false" text="%Sendai" />
                         <MenuItem fx:id="setVariableTosa" mnemonicParsing="false" text="%Tosa" />
                         <MenuItem fx:id="setVariableTokai" mnemonicParsing="false" text="%Tokai" />
+                        <MenuItem fx:id="setVariableHokkaido" mnemonicParsing="false" text="%Hokkaido" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                       <MenuItem fx:id="setVariableFromFile" mnemonicParsing="false" text="%Load" />
                     </items>
