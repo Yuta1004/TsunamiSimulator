@@ -14,10 +14,12 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.Modality;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.StageStyle;
 import javafx.animation.Timeline;
 import javafx.animation.KeyFrame;
 import javafx.animation.Animation;
@@ -79,6 +81,12 @@ public class MainUIController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resource) {
+        // スプラッシュ表示
+        Stage splash = genStage("", "/fxml/Credit.fxml", new SplashController());
+        splash.getScene().setFill(Color.TRANSPARENT);
+        splash.initStyle(StageStyle.TRANSPARENT);
+        splash.showAndWait();
+
         // プリセットデータ
         presets = new URL[6];
         presets[PRESET_SENDAI+1] = getClass().getResource("/data/SENDAI.data");
