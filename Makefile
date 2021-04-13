@@ -22,13 +22,11 @@ run: Main.class
 Main.class: $(SRCS)
 	$(JAVAC) $(JAVAC_OPTS) src/Main.java
 
-dist-darwin: clean
-	$(call gen-dist,darwin,java)
-	cp -r src/launcher/RunTsunamiSimulatorDarwin.app dist
+dist-macos: clean
+	$(call gen-dist,macos,java)
 
 dist-win: clean
 	$(call gen-dist,win,java.exe)
-	cp src/launcher/RunTsunamiSimulatorWindows.ps1 dist
 
 dist-linux: clean
 	$(call gen-dist,linux,java)
@@ -50,17 +48,26 @@ define gen-dist
 	$(JAVAC) $(JAVAC_OPTS) src/Main.java
 	cp -r src/fxml .
 	cp -r src/data .
-	$(JAR) cvfm dist/TsunamiSimulator-$1.jar MANIFEST.MF -C bin . fxml data
+	$(JAR) cvfm dist/TsunamiSimulator.jar MANIFEST.MF -C bin . fxml data
 	rm -rf fxml data
 
 	# JRE生成
 	$(JLINK) $(JLINK_OPTS):$(JMODS_PATH) --output dist/runtime-$1
 
-	# Makefile生成
-	echo "$1:\n\tchmod +x runtime-$1/bin/*\n\truntime-$1/bin/$2 -jar TsunamiSimulator-$1.jar\n\n" > dist/Makefile
+	# Launcher生成
+	if [ $1 = "win" ]; then \
+		echo ".\\\runtime-$1\\\bin\\\java.exe -jar TsunamiSimulator.jar" > dist/run.bat && \
+		chmod +x dist/run.bat;\
+	else \
+		echo "./runtime-$1/bin/java -jar TsunamiSimulator.jar" > dist/run.sh && \
+		chmod +x dist/run.sh;\
+	fi
+
+	# LICENCEコピー
+	cp LICENCE dist/
 
 	# README生成
-	echo "# TsunamiSimulator ($1)\n\n## HowToUse\nrun \`make\` or launcher(.app, .sh, .ps1)" > dist/README.md
+	echo "# TsunamiSimulator ($1)\n\n## HowToUse\nrun the launcher(.bat, .sh)" > dist/README.md
 
 	# .class削除
 	rm -rf bin
